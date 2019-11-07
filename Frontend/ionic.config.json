@@ -1,5 +1,7 @@
 {
   "name": "ONApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
