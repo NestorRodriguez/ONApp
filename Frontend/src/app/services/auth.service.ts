@@ -36,7 +36,9 @@ export class AuthService {
       }).catch(error => {
         console.log('Error de autenticación', error);
       });
-     
+
+      return login;
+
   }
 
   nuevoUsuario(usuario: UserModel) {
