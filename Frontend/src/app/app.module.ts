@@ -10,10 +10,32 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Imports de Firebase para Angular
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyC88QqO3nhYFlpiAphFzNmPCZWFwKLHH2Q',
+  authDomain: 'onapp-9d358.firebaseapp.com',
+  databaseURL: 'https://onapp-9d358.firebaseio.com',
+  projectId: 'onapp-9d358',
+  storageBucket: 'onapp-9d358.appspot.com',
+  messagingSenderId: '606076429447',
+  appId: '1:606076429447:web:ce551603fb861d496e0422',
+  measurementId: 'G-MPYGKSM3KZ'
+};
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, HttpModule],
+  imports: [BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    IonicModule.forRoot(), AppRoutingModule, HttpClientModule, HttpModule],
   providers: [
     StatusBar,
     SplashScreen,

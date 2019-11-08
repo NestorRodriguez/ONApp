@@ -22,10 +22,10 @@ export class LoginPage implements OnInit {
   login(form: NgForm) {
     if (form.valid) {
       console.log(form);
-      this.auth.login(this.usuario).subscribe( response => {
-        console.log(response);
-        this.router.navigateByUrl('/main-menu');
-      });
+      this.auth.login(this.usuario);
+            //  console.log(response);
+      this.router.navigateByUrl('/main-menu');
+      }
     }
   }
-}
+
