@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
         this.router.navigateByUrl('/main-menu');
       }).catch(error => {
         console.log('Error de autenticación', error);
-      })
+      });
     }
   }
 }
