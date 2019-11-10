@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../models/user.model';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth  } from '@angular/fire/auth';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ export class AuthService {
   private url = 'https://identitytoolkit.googleapis.com/v1';
   private apiKey = 'AIzaSyC88QqO3nhYFlpiAphFzNmPCZWFwKLHH2Q';
 
-  constructor( private auth: AngularFireAuth,
+  constructor( private authenticate: AngularFireAuth,
                private database: AngularFirestore
     ) { }
 
@@ -20,29 +19,30 @@ export class AuthService {
 
   }
 
-  login(usuario: UserModel) {
-
+  login(usuario: UserModel): Promise<firebase.auth.UserCredential> {
       const email = usuario.email;
       const password = usuario.password;
-
-      const db = this.database.collection('inspeccion_ascensor').valueChanges();
-      db.subscribe( data => {
-      console.log('Data', data);
-    });
-      console.log('Resultado', db);
-
-      const login = this.auth.auth.signInWithEmailAndPassword(email, password).then(result => {
-        console.log('LOGIN', result);
-      }).catch(error => {
-        console.log('Error de autenticación', error);
-      });
-
+      const login = this.authenticate.auth.signInWithEmailAndPassword(email, password);
       return login;
+  }
+  signNewUser(email: string, pass: string): Promise<firebase.auth.UserCredential> {
+    const register = this.authenticate.auth.createUserWithEmailAndPassword(email, pass);
+    return register;
+
+  }
+  updateUser(id: string, data: any) {
+
+
+    const updateUser = this.database.collection('users').doc(id).set(data);
+    return updateUser;
+
+  }
+  createUser(data: any) {
+
+    const updateUser = this.database.collection('users').doc(data.id).set(data);
+    return updateUser;
 
   }
 
-  nuevoUsuario(usuario: UserModel) {
-
-  }
 
 }
