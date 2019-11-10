@@ -1,3 +1,3 @@
 # ONApp
 
-# Aplicación móvil para el manejo de inspecciones
+Aplicación móvil para el manejo de inspecciones
