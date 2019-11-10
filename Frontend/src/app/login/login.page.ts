@@ -139,7 +139,6 @@ export class LoginPage implements OnInit {
         console.log('resultado del query', userData);
         this.userStorage.push(this.usuario);
         this.localStorage.set('userAuthenticated', this.userStorage);
-        debugger;
       }, ( error => {
         console.log('error buscando datos del usuario', error);
       }));
