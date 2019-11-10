@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainMenuPage implements OnInit {
 
+  sliderConfig = {
+    spaceBetween: 10,
+    centeredSlides: true,
+    slidesPerView: 1.6
+  };
+
   constructor() { }
 
   ngOnInit() {
