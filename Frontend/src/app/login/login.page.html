@@ -4,17 +4,18 @@
 
         <ion-list color="white">
             <ion-item background="white">
-                <ion-input class="loginInput" [(ngModel)]="usuario.email" placeholder="Usuario" email name="email">
+                <ion-input class="loginInput" [(ngModel)]="usuario.email" placeholder="Usuario" email name="email" autofocus (click)="validateClick($event)">
                     <ion-icon name="person"></ion-icon>
                 </ion-input>
             </ion-item>
             <span *ngIf="formulario.submitted && formulario.controls['email'].errors" class="text-danger">Ingresar un correo válido</span>
             <ion-item background="white">
-                <ion-input class=" loginInput " [(ngModel)]="usuario.password" minlength="6" placeholder="Contraseña" type="password" name="password">
+                <ion-input class=" loginInput " [(ngModel)]="usuario.password" minlength="6" placeholder="Contraseña" type="password" name="password" (click)="validateClick($event)">
                     <ion-icon name="lock"></ion-icon>
                 </ion-input>
             </ion-item>
             <span *ngIf="formulario.submitted && formulario.controls['password'].errors" class="text-danger">La contraseña debe contener al menos 6 caracteres</span>
+            <span *ngIf="userInvalid" class="text-danger">Usuario o contraseña no válidos</span>
         </ion-list>
         <ion-button color="primary" type="submit" class="btn btn-success" style="font-size: 80%;">
             Iniciar sesión
