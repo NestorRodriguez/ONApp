@@ -7,6 +7,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Storage } from '@ionic/storage';
 import { isNull } from 'util';
+import { QueriesService } from '../services/queries.service';
+import { identifierModuleUrl } from '@angular/compiler';
+import { UserdataService } from '../services/userdata.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +21,16 @@ export class LoginPage implements OnInit {
   userIsvalid: boolean;
   userStorage: any[] = [];
   usuario: UserModel = new UserModel();
+  query = {
+    campo : 'email',
+    condicion: '==',
+    valor: ''
+  };
   constructor(private auth: AuthService,
               private router: Router,
               private authenticate: AngularFireAuth,
+              private database: QueriesService,
+              private saveUserData: UserdataService,
               private localStorage: Storage ) { }
   // user = 'email@prueba.ec';
   // pass = '12345678';
@@ -68,7 +78,7 @@ export class LoginPage implements OnInit {
   //   });
   // }
 
-  login(form: NgForm) {
+  async login(form: NgForm) {
     if (form.valid) {
       console.log('ARRAY DE USUARIOS, ', this.userStorage);
       if ( this.userStorage.length > 0 ) {
@@ -103,18 +113,36 @@ export class LoginPage implements OnInit {
 
 
     }
-    authenticateOnline(user: UserModel) {
-      this.auth.login(this.usuario).then( success => {
+    async authenticateOnline(user: UserModel) {
+      this.auth.login(this.usuario).then( async success => {
         this.usuario.token = success.user.refreshToken;
-        console.log('push de usuario', this.usuario);
-        this.userStorage.push(this.usuario);
-        this.localStorage.set('userAuthenticated', this.userStorage);
+        this.query.valor = this.usuario.email;
+        this.assearchInDb();
+        console.log('array de usuarios', this.userStorage);
         this.router.navigateByUrl('/main-menu');
       })
         .catch( error => {
           console.log('error en login');
           this.userInvalid = true;
         });
+    }
+    assearchInDb() {
+      let userData: any;
+      const dbquery =  this.database.queryCollection('users', this.query).subscribe( data => {
+        userData = data[0];
+        this.usuario.nombre = userData.nombre;
+        this.usuario.apellidos = userData.apellidos;
+        this.usuario.cargo = userData.cargo;
+        this.usuario.cedula = userData.cedula;
+        this.usuario.codigo = userData.codigo;
+        console.log('datos completos del usuario', this.usuario);
+        console.log('resultado del query', userData);
+        this.userStorage.push(this.usuario);
+        this.localStorage.set('userAuthenticated', this.userStorage);
+      }, ( error => {
+        console.log('error buscando datos del usuario', error);
+      }));
+      return 0;
     }
 
     validateClick(e: Event) {
