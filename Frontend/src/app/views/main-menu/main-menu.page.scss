@@ -1,3 +1,31 @@
-ion-toolbar{
+.header{
+  z-index: 0;
   height: 30vh;
+  position: relative;
+  border: 0px solid;
+  background-color: #1dc4c1;
+  height: 30%;
+}
+
+.content-slides{
+  border: 0px solid red;
+  position: absolute;
+  width: 100%;
+  margin-top: -20%;
+}
+
+.card {
+  z-index: 10;
+  width: 260px;
+  height: 30em;
+  margin-left: -20%;
+}
+
+.text_opc{
+  font-size: 80%;
+}
+
+.float_button{
+  margin-top: 25%;
+  margin-right: 5%;
 }
