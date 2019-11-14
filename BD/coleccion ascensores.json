@@ -1,0 +1,107 @@
+{
+    "datos_basicos": {
+
+        "c_cliente": {
+            "titulo": "CLIENTE",
+            "placeholder": "Cliente",
+            "type": "text"
+        },
+        "c_equipo": {
+            "titulo": "NOMBRE DE EQUIPO",
+            "placeholder": "Equipo",
+            "type": "text"
+        },
+        "c_empresa": {
+            "titulo": "EMPRESA MANTENIMIENTO",
+            "placeholder": "Empresa",
+            "type": "text"
+        },
+        "c_tipoaccion": {
+            "titulo": "TIPO DE ACCIONAMIENTO",
+            "placeholder": "Seleccione un tipo de accionamiento",
+            "type": "select",
+            "options": ["SCM", "Hidráulico", "Eléctrico"]
+        },
+        "c_capacidad": {
+            "titulo": "CAPACIDAD (Kg)",
+            "placeholder": "Capacidad",
+            "type": "number"
+        },
+        "c_paradas": {
+            "titulo": "NÚMERO DE PARADAS",
+            "placeholder": "N° Paradas",
+            "type": "number"
+        },
+        "c_fecha": {
+            "titulo": "FECHA DE INSPECCIÓN",
+            "placeholder": "",
+            "type": "date"
+        },
+        "c_fechamto": {
+            "titulo": "FECHA ÚLTIMO MANTENIMIENTO",
+            "placeholder": "",
+            "type": "date"
+        },
+        "c_fechapuestaservicio": {
+            "titulo": "FECHA PUESTA EN SERVICIO",
+            "placeholder": "",
+            "type": "date"
+        },
+        "c_fechaultinspeccion": {
+            "titulo": "FECHA ÚLTIMA INSPECCIÓN",
+            "placeholder": "",
+            "type": "date"
+        },
+        "c_direccioncliente": {
+            "titulo": "DIRECCIÓN DEL CLIENTE",
+            "placeholder": "Dirección del cliente",
+            "type": "text"
+        },
+        "c_codigo": {
+            "titulo": "CÓDIGO",
+            "placeholder": "",
+            "type": "text",
+            "value": "IN-R-08",
+            "enabled": "false"
+        },
+        "c_consecutivo": {
+            "titulo": "CONSECUTIVO",
+            "placeholder": "",
+            "type": "text",
+            "enabled": "false"
+        }
+
+    },
+    "datos_preliminar": {
+        "item1": {
+            "text": "El ascensor a inspeccionar se encuentra libre de grasa, aceite, papel, elementos ajenos al ascensor, diferentes a los utilizados para el mantenimiento del mismo, que representen un riesgo para el inspector y todo personal que pueda participar en la inspección."
+        },
+        "item2": {
+            "text": "El personal que acompaña a la inspección cumple con los elementos de protección personal."
+        },
+        "item3": {
+            "text": "Existe llaves para ingreso al cuarto de máquinas y se encuentra presente el personal responsable del mantenimiento del ascensor para el acompañamiento; quien será responsable de efectuar las operaciones necesarias para la inspección."
+        }
+    },
+    "datos_proteccion": {
+        "item1": {
+            "text": "CASCO/BARBUQUEJO",
+            "inspector": {
+                "item1": {
+                    "text": "Cumple",
+                    "value": 0
+                },
+                "item2": {
+                    "text": "No cumple",
+                    "value": 1
+                },
+                "item3": {
+                    "text": "No aplica",
+                    "value": 2
+                }
+
+            }
+        }
+    }
+
+}
