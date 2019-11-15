@@ -7,8 +7,12 @@ import { collectionMock } from './mock';
 })
 export class InspectionMenuPage implements OnInit {
   public inspeccion = collectionMock;
-  public cabecera = this.inspeccion.cabecera;
-  public cabina = this.inspeccion.listas_de_verificacion;
+  // public cabecera = this.inspeccion.datos_basicos;
+  // public cabina = this.inspeccion.listas_de_verificacion;
+  public datosProteccion = this.inspeccion.datos_proteccion;
+  public listasVerificacion = this.inspeccion.lista_verificacion;
+  public detallesGenerales = this.inspeccion.c_observaciones;
+  public calificacion = this.inspeccion.calificacion;
   constructor() { }
 
   ngOnInit() {

@@ -8,17 +8,30 @@
 </ion-header>
 
 <ion-content>
-    <h1> {{ cabecera.campo1.titulo }} </h1>
-    <input type="text" [placeholder]="cabecera.campo1.placeholder" [name]="cabecera.campo1.id">
-    <h1> {{ cabecera.campo2.titulo }} </h1>
-    <input type="text" [placeholder]="cabecera.campo2.placeholder" [name]="cabecera.campo2.id">
-    <h1> {{ cabecera.campo3.titulo }} </h1>
-    <input type="text" [placeholder]="cabecera.campo3.placeholder" [name]="cabecera.campo3.id">
-    <span *ngFor="let item of cabina; let indice=index">
+
+    <span *ngFor="let item of datosProteccion.items">
       <ion-card>
-        <ion-card-title>{{ item.tipo }}</ion-card-title>
-        <ion-card-subtitle>{{ item.items.item1.id }}</ion-card-subtitle>
-      </ion-card>
+        <ion-card-title>{{ item }}</ion-card-title>
+        <span *ngFor = "let tipo of datosProteccion.tipo">
+          <ion-card-subtitle>{{ tipo }}</ion-card-subtitle>
+            <span *ngFor= " let calificacion of calificacion" >
+        <ion-label>{{ calificacion.text }} </ion-label>
+        <ion-radio [value]="calificacion.value"></ion-radio>
+      </span>
     </span>
 
+    <ion-label> {{ detallesGenerales.titulo }} </ion-label>
+    <textArea [placeholder]="detallesGenerales.placeholder">  </textArea>
+    </ion-card>
+    </span>
+    <span *ngFor="let item of listasVerificacion"> 
+    <ion-button> {{ item.titulo }} </ion-button>
+    <ion-card *ngFor="let tarjeta of item.items">
+      <ion-card-title> {{ tarjeta.id}} </ion-card-title>
+      <ion-card-content>
+        <h1> {{ tarjeta.defecto }}</h1> </ion-card-content>
+        <ion-label>  {{ detallesGenerales.titulo }} </ion-label>
+        <textArea [placeholder]= "detallesGenerales.placeholder">  </textArea>
+     </ion-card>
+  </span>
 </ion-content>
