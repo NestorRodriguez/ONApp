@@ -13,6 +13,7 @@ export class InspectionMenuPage implements OnInit {
   public listasVerificacion = this.inspeccion.lista_verificacion;
   public detallesGenerales = this.inspeccion.c_observaciones;
   public calificacion = this.inspeccion.calificacion;
+  public dpobservaciones = 'dpobservaciones';
   constructor() { }
 
   ngOnInit() {

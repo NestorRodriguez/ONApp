@@ -9,7 +9,7 @@
 
 <ion-content>
 
-    <span *ngFor="let item of datosProteccion.items">
+    <span *ngFor="let item of datosProteccion.items; index as i">
       <ion-card>
         <ion-card-title>{{ item }}</ion-card-title>
         <span *ngFor = "let tipo of datosProteccion.tipo">
@@ -21,7 +21,7 @@
     </span>
 
     <ion-label> {{ detallesGenerales.titulo }} </ion-label>
-    <textArea [placeholder]="detallesGenerales.placeholder">  </textArea>
+    <textArea [id]="dpobservaciones + i" [placeholder]="detallesGenerales.placeholder">  </textArea>
     </ion-card>
     </span>
     <span *ngFor="let item of listasVerificacion"> 
