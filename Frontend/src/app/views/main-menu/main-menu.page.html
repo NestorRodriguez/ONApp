@@ -1,21 +1,42 @@
+<ion-menu side="start" menuId="first" content-id="main">
+  <ion-header>
+    <ion-toolbar translucent class="menu-toolbar">
+      <ion-avatar class="ion-margin-start menu-avatar">
+        <img src="../../../assets/img/avatar.svg">
+      </ion-avatar>
+      <ion-title class="menu-title">Juan Camilo Herrera Ardila</ion-title>
+      <ion-label class="menu-email">juankmiloardila@gmail.com</ion-label>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main"></ion-router-outlet>
+
 <ion-content>
   <div class="header">
     <ion-toolbar color="primary">
-      <ion-buttons slot="end">
-        <ion-button routerLink="/equipment-menu">
-          <ion-icon slot="icon-only" name="contact"> </ion-icon>
-        </ion-button>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
     <div style="color: white;">
       <ion-grid>
         <ion-row>
-          <ion-col size="9" style="padding-left: 15%;">
+          <ion-col size="5" style="padding-left: 15%;">
+            
+          </ion-col>
+          <ion-col size="7">
             <ion-label style="font-size: 130%;"><b>¡Hola Juan!</b></ion-label><br>
             <span class="text_opc">Selecciona una opción</span>
-          </ion-col>
-          <ion-col size="3">
-            
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -23,21 +44,37 @@
   </div>
   <div class="content-slides">
     <ion-slides [options]="sliderConfig" style="border: 0px solid blue; ">
-      <ion-slide class="slide" style="border: 0px solid;">
+      <ion-slide style="border: 0px solid;">
         <div style="width: 100%;">
           <ion-card class="card" style="border: 0px solid yellow;">
             <img src="../../../assets/img/inspector.png" style="border: 0px solid red; height:35%;"/>
-            <ion-card-header>              
-              <ion-card-title style="margin-left: -15%;">Realizar inspección</ion-card-title>
+            <ion-card-header>                            
+              <ion-grid>
+                <ion-row>
+                  <ion-col style="text-align: left;" size="12">
+                    <ion-card-title>Realizar inspección</ion-card-title>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
             </ion-card-header>
             <ion-card-content>
-              Empieza a realizar inspecciones.
-              <ion-grid style="color: green; margin-top: 55%;">
+              <ion-grid style="padding-top: 0%;">
+                <ion-row>
+                  <ion-col style="text-align: left; padding-top: 0%;" size="12">
+                    <ion-label>Empieza a realizar inspecciones.</ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <ion-grid style="border: 0px solid; color: green; margin-top: 50%;">
                 <ion-row>                    
-                  <ion-col style="text-align: left;" size="12"><ion-icon name="checkmark-circle-outline"></ion-icon><span style="margin-bottom: 100%; margin-left: 3%;">¡Genial!</span></ion-col>
+                  <ion-col style="text-align: left;" size="12">
+                    <ion-icon name="checkmark-circle-outline"></ion-icon><span style="margin-bottom: 100%; margin-left: 3%;">¡Genial!</span>
+                  </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col style="text-align: left; font-size: 80%;" size="12"><span style="width: 100%;">Estas al día en la carga de inspecciones</span></ion-col>
+                  <ion-col style="text-align: left; font-size: 80%;" size="12">
+                    <span style="width: 100%;">Estas al día en la carga de inspecciones</span>
+                  </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-card-content>
@@ -57,28 +94,25 @@
           <ion-card class="card" style="border: 0px solid yellow;" routerLink="/equipment-menu">
             <div style="padding-top: 25%; background-color: white;">
               <img src="../../../assets/img/upload.png" style="border: 0px solid red;"/>
-            </div>            
-            <ion-card-header>              
-              <ion-card-title style="margin-left: 0%;">Cargar inspecciones</ion-card-title>
+            </div>  
+            <ion-card-header style="padding-top: 0%;">
+              <ion-grid>
+                <ion-row>
+                  <ion-col style="text-align: center;" size="12">
+                    <ion-card-title>Cargar inspecciones</ion-card-title>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
             </ion-card-header>
             <ion-card-content>
-              Carga las inspecciones realizadas
-              <!-- <ion-grid style="color: green; margin-top: 55%;">
-                <ion-row>                    
-                  <ion-col style="text-align: left;" size="12"><ion-icon name="checkmark-circle-outline"></ion-icon><span style="margin-bottom: 100%; margin-left: 3%;">¡Genial!</span></ion-col>
-                </ion-row>
+              <ion-grid style="padding-top: 0%;">
                 <ion-row>
-                  <ion-col style="text-align: left; font-size: 80%;" size="12"><span style="width: 100%;">Estas al día en la carga de inspecciones</span></ion-col>
+                  <ion-col style="text-align: center; padding-top: 0%;" size="12">
+                    <ion-label>Carga las inspecciones realizadas</ion-label>
+                  </ion-col>
                 </ion-row>
-              </ion-grid> -->
+              </ion-grid>
             </ion-card-content>
-
-            <!-- <ion-fab routerLink="/equipment-menu" class="float_button" horizontal="end" vertical="center" slot="fixed">
-              <ion-fab-button color="primary">
-                <ion-icon name="add"></ion-icon>
-              </ion-fab-button>
-            </ion-fab> -->
-
           </ion-card>
         </div>
       </ion-slide>
