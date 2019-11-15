@@ -84,24 +84,92 @@
         }
     },
     "datos_proteccion": {
-        "item1": {
-            "text": "CASCO/BARBUQUEJO",
-            "inspector": {
-                "item1": {
-                    "text": "Cumple",
-                    "value": 0
-                },
-                "item2": {
-                    "text": "No cumple",
-                    "value": 1
-                },
-                "item3": {
-                    "text": "No aplica",
-                    "value": 2
-                }
+        "items": ["CASCO/BARBUQUEJO", "BOTAS DIELÉCTRICAS", "GUANTES", "ARNÉS", "ESLINGA", "GAFAS", "TAPA-OÍDOS"],
+        "tipo": ["INSPECTOR", "EMPRESA MANTENIMIENTO"]
+    },
+    "elementos": {
+        "items": ["CANGURO PIERNA", "CHALECO", "CÁMARA FOTOGRÁFICA", "DOCUMENTOS PARA LA INSPECCIÓN", "TABLA SUJETA DOCUMENTOS", "EQUIPOS E INSTRUMENTOS PARA LA INSPECCIÓN"],
+    },
+    "lista_verificacion": [{
+            "titulo": "Cabina",
+            "items": [{
+                    "id": 1,
+                    "item": 6.11,
+                    "cal": "G",
+                    "defecto": "No existe empresa encargada del mantenimiento ni conservación del aparato haciéndose constar de un registro de mantenimiento (contrato bitácora, reporte técnico, acta de mantenimiento, etc.)"
 
-            }
+                },
+                {
+                    "id": 2,
+                    "item": 6.11,
+                    "cal": "G",
+                    "defecto": "No existe llave de apertura en la edificación o no es accesible."
+                },
+                {
+                    "id": 3,
+                    "item": 6.11,
+                    "cal": "L",
+                    "defecto": "Mirilla de puerta rajada con protección (Cristal armado,acrílico,malla)."
+                }
+            ]
+        },
+        {
+            "titulo": "Cuarto de máquinas",
+            "items": [{
+                    "id": 1,
+                    "item": 6.11,
+                    "cal": "G",
+                    "defecto": ""
+
+                },
+                {
+                    "id": 2,
+                    "item": 6.11,
+                    "cal": "G",
+                    "defecto": "No existe llave de apertura en la edificación o no es accesible."
+                },
+                {
+                    "id": 3,
+                    "item": 6.11,
+                    "cal": "L",
+                    "defecto": "Mirilla de puerta rajada con protección (Cristal armado,acrílico,malla)."
+                }
+            ]
+
+        },
+        {
+
+            "titulo": "Pozo",
+            "items": [{}]
+        },
+
+        {
+            "titulo": "Foso",
+            "items": [{}]
+
         }
+
+    ],
+
+    "calificacion": [{
+            "text": "Cumple",
+            "value": 0
+        },
+        {
+            "text": "No cumple",
+            "value": 1
+        },
+        {
+            "text": "No aplica",
+            "value": 2
+        }
+    ],
+    "c_observaciones": {
+        "titulo": "OBSERVACIONES",
+        "placeholder": "Ingrese aquí la observación",
+        "type": "textarea"
     }
+
+
 
 }
