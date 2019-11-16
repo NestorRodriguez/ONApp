@@ -12,6 +12,7 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { UserdataService } from '../services/userdata.service';
 
 import { collectionMock } from '../views/inspection-menu/mock';
+import { LoadinitdataService } from '../services/loadinitdata.service';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +33,9 @@ export class LoginPage implements OnInit {
               private router: Router,
               private authenticate: AngularFireAuth,
               private database: QueriesService,
-              private saveUserData: UserdataService,
-              private localStorage: Storage ) { }
+              private userData: UserdataService,
+              private localStorage: Storage,
+              private loadData: LoadinitdataService ) { }
   // user = 'email@prueba.ec';
   // pass = '12345678';
   // userId: string;
@@ -46,8 +48,11 @@ export class LoginPage implements OnInit {
   //   nombre: 'Miguel Antonio'
   // };
   ngOnInit() {
-
-    
+    this.loadData.downloadData().subscribe( data => {
+      this.localStorage.set('menuascensores', data);
+    },( (error) => {
+      console.log('error descargando la colección de ascensores');
+    }));
     this.localStorage.get('userAuthenticated').then( data => {
      if (isNull(data)) {
        console.log('Local storage vacío');
@@ -95,8 +100,10 @@ export class LoginPage implements OnInit {
             if ( user.email === this.usuario.email && user.password === this.usuario.password ) {
               console.log('El usuario y la contraseña coinciden bienvenido');
               this.userIsvalid = true;
+              this.userData.setUserData(user);
               console.log('user almacenado', user, ' user enviado ', this.usuario);
               this.router.navigateByUrl('/main-menu');
+
               break;
             } else {
               this.userIsvalid = false;
