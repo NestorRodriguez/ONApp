@@ -11,6 +11,8 @@ import { QueriesService } from '../services/queries.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { UserdataService } from '../services/userdata.service';
 
+import { collectionMock } from '../views/inspection-menu/mock';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -44,6 +46,8 @@ export class LoginPage implements OnInit {
   //   nombre: 'Miguel Antonio'
   // };
   ngOnInit() {
+
+    
     this.localStorage.get('userAuthenticated').then( data => {
      if (isNull(data)) {
        console.log('Local storage vacío');
@@ -79,6 +83,8 @@ export class LoginPage implements OnInit {
   // }
 
   async login(form: NgForm) {
+    // **NO BORRAR ESTA LINEA
+    // await this.auth.insertData(collectionMock);
     if (form.valid) {
       console.log('ARRAY DE USUARIOS, ', this.userStorage);
       if ( this.userStorage.length > 0 ) {
