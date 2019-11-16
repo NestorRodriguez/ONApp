@@ -47,12 +47,16 @@ export class LoginPage implements OnInit {
   //   codigo: 'TEC01',
   //   nombre: 'Miguel Antonio'
   // };
-  ngOnInit() {
-    this.loadData.downloadData().subscribe( data => {
-      this.localStorage.set('menuascensores', data);
-    },( (error) => {
-      console.log('error descargando la colección de ascensores');
-    }));
+  async ngOnInit() {
+
+    const getData = await this.localStorage.get('menuascensores');
+    if ( isNull(getData) ) {
+      this.loadData.downloadData().subscribe( data => {
+        this.localStorage.set('menuascensores', data);
+      }, ( (error) => {
+        console.log('error descargando la colección de ascensores');
+      }));
+    }
     this.localStorage.get('userAuthenticated').then( data => {
      if (isNull(data)) {
        console.log('Local storage vacío');
@@ -69,7 +73,6 @@ export class LoginPage implements OnInit {
     // });
     // }
   }
-
   // signNewUser() {
   //   this.auth.signNewUser(this.user, this.pass)
   //   .then(result => {
