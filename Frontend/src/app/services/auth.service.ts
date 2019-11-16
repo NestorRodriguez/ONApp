@@ -43,6 +43,15 @@ export class AuthService {
     return updateUser;
 
   }
+  async insertData(data: any) {
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
+    console.log('Voy a enviar esta data', data);
+    const updateUser = await this.database.collection('inspecciones').doc('ascensores').set(data);
+    console.log('INSERT', updateUser);
+    return updateUser;
+
+  }
 
 
 }
