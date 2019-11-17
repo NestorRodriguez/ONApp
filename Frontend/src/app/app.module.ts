@@ -38,7 +38,6 @@ const firebaseConfig = {
     AngularFireStorageModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(), AppRoutingModule, HttpClientModule, HttpModule],
-    
   providers: [
     StatusBar,
     SplashScreen,
