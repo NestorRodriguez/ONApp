@@ -88,7 +88,7 @@ export class LoginPage implements OnInit {
             if ( user.email === this.usuario.email && user.password === this.usuario.password ) {
               console.log('El usuario y la contraseña coinciden bienvenido');
               this.userIsvalid = true;
-              this.loadInitData();
+              await this.loadInitData();
               this.userData.setUserData(user);
               console.log('user almacenado', user, ' user enviado ', this.usuario);
               this.router.navigateByUrl('/main-menu');
@@ -120,9 +120,9 @@ export class LoginPage implements OnInit {
         this.usuario.token = success.user.refreshToken;
         this.query.valor = this.usuario.email;
         this.assearchInDb();
-        this.loadInitData();
         console.log('array de usuarios', this.userStorage);
         this.router.navigateByUrl('/main-menu');
+        await this.loadInitData();
       })
         .catch( error => {
           console.log('error en login');

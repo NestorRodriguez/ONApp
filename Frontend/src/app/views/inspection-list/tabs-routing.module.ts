@@ -4,25 +4,26 @@ import { InspectionListPage } from './inspection-list.page';
 
 const routes: Routes = [
   { 
-    path: 'tabs/ascensor',
+    path: 'tabs/equipo/ascensor',
     component: InspectionListPage,
     children:[
       {
         path: '',
-        redirectTo: '/inspection-list/tab/cabina',
+        redirectTo: '/inspection-list/tab/ascensor/cabina',
         pathMatch: 'full'
       }
     ],
   },
   {
-    path: 'tab',
+    path: 'tab/ascensor',
     component: InspectionListPage,
     children:[
-      { path: 'cabina', loadChildren: '../inspection-list/tabs/cabina/cabina.module#CabinaPageModule' },
-      { path: 'foso', loadChildren: '../inspection-list/tabs/cabina/cabina.module#CabinaPageModule' },
-      { path: 'pozo', loadChildren: '../inspection-list/tabs/cabina/cabina.module#CabinaPageModule' }
+      { path: 'cabina', loadChildren: './tabs/ascensor/cabina/cabina.module#CabinaPageModule' },
+      { path: 'maquina', loadChildren: './tabs/ascensor/maquina/maquina.module#MaquinaPageModule' },
+      { path: 'pozo', loadChildren: './tabs/ascensor/pozo/pozo.module#PozoPageModule' },
+      { path: 'foso', loadChildren: './tabs/ascensor/foso/foso.module#FosoPageModule' }
     ],
-  }
+  },
 ];
 
 @NgModule({

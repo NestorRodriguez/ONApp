@@ -35,27 +35,15 @@ export class InspectionListPage implements OnInit {
     title: '',
     tab: ''
   };
-  equipo = null;
-
-  estilo = 'hide_tabs';
 
   constructor(private activedRoute: ActivatedRoute,
               private navCtrl: NavController,
               private router: Router) { }
 
   ngOnInit() {
-    this.estilo = 'show_tabs';
-    // this.router.navigate(['/inspection-list/tab/ascensor/cabina']);
-    console.log(this.inspeccion);
-    this.equipo = this.activedRoute.snapshot.paramMap.get('equipo');
-    console.log("ruta -> "+this.equipo);
+    var equipo = localStorage.getItem('equipo');
 
-    localStorage.setItem('equipo', this.equipo);
-
-    // if (this.equipo == 'ascensor') {
-
-      // this.router.navigate(['/inspection-list/tab/ascensor/cabina']);
-      console.log(this.equipo);
+    if (equipo == 'ascensor') {
       this.tab1.title = 'Cabina';
       this.tab1.tab = 'cabina';
 
@@ -69,8 +57,7 @@ export class InspectionListPage implements OnInit {
       this.tab4.tab = 'foso';
       console.log(this.tab1);
 
-      // this.navCtrl.navigateBack('inspection-list/tab/cabina');
-    // }
+    }
   }
 
 }
