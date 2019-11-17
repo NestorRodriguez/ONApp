@@ -10,9 +10,6 @@ const routes: Routes = [
   { path: 'main-menu', loadChildren: './views/main-menu/main-menu.module#MainMenuPageModule' },
   { path: 'equipment-menu', loadChildren: './views/equipment-menu/equipment-menu.module#EquipmentMenuPageModule' },
   { path: 'inspection-menu', loadChildren: './views/inspection-menu/inspection-menu.module#InspectionMenuPageModule' },
-  { path: 'tab1', loadChildren: './views/tab1/tab1.module#Tab1PageModule' },
-  { path: 'tab2', loadChildren: './views/tab2/tab2.module#Tab2PageModule' },
-  { path: 'tab3', loadChildren: './views/tab3/tab3.module#Tab3PageModule' },
   { path: 'inspection-list', loadChildren: './views/inspection-list/inspection-list.module#InspectionListPageModule' }
 
 

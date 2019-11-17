@@ -1,9 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>cabina</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/equipment-menu']">
+          <ion-icon slot="icon-only" name="arrow-round-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-title">Items cabina</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <span *ngFor="let item of datosProteccion.items; index as i">
+    <ion-card>
+      <ion-card-title>{{ item }}</ion-card-title>
+      <span *ngFor = "let tipo of datosProteccion.tipo">
+        <ion-card-subtitle>{{ tipo }}</ion-card-subtitle>
+          <span *ngFor= " let calificacion of calificacion" >
+      <ion-label>{{ calificacion.text }} </ion-label>
+      <ion-radio [value]="calificacion.value"></ion-radio>
+    </span>
+  </span>
 
+  <ion-label> {{ detallesGenerales.titulo }} </ion-label>
+  <textArea [id]="dpobservaciones + i" [placeholder]="detallesGenerales.placeholder">  </textArea>
+  </ion-card>
+  </span>
+  <span *ngFor="let item of listasVerificacion"> 
+  <ion-button> {{ item.titulo }} </ion-button>
+  <ion-card *ngFor="let tarjeta of item.items">
+    <ion-card-title> {{ tarjeta.id}} </ion-card-title>
+    <ion-card-content>
+      <h1> {{ tarjeta.defecto }}</h1> </ion-card-content>
+      <ion-label>  {{ detallesGenerales.titulo }} </ion-label>
+      <textArea [placeholder]= "detallesGenerales.placeholder">  </textArea>
+    </ion-card>
+  </span>
 </ion-content>
