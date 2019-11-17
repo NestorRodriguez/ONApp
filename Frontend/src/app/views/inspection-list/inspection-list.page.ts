@@ -19,23 +19,58 @@ export class InspectionListPage implements OnInit {
   public detallesGenerales = this.inspeccion.c_observaciones;
   public calificacion = this.inspeccion.calificacion;
   public dpobservaciones = 'dpobservaciones';
-
+  public tab1 = {
+    title: '',
+    tab : ''
+  };
+  public tab2 = {
+    title: '',
+    tab: ''
+  };
+  public tab3 = {
+    title: '',
+    tab: ''
+  };
+  public tab4 = {
+    title: '',
+    tab: ''
+  };
   equipo = null;
+
+  estilo = 'hide_tabs';
 
   constructor(private activedRoute: ActivatedRoute,
               private navCtrl: NavController,
               private router: Router) { }
 
   ngOnInit() {
+    this.estilo = 'show_tabs';
+    // this.router.navigate(['/inspection-list/tab/ascensor/cabina']);
     console.log(this.inspeccion);
     this.equipo = this.activedRoute.snapshot.paramMap.get('equipo');
     console.log("ruta -> "+this.equipo);
 
-    if (this.equipo == 'ascensor') {
+    localStorage.setItem('equipo', this.equipo);
+
+    // if (this.equipo == 'ascensor') {
+
+      // this.router.navigate(['/inspection-list/tab/ascensor/cabina']);
       console.log(this.equipo);
-      // this.navCtrl.navigateBack('inspection-list/ana/cabina');
-      this.router.navigate(['/inspection-list/tab/cabina']);
-    }
+      this.tab1.title = 'Cabina';
+      this.tab1.tab = 'cabina';
+
+      this.tab2.title = 'Máquinas';
+      this.tab2.tab = 'maquinas';
+
+      this.tab3.title = 'Pozo';
+      this.tab3.tab = 'pozo';
+
+      this.tab4.title = 'Foso';
+      this.tab4.tab = 'foso';
+      console.log(this.tab1);
+
+      // this.navCtrl.navigateBack('inspection-list/tab/cabina');
+    // }
   }
 
 }
