@@ -12,4 +12,8 @@ export class EquipmentMenuPage implements OnInit {
   ngOnInit() {
   }
 
+  setParam(equipo:string){    
+    localStorage.setItem('equipo', equipo);
+  }
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { collectionMock } from '../../mock';
+import { collectionMock } from '../../../mock';
 
 @Component({
   selector: 'app-cabina',

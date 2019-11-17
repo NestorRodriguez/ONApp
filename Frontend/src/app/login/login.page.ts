@@ -129,9 +129,9 @@ export class LoginPage implements OnInit {
         this.query.valor = this.usuario.email;
         
         this.assearchInDb();
-        this.loadInitData();
         console.log('array de usuarios', this.userStorage);
         this.router.navigateByUrl('/main-menu');
+        await this.loadInitData();
       })
       .catch( error => {
         console.log('error en login');

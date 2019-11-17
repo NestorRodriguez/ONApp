@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button [defaultHref]="['/']"></ion-back-button>
+      <ion-button [routerLink]="['/main-menu']">
+          <ion-icon slot="icon-only" name="arrow-round-back"> </ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title class="ion-title">Menú Equipos</ion-title>
   </ion-toolbar>
@@ -11,9 +13,7 @@
   <ion-grid class="container">
     <ion-row class="content">
       <ion-col col-12>
-        <!-- <ion-card routerLink="/inspection-list"> -->
-        <!-- <ion-card [routerLink]="['/inspection-list/tabs/ascensor', 1]"> -->
-        <ion-card routerLink="/inspection-list/tabs/ascensor">
+        <ion-card (click)="setParam('ascensor')" routerLink="/inspection-list/tabs/equipo/ascensor">
           <img src="../../../assets/img/ascensor.gif" height="120em"/>
           <ion-card-header style="padding: 3%;">
             <ion-card-title>Ascensor</ion-card-title>
@@ -24,7 +24,7 @@
 
     <ion-row class="content">
       <ion-col col-12>
-        <ion-card routerLink="/inspection-list/tabs/puertas">
+        <ion-card (click)="setParam('puerta')" routerLink="/inspection-list/tabs/equipo/puertas">
           <img src="../../../assets/img/puerta_electrica.png" height="120em"/>
           <ion-card-header style="padding: 3%;">           
             <ion-card-title>Puerta Eléctrica</ion-card-title>
@@ -35,7 +35,7 @@
 
     <ion-row class="content">
       <ion-col col-12>
-        <ion-card routerLink="/inspection-list/tabs/escaleras">
+        <ion-card (click)="setParam('escalera')" routerLink="/inspection-list/tabs/equipo/escaleras">
           <img src="../../../assets/img/escalera.png" height="120em"/>
           <ion-card-header style="padding: 3%;">           
             <ion-card-title>Escalera / Anden móvil</ion-card-title>
