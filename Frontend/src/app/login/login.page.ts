@@ -47,16 +47,8 @@ export class LoginPage implements OnInit {
   //   codigo: 'TEC01',
   //   nombre: 'Miguel Antonio'
   // };
-  async ngOnInit() {
+   ngOnInit() {
 
-    const getData = await this.localStorage.get('menuascensores');
-    if ( isNull(getData) ) {
-      this.loadData.downloadData().subscribe( data => {
-        this.localStorage.set('menuascensores', data);
-      }, ( (error) => {
-        console.log('error descargando la colección de ascensores');
-      }));
-    }
     this.localStorage.get('userAuthenticated').then( data => {
      if (isNull(data)) {
        console.log('Local storage vacío');
@@ -68,28 +60,21 @@ export class LoginPage implements OnInit {
 
      }
     });
-    //   }).catch(error => {
-    //   console.log('Error Storage', error);
-    // });
-    // }
-  }
-  // signNewUser() {
-  //   this.auth.signNewUser(this.user, this.pass)
-  //   .then(result => {
-  //     this.userId = result.user.uid;
-  //     this.data.id = this.userId;
-  //     this.auth.createUser(this.data)
-  //     .then(response => {
-  //       console.log('Usuario creado exitósamente', response);
-  //     }).catch(error => {
-  //       console.log('Error al crear el usuario', error);
-  //     });
-  //   })
-  //   .catch(error => {
-  //     console.log('Error de registro de usuario', error);
-  //   });
-  // }
 
+  }
+
+  async loadInitData() {
+    const getData = await  this.localStorage.get('menuascensores');
+    if ( isNull(getData) ) {
+      this.loadData.downloadData().subscribe( data => {
+        console.log('traje la data');
+        this.localStorage.set('menuascensores', data);
+      }, ( (error) => {
+        console.log('error descargando la colección de ascensores');
+      }));
+    }
+    return getData;
+  }
   async login(form: NgForm) {
     // **NO BORRAR ESTA LINEA
     // await this.auth.insertData(collectionMock);
@@ -103,6 +88,7 @@ export class LoginPage implements OnInit {
             if ( user.email === this.usuario.email && user.password === this.usuario.password ) {
               console.log('El usuario y la contraseña coinciden bienvenido');
               this.userIsvalid = true;
+              this.loadInitData();
               this.userData.setUserData(user);
               console.log('user almacenado', user, ' user enviado ', this.usuario);
               this.router.navigateByUrl('/main-menu');
@@ -134,6 +120,7 @@ export class LoginPage implements OnInit {
         this.usuario.token = success.user.refreshToken;
         this.query.valor = this.usuario.email;
         this.assearchInDb();
+        this.loadInitData();
         console.log('array de usuarios', this.userStorage);
         this.router.navigateByUrl('/main-menu');
       })
