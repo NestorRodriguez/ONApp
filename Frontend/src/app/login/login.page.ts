@@ -23,7 +23,16 @@ export class LoginPage implements OnInit {
   userInvalid: boolean;
   userIsvalid: boolean;
   userStorage: any[] = [];
-  usuario: UserModel = new UserModel();
+  usuario = {
+    email: '',
+    password: '',
+    token: '',
+    nombre: '',
+    apellidos: '',
+    cargo: '',
+    cedula: '',
+    codigo: ''
+  }
   query = {
     campo : 'email',
     condicion: '==',
@@ -67,7 +76,6 @@ export class LoginPage implements OnInit {
     const getData = await  this.localStorage.get('menuascensores');
     if ( isNull(getData) ) {
       this.loadData.downloadData().subscribe( data => {
-        console.log('traje la data');
         this.localStorage.set('menuascensores', data);
       }, ( (error) => {
         console.log('error descargando la colección de ascensores');
@@ -88,7 +96,7 @@ export class LoginPage implements OnInit {
             if ( user.email === this.usuario.email && user.password === this.usuario.password ) {
               console.log('El usuario y la contraseña coinciden bienvenido');
               this.userIsvalid = true;
-              this.loadInitData();
+              await this.loadInitData();
               this.userData.setUserData(user);
               console.log('user almacenado', user, ' user enviado ', this.usuario);
               this.router.navigateByUrl('/main-menu');
@@ -103,31 +111,32 @@ export class LoginPage implements OnInit {
         if (!this.userIsvalid) {
           console.log('datos del usuario', this.usuario);
           console.log('PRIMER AUTHONLINE');
-          this.authenticateOnline(this.usuario);
+         await this.authenticateOnline(this.usuario);
         }
 
       } else {
         console.log('ENTRE AL SEGUNDO AUTHONLINE');
-        this.authenticateOnline(this.usuario);
+        await this.authenticateOnline(this.usuario);
       }
 
       }
 
 
     }
-    async authenticateOnline(user: UserModel) {
-      this.auth.login(this.usuario).then( async success => {
+    async authenticateOnline(user: any) {
+      await this.auth.login(this.usuario).then( async success => {
         this.usuario.token = success.user.refreshToken;
         this.query.valor = this.usuario.email;
+        
         this.assearchInDb();
         this.loadInitData();
         console.log('array de usuarios', this.userStorage);
         this.router.navigateByUrl('/main-menu');
       })
-        .catch( error => {
-          console.log('error en login');
-          this.userInvalid = true;
-        });
+      .catch( error => {
+        console.log('error en login');
+        this.userInvalid = true;
+      });
     }
     assearchInDb() {
       let userData: any;
@@ -140,8 +149,10 @@ export class LoginPage implements OnInit {
         this.usuario.codigo = userData.codigo;
         console.log('datos completos del usuario', this.usuario);
         console.log('resultado del query', userData);
+        this.userData.setUserData(this.usuario);
         this.userStorage.push(this.usuario);
         this.localStorage.set('userAuthenticated', this.userStorage);
+        
       }, ( error => {
         console.log('error buscando datos del usuario', error);
       }));
