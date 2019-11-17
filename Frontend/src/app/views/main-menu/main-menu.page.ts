@@ -9,7 +9,6 @@ import { UserdataService } from 'src/app/services/userdata.service';
   styleUrls: ['./main-menu.page.scss'],
 })
 export class MainMenuPage implements OnInit {
-  
   nombre: string;
   nombres: string;
   email: string;
@@ -20,11 +19,11 @@ export class MainMenuPage implements OnInit {
   };
 
   constructor( private auth: AngularFireAuth,
-    private router: Router,
-    private userData: UserdataService,) { }
+               private router: Router,
+               private userData: UserdataService,) { }
 
     ngOnInit() {
-      
+
   }
 
   ionViewDidEnter(){
@@ -32,12 +31,10 @@ export class MainMenuPage implements OnInit {
   }
 
   loadData() {
-    const user = this.userData.getUserData();
-      console.log('nombre', user);
-      try {
-        
-        // const arrnombres = user.nombre.split(' ');
-        this.nombre = user.nombre;
+    const user: any = this.userData.getUserData();
+    try {
+        const arrnombres = user.nombre.split(' ');
+        this.nombre = arrnombres[0];
         this.nombres = `${user.nombre} ${user.apellidos}`;
         this.email = user.email;
       } catch (error) {

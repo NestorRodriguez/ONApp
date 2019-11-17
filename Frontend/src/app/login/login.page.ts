@@ -58,17 +58,7 @@ export class LoginPage implements OnInit {
   // };
    ngOnInit() {
 
-    this.localStorage.get('userAuthenticated').then( data => {
-     if (isNull(data)) {
-       console.log('Local storage vacío');
-     } else {
-       console.log('Datos del storage', data);
-       for ( const i of data ) {
-       this.userStorage.push( i );
-       }
-
-     }
-    });
+   
 
   }
 
@@ -84,6 +74,18 @@ export class LoginPage implements OnInit {
     return getData;
   }
   async login(form: NgForm) {
+
+    this.localStorage.get('userAuthenticated').then( data => {
+      if (isNull(data)) {
+        console.log('Local storage vacío');
+      } else {
+        console.log('Datos del storage', data);
+        for ( const i of data ) {
+        this.userStorage.push( i );
+        }
+ 
+      }
+     });
     // **NO BORRAR ESTA LINEA
     // await this.auth.insertData(collectionMock);
     if (form.valid) {
