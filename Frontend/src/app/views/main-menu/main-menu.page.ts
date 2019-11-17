@@ -32,7 +32,7 @@ export class MainMenuPage implements OnInit {
   }
 
   loadData() {
-    const user = this.userData.getUserData();
+    const user:any = this.userData.getUserData();
       console.log('nombre', user);
       try {
         
