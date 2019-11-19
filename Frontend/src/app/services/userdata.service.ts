@@ -9,7 +9,7 @@ export class UserdataService {
   constructor() { }
 
   setUserData(user: object) {
-    console.log('tengo la data', this.userData);
+    console.log('tengo la data', user);
     this.userData.next(user);
   }
 

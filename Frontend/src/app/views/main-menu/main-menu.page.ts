@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserdataService } from 'src/app/services/userdata.service';
+import { Subscription } from 'rxjs';
+import { OnDestroy } from "@angular/core";
 
 @Component({
   selector: 'app-main-menu',
@@ -12,6 +14,7 @@ export class MainMenuPage implements OnInit {
   nombre: string;
   nombres: string;
   email: string;
+  service: Subscription;
   sliderConfig = {
     spaceBetween: 115,
     centeredSlides: true,
@@ -23,21 +26,22 @@ export class MainMenuPage implements OnInit {
                private userData: UserdataService,) { }
 
     ngOnInit() {
-      
       this.loadData();
-  }
-
-  ionViewDidEnter() {
+      console.log('entré a la vista menu');
   }
 
   loadData() {
-    this.userData.getUserData().subscribe( user => {
+    this.service = this.userData.getUserData().subscribe( user => {
       const arrnombres = user.nombre.split(' ');
       this.nombre = arrnombres[0];
       this.nombres = `${user.nombre} ${user.apellidos}`;
       this.email = user.email;
 
     });
+  }
+
+  ngOnDestroy() {
+    this.service.unsubscribe();
   }
 
 }

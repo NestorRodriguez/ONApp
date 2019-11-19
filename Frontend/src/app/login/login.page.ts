@@ -88,8 +88,10 @@ export class LoginPage implements OnInit {
     // await this.auth.insertData(collectionMock);
     if (form.valid) {
       console.log('ARRAY DE USUARIOS, ', this.userStorage);
-      if ( this.userStorage.length > 0 ) {
-        for (const user of this.userStorage) {
+      const getUsers: any = await this.localStorage.get('userAuthenticated');
+      if ( !isNull(getUsers) ) {
+        console.log('DATOS DEL STORAGE', getUsers);
+        for (const user of getUsers) {
           if (user.email === this.usuario.email) {
             this.userIsvalid = false;
             console.log('El usuario coincide');
