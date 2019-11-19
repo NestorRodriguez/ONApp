@@ -58,7 +58,6 @@ export class LoginPage implements OnInit {
   // };
    ngOnInit() {
 
-   
 
   }
 
@@ -71,8 +70,8 @@ export class LoginPage implements OnInit {
         console.log('error descargando la colección de ascensores');
       }));
     }
-    return getData;
   }
+
   async login(form: NgForm) {
 
     this.localStorage.get('userAuthenticated').then( data => {
@@ -83,8 +82,7 @@ export class LoginPage implements OnInit {
         for ( const i of data ) {
         this.userStorage.push( i );
         }
- 
-      }
+       }
      });
     // **NO BORRAR ESTA LINEA
     // await this.auth.insertData(collectionMock);
@@ -113,7 +111,7 @@ export class LoginPage implements OnInit {
         if (!this.userIsvalid) {
           console.log('datos del usuario', this.usuario);
           console.log('PRIMER AUTHONLINE');
-         await this.authenticateOnline(this.usuario);
+          await this.authenticateOnline(this.usuario);
         }
 
       } else {
@@ -129,7 +127,6 @@ export class LoginPage implements OnInit {
       await this.auth.login(this.usuario).then( async success => {
         this.usuario.token = success.user.refreshToken;
         this.query.valor = this.usuario.email;
-        
         this.assearchInDb();
         console.log('array de usuarios', this.userStorage);
         this.router.navigateByUrl('/main-menu');
@@ -154,7 +151,7 @@ export class LoginPage implements OnInit {
         this.userData.setUserData(this.usuario);
         this.userStorage.push(this.usuario);
         this.localStorage.set('userAuthenticated', this.userStorage);
-        
+
       }, ( error => {
         console.log('error buscando datos del usuario', error);
       }));

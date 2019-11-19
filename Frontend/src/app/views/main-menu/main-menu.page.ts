@@ -23,23 +23,21 @@ export class MainMenuPage implements OnInit {
                private userData: UserdataService,) { }
 
     ngOnInit() {
-
+      
+      this.loadData();
   }
 
-  ionViewDidEnter(){
-    this.loadData();
+  ionViewDidEnter() {
   }
 
   loadData() {
-    const user: any = this.userData.getUserData();
-    try {
-        const arrnombres = user.nombre.split(' ');
-        this.nombre = arrnombres[0];
-        this.nombres = `${user.nombre} ${user.apellidos}`;
-        this.email = user.email;
-      } catch (error) {
-        console.log(error);
-      }
+    this.userData.getUserData().subscribe( user => {
+      const arrnombres = user.nombre.split(' ');
+      this.nombre = arrnombres[0];
+      this.nombres = `${user.nombre} ${user.apellidos}`;
+      this.email = user.email;
+
+    });
   }
 
 }
