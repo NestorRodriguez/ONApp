@@ -13,6 +13,7 @@ import { UserdataService } from '../services/userdata.service';
 
 import { collectionMock } from '../views/inspection-menu/mock';
 import { LoadinitdataService } from '../services/loadinitdata.service';
+import { IAscensores} from '../models/IAscensores.model';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ import { LoadinitdataService } from '../services/loadinitdata.service';
 })
 export class LoginPage implements OnInit {
   userInvalid: boolean;
+  prueba: IAscensores;
   userIsvalid: boolean;
   userStorage: any[] = [];
   usuario = {
@@ -63,6 +65,7 @@ export class LoginPage implements OnInit {
   }
 
   async loadInitData() {
+    
     const getData = await  this.localStorage.get('menuascensores');
     if ( isNull(getData) ) {
       this.loadData.downloadData().subscribe( data => {

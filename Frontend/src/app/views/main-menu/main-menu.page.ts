@@ -20,26 +20,28 @@ export class MainMenuPage implements OnInit {
 
   constructor( private auth: AngularFireAuth,
                private router: Router,
-               private userData: UserdataService,) { }
+               private userData: UserdataService) { }
 
     ngOnInit() {
 
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.loadData();
   }
 
   loadData() {
-    const user: any = this.userData.getUserData();
-    try {
-        const arrnombres = user.nombre.split(' ');
-        this.nombre = arrnombres[0];
-        this.nombres = `${user.nombre} ${user.apellidos}`;
-        this.email = user.email;
-      } catch (error) {
-        console.log(error);
+    this.userData.getUserData().subscribe(
+      (user: any) => {
+        console.log('observable', user);
+        if(user){
+          const arrnombres = user.nombre.split(' ');
+          this.nombre = arrnombres[0];
+          this.nombres = `${user.nombre} ${user.apellidos}`;
+          this.email = user.email;
+        }
       }
+    );
   }
 
 }
