@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-equipment-menu',
@@ -7,13 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EquipmentMenuPage implements OnInit {
 
-  constructor() { }
+  constructor(private localstorage: Storage) { }
 
   ngOnInit() {
+    
   }
 
-  setParam(equipo:string){    
-    localStorage.setItem('equipo', equipo);
+  setParam(equipo:string){
+    this.localstorage.set('equipo', equipo);
   }
 
 }
