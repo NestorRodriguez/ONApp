@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { collectionMock } from '../../../mock';
+import { StorageToJson } from '../../../../../models/StorageToJson';
+import { Storage } from '@ionic/storage';
+import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-cabina',
@@ -8,18 +11,38 @@ import { collectionMock } from '../../../mock';
 })
 export class CabinaPage implements OnInit {
 
-  public inspeccion = collectionMock;
-  // public cabecera = this.inspeccion.datos_basicos;
-  // public cabina = this.inspeccion.listas_de_verificacion;
-  public datosProteccion = this.inspeccion.datos_proteccion;
-  public listasVerificacion = this.inspeccion.lista_verificacion;
-  public detallesGenerales = this.inspeccion.c_observaciones;
-  public calificacion = this.inspeccion.calificacion;
-  public dpobservaciones = 'dpobservaciones';
+  // public listasVerificacion = this.inspeccion.lista_verificacion;
+  // public dpobservaciones = 'dpobservaciones';
 
-  constructor() { }
+  public storageToJson: any;
+  public listaItems: any;
 
+  constructor(private storage: Storage,
+              public loadingController: LoadingController) { }
+  
   ngOnInit() {
+    this.presentLoading();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      spinner: 'crescent',
+      // duration: 5000,
+      message: 'Cargando...',
+      translucent: true,
+      // cssClass: 'custom-class custom-loading'
+    });
+
+    await loading.present();
+
+    this.storageToJson = new StorageToJson(this.storage);
+
+    this.listaItems = await this.storageToJson.getJsonStorageList('menuascensores', 'cabina');
+
+    console.log('json: ',this.listaItems);
+
+    await loading.dismiss();
+
   }
 
 }

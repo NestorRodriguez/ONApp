@@ -5,12 +5,12 @@
           <ion-icon slot="icon-only" name="arrow-round-back"> </ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-title">Items cabina</ion-title>
+    <ion-title class="ion-title">Cabina</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <span *ngFor="let item of datosProteccion.items; index as i">
+  <!-- <span *ngFor="let item of datosProteccion.items; index as i">
     <ion-card>
       <ion-card-title>{{ item }}</ion-card-title>
       <span *ngFor = "let tipo of datosProteccion.tipo">
@@ -34,5 +34,5 @@
       <ion-label>  {{ detallesGenerales.titulo }} </ion-label>
       <textArea [placeholder]= "detallesGenerales.placeholder">  </textArea>
     </ion-card>
-  </span>
+  </span> -->
 </ion-content>
