@@ -25,16 +25,20 @@ export class InspectionListPage implements OnInit {
   constructor(private localstorage: Storage,
               public loadingController: LoadingController) { }
 
-  ngOnInit() {
-    this.presentLoading().then( response => {
-      console.log('RESPONSE', response);
-    });
+  ngOnInit() {    
 
-    this.localstorage.get('equipo').then((data) => {
+    this.equipmentLoading();
+  
+  }
+    
+
+  async getStorage() {
+    const data = await this.localstorage.get('equipo');
       this.equipo = data;
 
       if (this.equipo == 'ascensor') {
         console.log("ascensor");
+        this.menuLoading('menuascensores');
       }
       if (this.equipo == 'puerta') {
         console.log("puerta");
@@ -42,10 +46,10 @@ export class InspectionListPage implements OnInit {
       if (this.equipo == 'escalera') {
         console.log("escalera");
       }
-    });
+
   }
 
-  async presentLoading() {
+  async equipmentLoading() {
     const loading = await this.loadingController.create({
       spinner: 'crescent',
       // duration: 5000,
@@ -56,14 +60,31 @@ export class InspectionListPage implements OnInit {
 
     await loading.present();
 
-    this.localstorage.get('menuascensores').then(async (data) => {
+    await this.getStorage();
+  
+    await loading.dismiss();
+  }
+
+  async menuLoading(menu: string) {
+    console.log('fucking menu: ', menu);
+    const loading = await this.loadingController.create({
+      spinner: 'crescent',
+      // duration: 5000,
+      message: 'Cargando...',
+      translucent: true,
+      // cssClass: 'custom-class custom-loading'
+    });
+
+    await loading.present();
+
+    this.localstorage.get(menu).then(async (data) => {
       this.jsonInspection = data;
       this.listasVerificacion = this.jsonInspection.lista_verificacion;
-      console.log(this.jsonInspection);
+      // console.log(this.jsonInspection);
       await loading.dismiss();
     });
 
-    console.log('Loading dismissed!');
+    // console.log('Loading dismissed!');
   }
 
 }

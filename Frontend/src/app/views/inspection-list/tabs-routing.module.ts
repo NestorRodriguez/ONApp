@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InspectionListPage } from './inspection-list.page';
 
 const routes: Routes = [
-  { 
+  {
     path: 'tabs/equipo/ascensor',
     component: InspectionListPage,
     children:[
@@ -14,7 +14,7 @@ const routes: Routes = [
       }
     ],
   },
-  { 
+  {
     path: 'tabs/equipo/puerta',
     component: InspectionListPage,
     children:[
@@ -25,7 +25,7 @@ const routes: Routes = [
       }
     ],
   },
-  { 
+  {
     path: 'tabs/equipo/escalera',
     component: InspectionListPage,
     children:[
