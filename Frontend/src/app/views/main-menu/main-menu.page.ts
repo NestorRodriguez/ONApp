@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserdataService } from 'src/app/services/userdata.service';
+import { Subscription } from 'rxjs';
+import { OnDestroy } from "@angular/core";
 
 @Component({
   selector: 'app-main-menu',
@@ -12,6 +14,7 @@ export class MainMenuPage implements OnInit {
   nombre: string;
   nombres: string;
   email: string;
+  service: Subscription;
   sliderConfig = {
     spaceBetween: 115,
     centeredSlides: true,
@@ -22,26 +25,26 @@ export class MainMenuPage implements OnInit {
                private router: Router,
                private userData: UserdataService) { }
 
-    ngOnInit() {
-
+    async ngOnInit() {
+      await this.loadData();
+      console.log('entré a la vista menu');
   }
 
-  ionViewWillEnter(){
-    this.loadData();
+  async loadData() {
+    console.log('ENTRÉ  loaddata');
+    this.service = this.userData.getUserData().subscribe( user => {
+      const arrnombres = user.nombre.split(' ');
+      this.nombre = arrnombres[0];
+      this.nombres = `${user.nombre} ${user.apellidos}`;
+      this.email = user.email;
+
+      console.log('NOMBRES', arrnombres);
+
+    });
   }
 
-  loadData() {
-    this.userData.getUserData().subscribe(
-      (user: any) => {
-        console.log('observable', user);
-        if(user){
-          const arrnombres = user.nombre.split(' ');
-          this.nombre = arrnombres[0];
-          this.nombres = `${user.nombre} ${user.apellidos}`;
-          this.email = user.email;
-        }
-      }
-    );
+  ngOnDestroy() {
+    this.service.unsubscribe();
   }
 
 }

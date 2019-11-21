@@ -1,21 +1,13 @@
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom" color="primary">
-      <ion-tab-button tab="cabina">
+      <ion-tab-button tab="inicio">
         <ion-icon name="home"></ion-icon>
-        <ion-label>{{tab1.title}}</ion-label>
+        <ion-label>Inicio</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="maquina">
-        <ion-icon name="apps"></ion-icon>
-        <ion-label>{{tab2.title}}</ion-label>
-      </ion-tab-button>
-      <ion-tab-button tab="pozo">
-        <ion-icon name="settings"></ion-icon>
-        <ion-label>{{tab3.title}}</ion-label>
-      </ion-tab-button>
-      <ion-tab-button tab="foso">
-        <ion-icon name="airplane"></ion-icon>
-        <ion-label>{{tab4.title}}</ion-label>
+      <ion-tab-button *ngFor="let categoria of listasVerificacion" tab="{{categoria.path}}">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>{{categoria.tab}}</ion-label>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>

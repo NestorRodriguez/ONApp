@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { collectionMock } from './mock';
-import { ActivatedRoute } from '@angular/router';
-import {NavController, AlertController, ModalController} from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inspection-list',
@@ -11,53 +10,60 @@ import { Router } from '@angular/router';
 })
 export class InspectionListPage implements OnInit {
 
+  public jsonInspection: any;
+  public equipo: any;
+
   public inspeccion = collectionMock;
   // public cabecera = this.inspeccion.datos_basicos;
   // public cabina = this.inspeccion.listas_de_verificacion;
   public datosProteccion = this.inspeccion.datos_proteccion;
-  public listasVerificacion = this.inspeccion.lista_verificacion;
+  public listasVerificacion: any[]=[];
   public detallesGenerales = this.inspeccion.c_observaciones;
   public calificacion = this.inspeccion.calificacion;
   public dpobservaciones = 'dpobservaciones';
-  public tab1 = {
-    title: '',
-    tab : ''
-  };
-  public tab2 = {
-    title: '',
-    tab: ''
-  };
-  public tab3 = {
-    title: '',
-    tab: ''
-  };
-  public tab4 = {
-    title: '',
-    tab: ''
-  };
 
-  constructor(private activedRoute: ActivatedRoute,
-              private navCtrl: NavController,
-              private router: Router) { }
+  constructor(private localstorage: Storage,
+              public loadingController: LoadingController) { }
 
   ngOnInit() {
-    var equipo = localStorage.getItem('equipo');
+    this.presentLoading().then( response => {
+      console.log('RESPONSE', response);
+    });
 
-    if (equipo == 'ascensor') {
-      this.tab1.title = 'Cabina';
-      this.tab1.tab = 'cabina';
+    this.localstorage.get('equipo').then((data) => {
+      this.equipo = data;
 
-      this.tab2.title = 'Máquinas';
-      this.tab2.tab = 'maquinas';
+      if (this.equipo == 'ascensor') {
+        console.log("ascensor");
+      }
+      if (this.equipo == 'puerta') {
+        console.log("puerta");
+      }
+      if (this.equipo == 'escalera') {
+        console.log("escalera");
+      }
+    });
+  }
 
-      this.tab3.title = 'Pozo';
-      this.tab3.tab = 'pozo';
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      spinner: 'crescent',
+      // duration: 5000,
+      message: 'Cargando...',
+      translucent: true,
+      // cssClass: 'custom-class custom-loading'
+    });
 
-      this.tab4.title = 'Foso';
-      this.tab4.tab = 'foso';
-      console.log(this.tab1);
+    await loading.present();
 
-    }
+    this.localstorage.get('menuascensores').then(async (data) => {
+      this.jsonInspection = data;
+      this.listasVerificacion = this.jsonInspection.lista_verificacion;
+      console.log(this.jsonInspection);
+      await loading.dismiss();
+    });
+
+    console.log('Loading dismissed!');
   }
 
 }
