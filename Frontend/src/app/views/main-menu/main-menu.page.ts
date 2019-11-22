@@ -10,7 +10,7 @@ import { OnDestroy } from "@angular/core";
   templateUrl: './main-menu.page.html',
   styleUrls: ['./main-menu.page.scss'],
 })
-export class MainMenuPage implements OnInit {
+export class MainMenuPage implements OnInit, OnDestroy {
   nombre: string;
   nombres: string;
   email: string;
@@ -23,19 +23,20 @@ export class MainMenuPage implements OnInit {
 
   constructor( private auth: AngularFireAuth,
                private router: Router,
-               private userData: UserdataService,) { }
+               private userData: UserdataService) { }
 
-    ngOnInit() {
-      this.loadData();
-      console.log('entré a la vista menu');
+    async ngOnInit() {
+      await this.loadData();
   }
 
-  loadData() {
+  async loadData() {
     this.service = this.userData.getUserData().subscribe( user => {
       const arrnombres = user.nombre.split(' ');
       this.nombre = arrnombres[0];
       this.nombres = `${user.nombre} ${user.apellidos}`;
       this.email = user.email;
+
+      console.log('NOMBRES', arrnombres);
 
     });
   }

@@ -19,7 +19,7 @@ export class CabinaPage implements OnInit {
 
   constructor(private storage: Storage,
               public loadingController: LoadingController) { }
-  
+
   ngOnInit() {
     this.presentLoading();
   }
@@ -39,7 +39,7 @@ export class CabinaPage implements OnInit {
 
     this.listaItems = await this.storageToJson.getJsonStorageList('menuascensores', 'cabina');
 
-    console.log('json: ',this.listaItems);
+    console.log('json: ', this.listaItems);
 
     await loading.dismiss();
 

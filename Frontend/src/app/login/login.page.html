@@ -16,6 +16,8 @@
             </ion-item>
             <span *ngIf="formulario.submitted && formulario.controls['password'].errors" class="text-danger">La contraseña debe contener al menos 6 caracteres</span>
             <span *ngIf="userInvalid" class="text-danger">Usuario o contraseña no válidos</span>
+            <span *ngIf="internet" class="text-danger">Conectado a internet</span>
+            <span *ngIf="!internet" class="text-danger">Se perdió la conexión a internet</span>
         </ion-list>
         <ion-button color="primary" type="submit" class="btn btn-success" [disabled]="!formulario.valid" style="font-size: 80%;">
             Iniciar sesión

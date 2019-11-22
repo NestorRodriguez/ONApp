@@ -10,7 +10,7 @@ export class LoadinitdataService {
 
   downloadData() {
    const query = this.dataBase.collection('inspecciones').doc('ascensores').valueChanges();
-
+    console.log('colección ascensores', query);
    return query;
   }
 

@@ -91,7 +91,8 @@ export const collectionMock = {
         items: ['CANGURO PIERNA', 'CHALECO', 'CÁMARA FOTOGRÁFICA', 'DOCUMENTOS PARA LA INSPECCIÓN', 'TABLA SUJETA DOCUMENTOS', 'EQUIPOS E INSTRUMENTOS PARA LA INSPECCIÓN'],
     },
     lista_verificacion: [
-        {
+        {   
+            tab: 'Cabina',
             titulo: 'Cabina',
             items: [{
                     id: 1,
@@ -306,7 +307,8 @@ export const collectionMock = {
                 },
             ]
         },
-        {
+        {   
+            tab: 'Máquina',
             titulo: 'Cuarto de máquinas y poleas',
             items: [{
                     id: 36,
@@ -595,7 +597,7 @@ export const collectionMock = {
 
         },
         {
-
+            tab: 'Pozo',
             titulo: 'Revisión de Pozo',
             items: [
                 {
@@ -985,7 +987,8 @@ export const collectionMock = {
         ]
         },
 
-        {
+        {    
+            tab: 'Foso',
             titulo: 'Foso',
             items: [
                 {
