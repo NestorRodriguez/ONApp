@@ -10,10 +10,11 @@ import { isNull } from 'util';
 import { QueriesService } from '../services/queries.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { UserdataService } from '../services/userdata.service';
-
+import { Network } from '@ionic-native/network/ngx';
 import { collectionMock } from '../views/inspection-menu/mock';
 import { LoadinitdataService } from '../services/loadinitdata.service';
 import { IAscensores} from '../models/IAscensores.model';
+import { NetworkService } from '../services/network.service';
 
 @Component({
   selector: 'app-login',
@@ -40,13 +41,20 @@ export class LoginPage implements OnInit {
     condicion: '==',
     valor: ''
   };
+  disconnectSubscription: any;
+  connectSubscription: any;
+  conectado: any;
+  desconectado: any;
+  internet: boolean;
   constructor(private auth: AuthService,
               private router: Router,
               private authenticate: AngularFireAuth,
               private database: QueriesService,
               private userData: UserdataService,
               private localStorage: Storage,
-              private loadData: LoadinitdataService ) { }
+              private loadData: LoadinitdataService,
+              private network: Network,
+              private networkService: NetworkService ) { }
   // user = 'email@prueba.ec';
   // pass = '12345678';
   // userId: string;
@@ -58,13 +66,36 @@ export class LoginPage implements OnInit {
   //   codigo: 'TEC01',
   //   nombre: 'Miguel Antonio'
   // };
-   ngOnInit() {
+  
 
+  ngOnInit() {
+    
+    
+  }
+
+  ionViewDidEnter() {
+
+
+
+    this.desconectado = this.network.onDisconnect().subscribe( () => {
+      console.log('Conexión perdida');
+      this.internet = false;
+
+    });
+
+    this.conectado = this.network.onConnect().subscribe( () => {
+     console.log('conectado a internet');
+      this.internet = true;
+     setTimeout(() => {
+      console.log(this.network.type);
+      }, 3000);
+    });
+
+    
 
   }
 
   async loadInitData() {
-    
     const getData = await  this.localStorage.get('menuascensores');
     if ( isNull(getData) ) {
       this.loadData.downloadData().subscribe( data => {
@@ -142,7 +173,7 @@ export class LoginPage implements OnInit {
         this.userInvalid = true;
       });
     }
-    assearchInDb() {
+  assearchInDb() {
       let userData: any;
       const dbquery =  this.database.queryCollection('users', this.query).subscribe( data => {
         userData = data[0];
@@ -162,8 +193,11 @@ export class LoginPage implements OnInit {
       }));
       return 0;
     }
+    
+   
 
-    validateClick(e: Event) {
+
+validateClick(e: Event) {
       this.userInvalid = false;
     }
 

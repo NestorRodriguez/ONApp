@@ -10,7 +10,7 @@ import { OnDestroy } from "@angular/core";
   templateUrl: './main-menu.page.html',
   styleUrls: ['./main-menu.page.scss'],
 })
-export class MainMenuPage implements OnInit {
+export class MainMenuPage implements OnInit, OnDestroy {
   nombre: string;
   nombres: string;
   email: string;
@@ -27,11 +27,9 @@ export class MainMenuPage implements OnInit {
 
     async ngOnInit() {
       await this.loadData();
-      console.log('entré a la vista menu');
   }
 
   async loadData() {
-    console.log('ENTRÉ  loaddata');
     this.service = this.userData.getUserData().subscribe( user => {
       const arrnombres = user.nombre.split(' ');
       this.nombre = arrnombres[0];
