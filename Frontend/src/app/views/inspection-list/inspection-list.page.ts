@@ -61,7 +61,7 @@ export class InspectionListPage implements OnInit {
     await loading.present();
 
     await this.getStorage();
-  
+
     await loading.dismiss();
   }
 

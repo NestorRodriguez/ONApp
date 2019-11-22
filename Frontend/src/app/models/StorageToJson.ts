@@ -3,7 +3,6 @@ import { Storage } from '@ionic/storage';
 export class StorageToJson{
 
   constructor(public storage: Storage) { }
-  
   public async getJsonStorageList(coleccion: string, categoria: string){
     const json = await this.storage.get(coleccion);
     let jsonLista = json.lista_verificacion;
