@@ -1,6 +1,6 @@
 <ion-content color="white">
     <ion-title><img class="logo" src="../../assets/img/logo.png" alt=""></ion-title>
-    <form (ngSubmit)="login(formulario)" #formulario="ngForm">
+    <form (ngSubmit)="presentLoading(formulario)" #formulario="ngForm">
 
         <ion-list color="white">
             <ion-item background="white">
@@ -16,8 +16,6 @@
             </ion-item>
             <span *ngIf="formulario.submitted && formulario.controls['password'].errors" class="text-danger">La contraseña debe contener al menos 6 caracteres</span>
             <span *ngIf="userInvalid" class="text-danger">Usuario o contraseña no válidos</span>
-            <span *ngIf="internet" class="text-danger">Conectado a internet</span>
-            <span *ngIf="!internet" class="text-danger">Se perdió la conexión a internet</span>
         </ion-list>
         <ion-button color="primary" type="submit" class="btn btn-success" [disabled]="!formulario.valid" style="font-size: 80%;">
             Iniciar sesión
