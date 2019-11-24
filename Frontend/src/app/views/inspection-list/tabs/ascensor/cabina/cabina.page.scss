@@ -5,4 +5,14 @@
 .calificacion{
   --background-checked: #1dc4c1;
   --color-checked: white;
+  padding-top: 4%;
+  padding-bottom: 4%;
+}
+
+.buttonCal{
+  width: 0%;
+  --border-color:#d7d8da;
+  --border-style: solid;
+  --border-width: 1px;
+  --border-radius:	5px;
 }

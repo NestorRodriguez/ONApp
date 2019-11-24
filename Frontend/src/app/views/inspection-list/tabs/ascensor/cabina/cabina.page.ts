@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
+import { IdatosBasicos } from '../../../../../models/Idatosbasicos.model';
 
 
 @Component({
@@ -13,9 +14,9 @@ export class CabinaPage implements OnInit {
 
   // public dpobservaciones = 'dpobservaciones';
   public storageToJson: any;
-  public listaVerificacion: any;
-  public items: any;
-  public calificaciones: any;
+  public listaItems: any;
+  listaObjects: any;
+  dataLoaded = false;
 
   constructor(private storage: Storage,
               public loadingController: LoadingController) { }
@@ -27,26 +28,25 @@ export class CabinaPage implements OnInit {
   async presentLoading() {
     const loading = await this.loadingController.create({
       spinner: 'crescent',
+      // duration: 5000,
       message: 'Cargando...',
       translucent: true,
+      // cssClass: 'custom-class custom-loading'
     });
 
     await loading.present();
+
     this.storageToJson = new StorageToJson(this.storage);
 
-    await this.storageToJson.getJsonStorageList('menuascensores', 'cabina').then(async (data) => {
-      this.listaVerificacion = data;
-      this.items = this.listaVerificacion.items;
+    try {
+      this.listaObjects = await this.storageToJson.getJsonStorageList('menuascensores', 'cabina');
+      this.listaItems = this.listaObjects.items;
+      this.dataLoaded = true;
       await loading.dismiss();
-    });
+    } catch (error) {
+      console.log(error);
+    }
 
-    await this.storageToJson.getJsonStorageObjects('menuascensores').then(async (data) => {
-      this.calificaciones = data.calificacion;
-      await loading.dismiss();
-    });
-
-    console.log('Items: ', this.items);
-    console.log('calificacion: ', this.calificaciones);
+    console.log(this.listaItems);
   }
-
 }

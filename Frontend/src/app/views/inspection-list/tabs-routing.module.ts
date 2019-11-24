@@ -9,7 +9,7 @@ const routes: Routes = [
     children:[
       {
         path: '',
-        redirectTo: '/inspection-list/tab/ascensor/cabina',
+        redirectTo: '/inspection-list/tab/ascensor/inicio',
         pathMatch: 'full'
       }
     ],

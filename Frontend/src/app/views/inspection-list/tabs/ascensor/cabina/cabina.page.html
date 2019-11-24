@@ -15,16 +15,9 @@
   </ion-header>
   
   <ion-content>
-    <ion-card *ngFor="let item of items">
-      <!-- <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header> -->
+    <ion-card *ngFor="let item of listaItems">
       <ion-card-content>
-        <ion-list>
-          <!-- <ion-list-header>
-            # {{item.id}}
-          </ion-list-header> -->
+        <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
           <ion-item>
             <ion-label>Número</ion-label>
             <ion-note slot="end" color="primary" class="note">{{item.id}}</ion-note>
@@ -46,23 +39,40 @@
             <p style="padding-top: 4%; padding-bottom: 4%; font-size: 100%; text-align: justify;">{{item.defecto}}</p>
           </ion-item>
   
-          <ion-item>
+          <ion-item style="border: 0px solid; width: 100%;">
             <ion-segment class="calificacion">
-              <ion-segment-button>
+              <ion-segment-button class="buttonCal ion-activatable">
                 <ion-label style="font-size: 70%;">Cumple</ion-label>
                 <ion-icon name="checkmark-circle"></ion-icon>
+                <ion-ripple-effect></ion-ripple-effect>
               </ion-segment-button>
-              <ion-segment-button checked>
+              <ion-segment-button class="buttonCal">
                   <ion-label style="font-size: 70%;">No cumple</ion-label>
                 <ion-icon name="close-circle"></ion-icon>
               </ion-segment-button>
-              <ion-segment-button>
+              <ion-segment-button class="buttonCal">
                 <ion-label style="font-size: 70%;">No aplica</ion-label>
                 <ion-icon name="remove-circle"></ion-icon>
               </ion-segment-button>
             </ion-segment>
           </ion-item>
-        </ion-list>
+
+          <ion-item>      
+            <ion-label>Registro Fotográfico</ion-label>  
+            <div style="border: 0px solid; height: 4em;">
+              <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding-right: 5%;">
+                <ion-fab-button style="width: 40px; height: 40px;">
+                  <ion-icon name="camera"></ion-icon>
+                </ion-fab-button>
+              </ion-fab>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Observaciones</ion-label>
+            <ion-textarea></ion-textarea>
+          </ion-item>          
+        </ion-list>        
       </ion-card-content>
     </ion-card>
     <!-- <span *ngFor="let item of datosProteccion.items; index as i">
