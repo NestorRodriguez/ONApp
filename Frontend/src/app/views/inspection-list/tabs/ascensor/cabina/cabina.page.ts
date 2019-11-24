@@ -11,11 +11,10 @@ import { LoadingController } from '@ionic/angular';
 })
 export class CabinaPage implements OnInit {
 
-  // public listasVerificacion = this.inspeccion.lista_verificacion;
   // public dpobservaciones = 'dpobservaciones';
-
   public storageToJson: any;
-  public listaItems: any;
+  public listaVerificacion: any;
+  public items: any;
 
   constructor(private storage: Storage,
               public loadingController: LoadingController) { }
@@ -27,22 +26,20 @@ export class CabinaPage implements OnInit {
   async presentLoading() {
     const loading = await this.loadingController.create({
       spinner: 'crescent',
-      // duration: 5000,
       message: 'Cargando...',
       translucent: true,
-      // cssClass: 'custom-class custom-loading'
     });
 
     await loading.present();
-
     this.storageToJson = new StorageToJson(this.storage);
 
-    this.listaItems = await this.storageToJson.getJsonStorageList('menuascensores', 'cabina');
+    await this.storageToJson.getJsonStorageList('menuascensores', 'cabina').then(async (data) => {
+      this.listaVerificacion = data;
+      this.items = this.listaVerificacion.items;
+      await loading.dismiss();
+    });
 
-    console.log('json: ', this.listaItems);
-
-    await loading.dismiss();
-
+    console.log('json: ', this.items);
   }
 
 }

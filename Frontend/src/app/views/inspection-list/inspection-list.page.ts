@@ -17,7 +17,7 @@ export class InspectionListPage implements OnInit {
   // public cabecera = this.inspeccion.datos_basicos;
   // public cabina = this.inspeccion.listas_de_verificacion;
   public datosProteccion = this.inspeccion.datos_proteccion;
-  public listasVerificacion: any[]=[];
+  public listasVerificacion: any[] = [];
   public detallesGenerales = this.inspeccion.c_observaciones;
   public calificacion = this.inspeccion.calificacion;
   public dpobservaciones = 'dpobservaciones';
@@ -25,26 +25,25 @@ export class InspectionListPage implements OnInit {
   constructor(private localstorage: Storage,
               public loadingController: LoadingController) { }
 
-  ngOnInit() {    
+  ngOnInit() {
 
     this.equipmentLoading();
   
   }
-    
 
   async getStorage() {
     const data = await this.localstorage.get('equipo');
-      this.equipo = data;
+    this.equipo = data;
 
-      if (this.equipo == 'ascensor') {
-        console.log("ascensor");
+    if (this.equipo === 'ascensor') {
+        console.log('ascensor');
         this.menuLoading('menuascensores');
       }
-      if (this.equipo == 'puerta') {
-        console.log("puerta");
+    if (this.equipo === 'puerta') {
+        console.log('puerta');
       }
-      if (this.equipo == 'escalera') {
-        console.log("escalera");
+    if (this.equipo === 'escalera') {
+        console.log('escalera');
       }
 
   }

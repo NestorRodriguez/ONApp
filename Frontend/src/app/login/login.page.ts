@@ -114,7 +114,6 @@ export class LoginPage implements OnInit {
         this.usuario.token = success.user.refreshToken;
         this.query.valor = this.usuario.email;
         this.searchInDb();
-        
         await this.loadInitData();
       })
       .catch( async (error) => {
@@ -123,6 +122,7 @@ export class LoginPage implements OnInit {
           console.log('DATOS DEL STORAGE', getUsers);
           for (const user of getUsers) {
             if (user.email === this.usuario.email) {
+              this.userInvalid = false;
               console.log('El usuario coincide');
               if ( user.email === this.usuario.email && user.password === this.usuario.password ) {
                 console.log('El usuario y la contraseña coinciden bienvenido');
@@ -138,6 +138,7 @@ export class LoginPage implements OnInit {
                 this.userInvalid = true;
               }
             } else {
+              console.log('el usuario no coincide');
               this.userInvalid = true;
             }
           }
