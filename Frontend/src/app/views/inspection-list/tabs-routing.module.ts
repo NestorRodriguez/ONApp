@@ -9,7 +9,7 @@ const routes: Routes = [
     children:[
       {
         path: '',
-        redirectTo: '/inspection-list/tab/ascensor/inicio',
+        redirectTo: '/inspection-list/tab/ascensor/cabina',
         pathMatch: 'full'
       }
     ],
@@ -51,8 +51,8 @@ const routes: Routes = [
     path: 'tab/puerta',
     component: InspectionListPage,
     children:[
-      { path: 'cabina', loadChildren: './tabs/ascensor/inicio/inicio.module#InicioPageModule' },
-      { path: 'inicio', loadChildren: './tabs/ascensor/cabina/cabina.module#CabinaPageModule' },
+      { path: 'inicio', loadChildren: './tabs/ascensor/inicio/inicio.module#InicioPageModule' },
+      { path: 'cabina', loadChildren: './tabs/ascensor/cabina/cabina.module#CabinaPageModule' },
       { path: 'maquina', loadChildren: './tabs/ascensor/maquina/maquina.module#MaquinaPageModule' },
       { path: 'pozo', loadChildren: './tabs/ascensor/pozo/pozo.module#PozoPageModule' },
       { path: 'foso', loadChildren: './tabs/ascensor/foso/foso.module#FosoPageModule' }

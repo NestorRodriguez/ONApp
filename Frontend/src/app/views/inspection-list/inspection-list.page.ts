@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { collectionMock } from './mock';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
 
@@ -12,41 +11,13 @@ export class InspectionListPage implements OnInit {
 
   public jsonInspection: any;
   public equipo: any;
-
-  public inspeccion = collectionMock;
-  // public cabecera = this.inspeccion.datos_basicos;
-  // public cabina = this.inspeccion.listas_de_verificacion;
-  public datosProteccion = this.inspeccion.datos_proteccion;
-  public listasVerificacion: any[]=[];
-  public detallesGenerales = this.inspeccion.c_observaciones;
-  public calificacion = this.inspeccion.calificacion;
-  public dpobservaciones = 'dpobservaciones';
+  public listasVerificacion: any[] = [];
 
   constructor(private localstorage: Storage,
               public loadingController: LoadingController) { }
 
-  ngOnInit() {    
-
+  ngOnInit() {
     this.equipmentLoading();
-  
-  }
-    
-
-  async getStorage() {
-    const data = await this.localstorage.get('equipo');
-      this.equipo = data;
-
-      if (this.equipo == 'ascensor') {
-        console.log("ascensor");
-        this.menuLoading('menuascensores');
-      }
-      if (this.equipo == 'puerta') {
-        console.log("puerta");
-      }
-      if (this.equipo == 'escalera') {
-        console.log("escalera");
-      }
-
   }
 
   async equipmentLoading() {
@@ -59,14 +30,30 @@ export class InspectionListPage implements OnInit {
     });
 
     await loading.present();
-
     await this.getStorage();
-
     await loading.dismiss();
   }
 
+  async getStorage() {
+    const data = await this.localstorage.get('equipo');
+    this.equipo = data;
+
+    if (this.equipo === 'ascensor') {
+      console.log('ascensor');
+      this.menuLoading('menuascensores');
+    }
+    if (this.equipo === 'puerta') {
+      console.log('puerta');
+      this.menuLoading('menuascensores');
+    }
+    if (this.equipo === 'escalera') {
+      console.log('escalera');
+    }
+
+  }
+
   async menuLoading(menu: string) {
-    console.log('fucking menu: ', menu);
+    console.log('menu: ', menu);
     const loading = await this.loadingController.create({
       spinner: 'crescent',
       // duration: 5000,

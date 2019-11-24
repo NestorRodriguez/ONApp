@@ -11,10 +11,10 @@ export class EquipmentMenuPage implements OnInit {
   constructor(private localstorage: Storage) { }
 
   ngOnInit() {
-    
+
   }
 
-  setParam(equipo:string){
+  setParam(equipo: string) {
     this.localstorage.set('equipo', equipo);
   }
 
