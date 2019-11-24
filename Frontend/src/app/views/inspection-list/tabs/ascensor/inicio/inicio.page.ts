@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
+import { IdatosBasicos } from '../../../../../models/Idatosbasicos.model';
 
 @Component({
   selector: 'app-inicio',
@@ -10,13 +11,17 @@ import { Storage } from '@ionic/storage';
 })
 export class InicioPage implements OnInit {
   public storageToJson: any;
+  datosbasicos: IdatosBasicos;
   listaObjects: any;
+  dataLoaded: boolean;
+  // listaObjects: any;
 
   constructor(private storage: Storage,
               public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.presentLoading();
+
   }
 
   async presentLoading() {
@@ -31,13 +36,14 @@ export class InicioPage implements OnInit {
     await loading.present();
 
     this.storageToJson = new StorageToJson(this.storage);
-
+    try {
     this.listaObjects = await this.storageToJson.getJsonStorageObjects('menuascensores');
-
-    console.log('json: ', this.listaObjects);
-
+    this.datosbasicos = this.listaObjects.datos_basicos;
+    this.dataLoaded = true;
     await loading.dismiss();
-
+    } catch(error) {
+      console.log(error);
+    }
   }
 
 }

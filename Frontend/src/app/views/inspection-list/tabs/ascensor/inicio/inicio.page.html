@@ -1,9 +1,88 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>inicio</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Datos iniciales</ion-title>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+    <ion-slides>
+        <ion-slide>
+            <ion-card>
+                <ion-card-title>
+                    Datos básicos
+                </ion-card-title>
+                <ion-card-content>
+                    <ion-list>
+                        <span *ngIf="dataLoaded">
+                        <ion-label>{{ datosbasicos.c_cliente.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [placeholder]="datosbasicos.c_cliente.placeholder"></ion-input>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_equipo.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [placeholder]="datosbasicos.c_equipo.placeholder"></ion-input>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_empresa.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [placeholder]="datosbasicos.c_empresa.placeholder"></ion-input>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_tipoaccion.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-select [placeholder]="datosbasicos.c_tipoaccion.placeholder">
+                                <span *ngFor="let option of datosbasicos.c_tipoaccion.options">
+                                <ion-select-option [value]="option">{{option}}</ion-select-option>
+                              </span>
+                        </ion-select>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_capacidad.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [placeholder]="datosbasicos.c_capacidad.placeholder"></ion-input>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_fecha.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-datetime></ion-datetime>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_fechamto.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-datetime></ion-datetime>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_fechapuestaservicio.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-datetime></ion-datetime>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_fechaultinspeccion.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-datetime></ion-datetime>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_direccioncliente.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [placeholder]="datosbasicos.c_direccioncliente.placeholder"></ion-input>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_codigo.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [disabled]="datosbasicos.c_codigo.enabled">{{datosbasicos.c_codigo.value}}</ion-input>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_consecutivo.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [disabled]="datosbasicos.c_consecutivo.enabled"></ion-input>
+                        </ion-item>
+                        </span>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+        <ion-slide>
+            <ion-card>
+                <ion-card-title>
+                    Card 2
+                </ion-card-title>
+            </ion-card>
+        </ion-slide>
+        <ion-slide>
+            <ion-card>
+                <ion-card-title>
+                    Card 3
+                </ion-card-title>
+            </ion-card>
+        </ion-slide>
+    </ion-slides>
 </ion-content>

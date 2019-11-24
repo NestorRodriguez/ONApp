@@ -20,7 +20,8 @@ export class StorageToJson {
   public async getJsonStorageObjects(coleccion: string) {
     const json = await this.storage.get(coleccion);
     delete json.lista_verificacion;
-    return json;
+    const returnJson = json;
+    return returnJson;
   }
 
 }
