@@ -1170,15 +1170,18 @@ export const collectionMock = {
 
     calificacion: [{
             text: 'Cumple',
-            value: 0
+            value: 0,
+            icon: 'checkmark-circle'
         },
         {
             text: 'No cumple',
-            value: 1
+            value: 1,
+            icon: 'close-circle'
         },
         {
             text: 'No aplica',
-            value: 2
+            value: 2,
+            icon: 'remove-circle'
         }
     ],
     c_observaciones: {

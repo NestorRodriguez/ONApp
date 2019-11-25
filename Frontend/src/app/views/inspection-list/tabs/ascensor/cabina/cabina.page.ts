@@ -24,10 +24,10 @@ export class CabinaPage implements OnInit {
   loaded = false;
   calificacion: any;
   sliderConfig = {
-    initialSlide: 1,
-    spaceBetween: 10,
+    spaceBetween: 1,
     centeredSlides: true,
-    slidesPerView: 1.6
+    slidesPerView: 1.6,
+    slideShadows: true
   };
 
   constructor(private storage: Storage,
@@ -76,7 +76,12 @@ export class CabinaPage implements OnInit {
     console.log(this.listaItems);
   }
 
-  public segmentChanged(event: any) {
+  public segmentChanged(event: any, index: any) {
+    // console.log(event.detail.value);
+    // let calificacion = event.detail.value;
+    // if (calificacion === 1) {
+      
+    // }
     // console.log('Evento capturado: ', event.detail.value);
     // let indice = event.detail.value;
     // indice = indice.split('-');
@@ -103,10 +108,7 @@ export class CabinaPage implements OnInit {
       cameraDirection: this.camera.Direction.BACK,
     };
     // this.model[index].fotografias.unshift('./../../../../../../assets/img/ascensor.gif');
-    // this.sliderConfig.initialSlide = this.model[index].fotografias.length;
     this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
     console.log('Fotos: ', this.model[index].fotografias);
-    console.log('tamaño arreglo fotos: ', this.model[index].fotografias.length + 1);
-    console.log('sliderConfig', this.sliderConfig.initialSlide);
   }
 }
