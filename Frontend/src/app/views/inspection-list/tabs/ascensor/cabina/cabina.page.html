@@ -1,21 +1,23 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-button [routerLink]="['/equipment-menu']">
-            <ion-icon slot="icon-only" name="close"> </ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="secondary">
-        <ion-button [routerLink]="['/equipment-menu']">
-            <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title class="ion-title">Cabina</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-card *ngFor="let item of listaItems">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/equipment-menu']">
+          <ion-icon slot="icon-only" name="close"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/equipment-menu']">
+          <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-title">Cabina</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form *ngIf="loaded" (ngSubmit)="enviarData(formulario)" #formulario="ngForm">
+    <ion-button type = "submit">oka</ion-button>
+    <ion-card *ngFor="let item of listaItems; let i=index">
       <ion-card-content>
         <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
           <ion-item>
@@ -30,38 +32,32 @@
   
           <ion-item>
             <ion-label>Calificación</ion-label>
-            <ion-note *ngIf="item.cal === 'L'" slot="end" color="primary" class="note">Leve</ion-note>
-            <ion-note *ngIf="item.cal === 'G'" slot="end" color="primary" class="note">Grave</ion-note>
-            <ion-note *ngIf="item.cal === 'MG'" slot="end" color="primary" class="note">Muy grave</ion-note>
+            <ion-note slot="end" color="primary" class="note">{{item.cal}}</ion-note>
           </ion-item>
           
           <ion-item>
             <p style="padding-top: 4%; padding-bottom: 4%; font-size: 100%; text-align: justify;">{{item.defecto}}</p>
           </ion-item>
-  
+
           <ion-item style="border: 0px solid; width: 100%;">
-            <ion-segment class="calificacion">
-              <ion-segment-button class="buttonCal ion-activatable">
-                <ion-label style="font-size: 70%;">Cumple</ion-label>
-                <ion-icon name="checkmark-circle"></ion-icon>
-                <ion-ripple-effect></ion-ripple-effect>
-              </ion-segment-button>
-              <ion-segment-button class="buttonCal">
-                  <ion-label style="font-size: 70%;">No cumple</ion-label>
-                <ion-icon name="close-circle"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button class="buttonCal">
-                <ion-label style="font-size: 70%;">No aplica</ion-label>
-                <ion-icon name="remove-circle"></ion-icon>
+            <ion-segment  class="calificacion" [(ngModel)]="model[i].calificacion" name="check{{+i}}" (ionChcalificacionange)="segmentChanged($event)" required>
+              <ion-segment-button class="buttonCal" *ngFor="let calificacion of listaCalificacion" value="{{calificacion.value}}" checked>
+                <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
+                <ion-icon name="{{calificacion.icon}}"></ion-icon>
               </ion-segment-button>
             </ion-segment>
           </ion-item>
 
           <ion-item>      
-            <ion-label>Registro Fotográfico</ion-label>  
+            <ion-label>Registro Fotográfico</ion-label>
+            <ion-slides [options]="sliderConfig">
+              <ion-slide *ngFor="let imagen of model[i].fotografias">
+                <img [src]="imagen"/>
+              </ion-slide>
+            </ion-slides>
             <div style="border: 0px solid; height: 4em;">
               <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding-right: 5%;">
-                <ion-fab-button style="width: 40px; height: 40px;">
+                <ion-fab-button style="width: 40px; height: 40px;" (click)="loadCamera(i)">
                   <ion-icon name="camera"></ion-icon>
                 </ion-fab-button>
               </ion-fab>
@@ -69,35 +65,11 @@
           </ion-item>
 
           <ion-item>
-            <ion-label position="stacked">Observaciones</ion-label>
-            <ion-textarea></ion-textarea>
-          </ion-item>          
+            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
+            <ion-textarea [(ngModel)]="model[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
+          </ion-item>
         </ion-list>        
       </ion-card-content>
     </ion-card>
-    <!-- <span *ngFor="let item of datosProteccion.items; index as i">
-      <ion-card>
-        <ion-card-title>{{ item }}</ion-card-title>
-        <span *ngFor = "let tipo of datosProteccion.tipo">
-          <ion-card-subtitle>{{ tipo }}</ion-card-subtitle>
-            <span *ngFor= " let calificacion of calificacion" >
-        <ion-label>{{ calificacion.text }} </ion-label>
-        <ion-radio [value]="calificacion.value"></ion-radio>
-      </span>
-    </span>
-  
-    <ion-label> {{ detallesGenerales.titulo }} </ion-label>
-    <textArea [id]="dpobservaciones + i" [placeholder]="detallesGenerales.placeholder">  </textArea>
-    </ion-card>
-    </span>
-    <span *ngFor="let item of listasVerificacion"> 
-    <ion-button> {{ item.titulo }} </ion-button>
-    <ion-card *ngFor="let tarjeta of item.items">
-      <ion-card-title> {{ tarjeta.id}} </ion-card-title>
-      <ion-card-content>
-        <h1> {{ tarjeta.defecto }}</h1> </ion-card-content>
-        <ion-label>  {{ detallesGenerales.titulo }} </ion-label>
-        <textArea [placeholder]= "detallesGenerales.placeholder">  </textArea>
-      </ion-card>
-    </span> -->
-  </ion-content>
+  </form>
+</ion-content>
