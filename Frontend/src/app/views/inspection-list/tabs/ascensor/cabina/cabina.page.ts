@@ -24,10 +24,9 @@ export class CabinaPage implements OnInit {
   loaded = false;
   calificacion: any;
   sliderConfig = {
-    spaceBetween: 1,
+    spaceBetween: 10,
     centeredSlides: true,
-    slidesPerView: 1.6,
-    slideShadows: true
+    slidesPerView: 1.6
   };
 
   constructor(private storage: Storage,
@@ -77,11 +76,6 @@ export class CabinaPage implements OnInit {
   }
 
   public segmentChanged(event: any, index: any) {
-    // console.log(event.detail.value);
-    // let calificacion = event.detail.value;
-    // if (calificacion === 1) {
-      
-    // }
     // console.log('Evento capturado: ', event.detail.value);
     // let indice = event.detail.value;
     // indice = indice.split('-');
