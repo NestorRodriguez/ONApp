@@ -24,6 +24,7 @@ export class CabinaPage implements OnInit {
   loaded = false;
   calificacion: any;
   sliderConfig = {
+    initialSlide: 1,
     spaceBetween: 10,
     centeredSlides: true,
     slidesPerView: 1.6
@@ -92,7 +93,7 @@ export class CabinaPage implements OnInit {
   }
 
   async loadCamera(index: any) {
-    console.log('identificador: ', index);
+    // console.log('identificador: ', index);
     const options = {
       quality: 25,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -101,8 +102,11 @@ export class CabinaPage implements OnInit {
       correctOrientation: true,
       cameraDirection: this.camera.Direction.BACK,
     };
-    // this.model[index].fotografias.push('./../../../../../../assets/img/ascensor.gif');
-    this.model[index].fotografias.push('data:image/jpeg;base64,' + await this.camera.getPicture(options));
+    // this.model[index].fotografias.unshift('./../../../../../../assets/img/ascensor.gif');
+    // this.sliderConfig.initialSlide = this.model[index].fotografias.length;
+    this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
     console.log('Fotos: ', this.model[index].fotografias);
+    console.log('tamaño arreglo fotos: ', this.model[index].fotografias.length + 1);
+    console.log('sliderConfig', this.sliderConfig.initialSlide);
   }
 }
