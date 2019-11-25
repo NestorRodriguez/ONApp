@@ -1,6 +1,16 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>Datos iniciales</ion-title>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/equipment-menu']">
+                <ion-icon slot="icon-only" name="close"> </ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="secondary">
+            <ion-button [routerLink]="['/equipment-menu']">
+                <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-title">Datos iniciales</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -32,6 +42,10 @@
                                 <ion-select-option [value]="option">{{option}}</ion-select-option>
                               </span>
                         </ion-select>
+                        </ion-item>
+                        <ion-label>{{ datosbasicos.c_capacidadpersonas.titulo }}</ion-label>
+                        <ion-item>
+                            <ion-input [placeholder]="datosbasicos.c_capacidadpersonas.placeholder"></ion-input>
                         </ion-item>
                         <ion-label>{{ datosbasicos.c_capacidad.titulo }}</ion-label>
                         <ion-item>
@@ -71,11 +85,27 @@
             </ion-card>
         </ion-slide>
         <ion-slide>
-            <ion-card>
-                <ion-card-title>
-                    Card 2
-                </ion-card-title>
-            </ion-card>
+            <ion-grid>
+                <ion-row *ngFor="let item of datospreliminar; let i=index">
+                    <ion-card>
+                        <ion-card-content>
+                            <ion-list>
+                                <ion-item>
+                                    <p>{{item.text}}</p>
+                                </ion-item>
+                                <ion-item style="border: 0px solid; width: 100%;">
+                                    <ion-segment class="calificacion" (ionChange)="segmentChanged($event)">
+                                        <ion-segment-button class="buttonCal" *ngFor="let calificacion of listaCalificacion" name="prueba" value="{{i}}-{{calificacion.value}}" checked>
+                                            <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
+                                            <ion-icon name="remove-circle"></ion-icon>
+                                        </ion-segment-button>
+                                    </ion-segment>
+                                </ion-item>
+                            </ion-list>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-row>
+            </ion-grid>
         </ion-slide>
         <ion-slide>
             <ion-card>

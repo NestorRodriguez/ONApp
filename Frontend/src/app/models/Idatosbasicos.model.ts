@@ -8,6 +8,7 @@ export interface IdatosBasicos {
         type: string,
         options: []
     };
+    c_capacidadpersonas: Iinputs;
     c_capacidad: Iinputs;
     c_paradas: Iinputs;
     c_fecha: Iinputs;
