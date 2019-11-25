@@ -16,7 +16,7 @@
         <ion-title class="ion-title">Cabina</ion-title>
       </ion-toolbar>
     </ion-header>
-    <!-- <ion-button type = "submit">ok</ion-button> -->
+
     <ion-card *ngFor="let item of listaItems; let i=index">
       <ion-card-content>
         <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
@@ -50,9 +50,9 @@
 
           <ion-item>      
             <ion-label *ngIf="model[i].fotografias.length === 0" id="label+i">Registro Fotográfico</ion-label>
-            <ion-slides [options]="sliderConfig">
+            <ion-slides [options]="sliderConfig" style="padding-top: 4%; padding-bottom: 4%;">
               <ion-slide *ngFor="let imagen of model[i].fotografias">
-                <img [src]="imagen" style="width: 70%; height: 10em;"/>
+                <img [src]="imagen"/>
               </ion-slide>
             </ion-slides>
             <div style="border: 0px solid; height: 4em;">
