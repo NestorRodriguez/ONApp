@@ -14,6 +14,8 @@ export class InicioPage implements OnInit {
   datosbasicos: IdatosBasicos;
   listaObjects: any;
   dataLoaded: boolean;
+  datospreliminar: any[] = [];
+  listaCalificacion: any;
   // listaObjects: any;
 
   constructor(private storage: Storage,
@@ -40,10 +42,16 @@ export class InicioPage implements OnInit {
     this.listaObjects = await this.storageToJson.getJsonStorageObjects('menuascensores');
     this.datosbasicos = this.listaObjects.datos_basicos;
     this.dataLoaded = true;
+    this.datospreliminar = this.listaObjects.datos_preliminar;
+    this.listaCalificacion = this.listaObjects.calificacion;
     await loading.dismiss();
     } catch(error) {
       console.log(error);
     }
+  }
+
+  public segmentChanged(event: any) {
+    console.log('Evento capturado: ', event.detail);
   }
 
 }

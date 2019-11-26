@@ -22,6 +22,11 @@ export const collectionMock = {
             type: 'select',
             options: ['SCM', 'Hidráulico', 'Eléctrico']
         },
+        c_capacidadpersonas: {
+            titulo: 'CAPACIDAD DE PERSONAS',
+            placeholder: '',
+            type: 'number'
+        },
         c_capacidad: {
             titulo: 'CAPACIDAD (Kg)',
             placeholder: 'Capacidad',
@@ -72,17 +77,16 @@ export const collectionMock = {
         }
 
     },
-    datos_preliminar: {
-        item1: {
+    datos_preliminar: [{
             text: 'El ascensor a inspeccionar se encuentra libre de grasa, aceite, papel, elementos ajenos al ascensor, diferentes a los utilizados para el mantenimiento del mismo, que representen un riesgo para el inspector y todo personal que pueda participar en la inspección.'
         },
-        item2: {
+         {
             text: 'El personal que acompaña a la inspección cumple con los elementos de protección personal.'
         },
-        item3: {
+         {
             text: 'Existe llaves para ingreso al cuarto de máquinas y se encuentra presente el personal responsable del mantenimiento del ascensor para el acompañamiento; quien será responsable de efectuar las operaciones necesarias para la inspección.'
         }
-    },
+    ],
     datos_proteccion: {
         items: ['CASCO/BARBUQUEJO', 'BOTAS DIELÉCTRICAS', 'GUANTES', 'ARNÉS', 'ESLINGA', 'GAFAS', 'TAPA-OÍDOS'],
         tipo: ['INSPECTOR', 'EMPRESA MANTENIMIENTO']
