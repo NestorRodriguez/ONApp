@@ -1,22 +1,23 @@
-<ion-content>
-  <form *ngIf="loaded" (ngSubmit)="enviarData(formulario)" #formulario="ngForm">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-button [routerLink]="['/equipment-menu']">
-            <ion-icon slot="icon-only" name="close"> </ion-icon>
-          </ion-button>
-        </ion-buttons>
-        <ion-buttons slot="secondary">
-          <!-- <ion-button [routerLink]="['/equipment-menu']"> -->
-          <ion-button type="submit">
-            <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
-          </ion-button>
-        </ion-buttons>
-        <ion-title class="ion-title">Cabina</ion-title>
-      </ion-toolbar>
-    </ion-header>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/equipment-menu']">
+        <ion-icon slot="icon-only" name="close"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-button *ngIf="listCheck"  [routerLink]="['/equipment-menu']">
+        <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-title">Cabina</ion-title>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content>
+  <form *ngIf="loaded" (ngSubmit)="enviarData(formulario)" #formulario="ngForm">   
+    <!-- <ion-button type="submit"></ion-button> -->
+    <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button>
     <ion-card *ngFor="let item of listaItems; let i=index">
       <ion-card-content>
         <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
@@ -40,7 +41,7 @@
           </ion-item>
 
           <ion-item style="border: 0px solid; width: 100%;">
-            <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model[i].calificacion" name="check{{+i}}" (ionChcalificacionange)="segmentChanged($event, i)" required>
+            <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model[i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event, i)" required>
               <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" value="{{calificacion.value}}" checked>
                 <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
                 <ion-icon name="{{calificacion.icon}}"></ion-icon>

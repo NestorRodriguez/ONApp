@@ -18,11 +18,13 @@ export class CabinaPage implements OnInit {
   public listaCalificacion: any;
   public checkValue = 'dpobservaciones';
   public objectoObservacion: any;
+  public listCheck: boolean;
   listaVerificacion: any;
   listaObjects: any;
   model: any = [];
   loaded = false;
   calificacion: any;
+  cantidadChecks: any;
   sliderConfig = {
     spaceBetween: 10,
     centeredSlides: true,
@@ -76,14 +78,17 @@ export class CabinaPage implements OnInit {
   }
 
   public segmentChanged(event: any, index: any) {
-    // console.log('Evento capturado: ', event.detail.value);
-    // let indice = event.detail.value;
-    // indice = indice.split('-');
-    // const idx: number = indice[0];
-    // const calificacion: number = indice[1];
-    // this.model[idx].calificacion = calificacion;
-    // console.log(this.model);
-    // Buscar el indice de acuerdo al numero del value
+    let contador = 0;
+    for (const item of this.model) {
+      if (item.calificacion != null) {
+        contador++;
+      }
+    }
+    if (contador === 35) {
+      console.log('Items completos!');
+      this.listCheck = true;
+      // console.log('MODEL', this.model);
+    }
   }
 
   public enviarData(form: NgForm) {
@@ -104,5 +109,17 @@ export class CabinaPage implements OnInit {
     // this.model[index].fotografias.unshift('./../../../../../../assets/img/ascensor.gif');
     this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
     console.log('Fotos: ', this.model[index].fotografias);
+  }
+
+  // funcion para dejar valores de check por defecto
+  fillDataTest() {
+    for (const item of this.model) {
+      item.calificacion = Math.round(this.getRandomArbitrary(0, 2));
+
+    }
+  }
+
+  getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
   }
 }
