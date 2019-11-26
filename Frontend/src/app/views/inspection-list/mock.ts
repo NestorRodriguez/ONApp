@@ -85,7 +85,7 @@ export const collectionMock = {
     },
     datos_proteccion: {
         items: ['CASCO/BARBUQUEJO', 'BOTAS DIELÉCTRICAS', 'GUANTES', 'ARNÉS', 'ESLINGA', 'GAFAS', 'TAPA-OÍDOS'],
-        tipo: ['INSPECTOR', 'EMPRESA MANTENIMIENTO']
+        tipo: ['inspector', 'empresa']
     },
     elementos: {
         items: ['CANGURO PIERNA', 'CHALECO', 'CÁMARA FOTOGRÁFICA', 'DOCUMENTOS PARA LA INSPECCIÓN', 'TABLA SUJETA DOCUMENTOS', 'EQUIPOS E INSTRUMENTOS PARA LA INSPECCIÓN'],
