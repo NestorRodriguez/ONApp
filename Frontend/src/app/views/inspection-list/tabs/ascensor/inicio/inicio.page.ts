@@ -20,7 +20,13 @@ export class InicioPage implements OnInit {
   elementosProteccion: any[] = [];
   tipos: any;
   objectoObservacion: any;
-  
+  sliderConfig = {
+    spaceBetween: 50,
+    centeredSlides: true,
+    slidesPerView: 1
+  };
+  elementos: any;
+
   // listaObjects: any;
 
   constructor(private storage: Storage,
@@ -49,6 +55,7 @@ export class InicioPage implements OnInit {
         empresa: []
       }
     },
+    elementos: []
     // elementosInspector: [];
     };
 
@@ -72,6 +79,7 @@ export class InicioPage implements OnInit {
     this.dataLoaded = true;
     this.datospreliminar = this.listaObjects.datos_preliminar;
     this.elementosProteccion = this.listaObjects.datos_proteccion.items;
+    this.elementos = this.listaObjects.elementos.items;
     this.tipos = this.listaObjects.datos_proteccion.tipo;
     this.objectoObservacion = this.listaObjects.c_observaciones;
     for (const item of this.datospreliminar) {
@@ -88,6 +96,11 @@ export class InicioPage implements OnInit {
       this.model.elementosProteccion.datos_proteccion.empresa.push({
         calificacion: null,
       });
+    }
+    for( const item of this.elementos) {
+      this.model.elementos.push({
+        calificacion: null,
+      })
     }
     this.listaCalificacion = this.listaObjects.calificacion;
   } catch (error) {
