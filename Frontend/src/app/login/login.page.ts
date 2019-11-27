@@ -10,7 +10,6 @@ import { isNull } from 'util';
 import { QueriesService } from '../services/queries.service';
 import { UserdataService } from '../services/userdata.service';
 import { Network } from '@ionic-native/network/ngx';
-import { collectionMock } from '../views/inspection-menu/mock';
 import { LoadinitdataService } from '../services/loadinitdata.service';
 import { IAscensores} from '../models/IAscensores.model';
 import { NetworkService } from '../services/network.service';

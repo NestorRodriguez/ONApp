@@ -1,37 +1,31 @@
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button [defaultHref]="['/']"></ion-back-button>
-        </ion-buttons>
-        <ion-title class="ion-title">Menú Inspección</ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/equipment-menu']">
+        <ion-icon slot="icon-only" name="close"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/equipment-menu']">
+        <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-title">Cabina</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of data; let i=index">
+      <ion-label>Item {{ i + 1 }}</ion-label>
+    </ion-item>
+  </ion-list>
 
-    <span *ngFor="let item of datosProteccion.items; index as i">
-      <ion-card>
-        <ion-card-title>{{ item }}</ion-card-title>
-        <span *ngFor = "let tipo of datosProteccion.tipo">
-          <ion-card-subtitle>{{ tipo }}</ion-card-subtitle>
-            <span *ngFor= " let calificacion of calificacion" >
-        <ion-label>{{ calificacion.text }} </ion-label>
-        <ion-radio [value]="calificacion.value"></ion-radio>
-      </span>
-    </span>
-
-    <ion-label> {{ detallesGenerales.titulo }} </ion-label>
-    <textArea [id]="dpobservaciones + i" [placeholder]="detallesGenerales.placeholder">  </textArea>
-    </ion-card>
-    </span>
-    <span *ngFor="let item of listasVerificacion"> 
-    <ion-button> {{ item.titulo }} </ion-button>
-    <ion-card *ngFor="let tarjeta of item.items">
-      <ion-card-title> {{ tarjeta.id}} </ion-card-title>
-      <ion-card-content>
-        <h1> {{ tarjeta.defecto }}</h1> </ion-card-content>
-        <ion-label>  {{ detallesGenerales.titulo }} </ion-label>
-        <textArea [placeholder]= "detallesGenerales.placeholder">  </textArea>
-     </ion-card>
-  </span>
+  <ion-infinite-scroll threshold="150px" 
+                       (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      loadingText="Cargando...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

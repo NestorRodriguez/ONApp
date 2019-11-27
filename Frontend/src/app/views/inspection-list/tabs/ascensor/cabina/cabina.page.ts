@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 
@@ -12,6 +12,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./cabina.page.scss'],
 })
 export class CabinaPage implements OnInit {
+
+  // @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   public storageToJson: any;
   public listaItems: any;
@@ -30,6 +32,13 @@ export class CabinaPage implements OnInit {
     centeredSlides: true,
     slidesPerView: 1.6
   };
+
+  data: any[] = Array(20);
+
+  list: any[] = [];
+
+  contador = 2;
+  valorActual = 2;
 
   constructor(private storage: Storage,
               public loadingController: LoadingController,
@@ -64,6 +73,10 @@ export class CabinaPage implements OnInit {
         });
       }
 
+      for (let index = 0; index < 2; index++) {
+        this.list.push(this.listaItems[index]);
+      }
+
       this.listaObjects = await this.storageToJson.getJsonStorageObjects('menuascensores');
       console.log(this.listaObjects);
       this.listaCalificacion = this.listaObjects.calificacion;
@@ -75,6 +88,7 @@ export class CabinaPage implements OnInit {
     }
 
     console.log(this.listaItems);
+    console.log('list: ', this.list);
   }
 
   public segmentChanged(event: any, index: any) {
@@ -121,5 +135,45 @@ export class CabinaPage implements OnInit {
 
   getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
+  }
+
+  loadData(event) {
+    console.log('Cargando siguientes...');
+
+    const cantData = this.listaItems.length;
+
+    console.log('cantData: ', cantData);
+
+    setTimeout(() => {
+
+      if (this.contador === cantData) {
+        console.log('Entro al if!');
+        event.target.complete();
+        event.target.disabled = true;
+        return;
+      }
+
+      // this.list.push(this.listaItems[this.contador]);
+      this.addElement(this.contador);
+      this.contador += 5;
+
+      event.target.complete();
+
+      console.log('Nuevo List', this.list);
+      console.log('contador: ', this.contador);
+
+    }, 1000);
+  }
+
+  addElement(idx: any) {
+    const iterator = this.valorActual + idx;
+    for (let index = this.valorActual; index < iterator; index++) {
+      if (index < this.listaItems.length) {
+        this.list.push(this.listaItems[index]);
+      } else {
+        this.contador = this.listaItems.length - 5;
+      }
+    }
+    this.valorActual = iterator;
   }
 }
