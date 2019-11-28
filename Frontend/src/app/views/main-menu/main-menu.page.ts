@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { UserdataService } from 'src/app/services/userdata.service';
 import { Subscription } from 'rxjs';
-import { OnDestroy } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -22,10 +18,7 @@ export class MainMenuPage implements OnInit {
     slidesPerView: 1.6
   };
 
-  constructor( private auth: AngularFireAuth,
-               private router: Router,
-               private userData: UserdataService,
-               private localstorage: Storage) { }
+  constructor( private localstorage: Storage) { }
 
      async ngOnInit() {
       const user = await this.loadData();

@@ -21,9 +21,9 @@ export class InicioPage implements OnInit {
   tipos: any;
   objectoObservacion: any;
   sliderConfig = {
-    spaceBetween: 50,
+    spaceBetween: 162,
     centeredSlides: true,
-    slidesPerView: 1
+    slidesPerView: 1.6
   };
   elementos: any;
 

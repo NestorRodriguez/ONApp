@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, IterableDiffers } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
 import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
@@ -73,6 +73,7 @@ export class CabinaPage implements OnInit {
         });
       }
 
+      // Se agregan dos elemntos iniciales al arreglo que permite pintar las cards
       for (let index = 0; index < 2; index++) {
         this.list.push(this.listaItems[index]);
       }
@@ -142,12 +143,10 @@ export class CabinaPage implements OnInit {
 
     const cantData = this.listaItems.length;
 
-    console.log('cantData: ', cantData);
-
     setTimeout(() => {
 
       if (this.contador === cantData) {
-        console.log('Entro al if!');
+        console.log('Finalizo el infinite!');
         event.target.complete();
         event.target.disabled = true;
         return;
@@ -167,6 +166,7 @@ export class CabinaPage implements OnInit {
 
   addElement(idx: any) {
     const iterator = this.valorActual + idx;
+    console.log('iterator: ', iterator);
     for (let index = this.valorActual; index < iterator; index++) {
       if (index < this.listaItems.length) {
         this.list.push(this.listaItems[index]);
