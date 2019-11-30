@@ -122,6 +122,7 @@ export class CabinaPage implements OnInit {
       this.listCheck = true;
       // console.log('MODEL', this.model);
     }
+    console.log('contador', contador);
   }
 
   public enviarData(form: NgForm) {

@@ -3,6 +3,8 @@ import { LoadingController } from '@ionic/angular';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
 import { IdatosBasicos } from '../../../../../models/Idatosbasicos.model';
+import { isNull } from 'util';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-inicio',
@@ -17,15 +19,20 @@ export class InicioPage implements OnInit {
   datospreliminar: any[] = [];
   listaCalificacion: any;
   model: any;
+  model2: any;
   elementosProteccion: any[] = [];
   tipos: any;
   objectoObservacion: any;
+  listCheck: boolean;
   sliderConfig = {
     spaceBetween: 162,
     centeredSlides: true,
     slidesPerView: 1.6
   };
   elementos: any;
+  contador: number;
+  keysNull: number;
+  dataComplete: boolean;
 
   // listaObjects: any;
 
@@ -46,8 +53,8 @@ export class InicioPage implements OnInit {
     c_fechapuestaservicio: null,
     c_fechaultinspeccion: null,
     c_direccioncliente: null,
-    c_codigo: null,
-    c_consecutivo: null,
+    c_codigo: 'null',
+    c_consecutivo: 'null',
     datospreliminar: [],
     elementosProteccion: {
       datos_proteccion: {
@@ -58,6 +65,7 @@ export class InicioPage implements OnInit {
     elementos: []
     // elementosInspector: [];
     };
+    this.keysNull = 0;
 
   }
 
@@ -100,7 +108,7 @@ export class InicioPage implements OnInit {
     for( const item of this.elementos) {
       this.model.elementos.push({
         calificacion: null,
-      })
+      });
     }
     this.listaCalificacion = this.listaObjects.calificacion;
   } catch (error) {
@@ -110,15 +118,62 @@ export class InicioPage implements OnInit {
 }
 
   public segmentChanged(event: any) {
-    console.log('Evento capturado: ', event.detail);
+    console.log('Modelo', this.model);
+    let contador = 0;
+    for (const item of this.model.datospreliminar) {
+      if (item.calificacion != null) {
+        contador++;
+      }
+    }
+    for (const item1 of this.model.elementosProteccion.datos_proteccion.inspector) {
+        if (item1.calificacion != null) {
+          contador++;
+        }
+      }
+    for (const item2 of this.model.elementosProteccion.datos_proteccion.empresa) {
+          if (item2.calificacion != null) {
+            contador++;
+          }
+        }
+    for (const item3 of this.model.elementos) {
+          if (item3.calificacion != null) {
+            contador++;
+          }
+        }
+    
+    if ( contador === this.countLength()) {
+          this.listCheck = true;
+        }
+    // console.log('cantidad de keys ', Object.keys(this.model).length);
+    console.log('Evento capturado: ', contador);
+      // console.log('MODEL', this.model);
+    }
+
+    countLength() {
+      const total = this.datospreliminar.length + ( this.elementosProteccion.length * 2 ) + this.elementos.length;
+      console.log('TOTAL', total);
+      return total;
   }
 
-  enviarData(form: any){
+    enviarData(form: any) {
     console.log(form);
   }
-  mostrarData() {
-    
+    mostrarData() {
     console.log(this.model);
+  }
+
+  validateModel() {
+    this.keysNull = 0;
+    Object.values(this.model).forEach(element => {
+      if ( element === null || element === '' ) {
+         this.keysNull++;
+      }
+  });
+    if(this.keysNull === 0) {
+      this.dataComplete = true;
+    } else {
+      this.dataComplete = false;
+    }
   }
 
 }
