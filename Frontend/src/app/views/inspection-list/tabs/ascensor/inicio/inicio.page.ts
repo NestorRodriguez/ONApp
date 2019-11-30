@@ -54,8 +54,8 @@ export class InicioPage implements OnInit {
     c_fechapuestaservicio: null,
     c_fechaultinspeccion: null,
     c_direccioncliente: null,
-    c_codigo: 'null',
-    c_consecutivo: 'null',
+    c_codigo: null,
+    c_consecutivo: '1234',
     datospreliminar: [],
     elementosProteccion: {
       datos_proteccion: {
@@ -87,6 +87,7 @@ export class InicioPage implements OnInit {
     this.datosbasicos = this.listaObjects.datos_basicos;
     this.dataLoaded = true;
     this.datospreliminar = this.listaObjects.datos_preliminar;
+    this.model.c_codigo = this.datosbasicos.c_codigo.value;
     this.elementosProteccion = this.listaObjects.datos_proteccion.items;
     this.elementos = this.listaObjects.elementos.items;
     this.tipos = this.listaObjects.datos_proteccion.tipo;
@@ -170,7 +171,7 @@ export class InicioPage implements OnInit {
          this.keysNull++;
       }
   });
-    if(this.keysNull === 0) {
+    if (this.keysNull === 0) {
       this.dataComplete = true;
     } else {
       this.dataComplete = false;
