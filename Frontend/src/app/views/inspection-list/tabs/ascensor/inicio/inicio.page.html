@@ -1,103 +1,107 @@
-<ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-button [routerLink]="['/equipment-menu']">
-                <ion-icon slot="icon-only" name="close"> </ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-buttons slot="secondary">
-            <ion-button (click)="mostrarData()">
-                <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title class="ion-title">Datos iniciales</ion-title>
-    </ion-toolbar>
-</ion-header>
 <ion-content>
-    <form (ngSubmit)="enviarData(formulario)" #formulario="ngForm">
-        <ion-slides [options]="sliderConfig">
-            <ion-slide>
-                <ion-card>
-                    <ion-card-title>
-                        Datos básicos
-                    </ion-card-title>
-                    <ion-card-content>
-                        <ion-list>
-                            <span *ngIf="dataLoaded">
-                        <ion-label>{{ datosbasicos.c_cliente.titulo }}</ion-label>
-                        <ion-item>
-                            <ion-input  [(ngModel)]="model.c_cliente" name ="c_cliente" [placeholder]="datosbasicos.c_cliente.placeholder"></ion-input>
-                        </ion-item>
-                        <ion-label>{{ datosbasicos.c_equipo.titulo }}</ion-label>
-                        <ion-item>
-                            <ion-input [(ngModel)]="model.c_equipo" name ="c_equipo" [placeholder]="datosbasicos.c_equipo.placeholder"></ion-input>
-                        </ion-item>
-                        <ion-label>{{ datosbasicos.c_empresa.titulo }}</ion-label>
-                        <ion-item>
-                            <ion-input [(ngModel)]="model.c_empresa" name ="c_empresa" [placeholder]="datosbasicos.c_empresa.placeholder"></ion-input>
-                        </ion-item>
-                        <ion-label>{{ datosbasicos.c_tipoaccion.titulo }}</ion-label>
-                        <ion-item>
-                            <ion-select [placeholder]="datosbasicos.c_tipoaccion.placeholder"  [(ngModel)]="model.c_tipoaccion" name="c_tipoaccion">
-                                <span *ngFor="let option of datosbasicos.c_tipoaccion.options">
-                                <ion-select-option  [value]="option">{{option}}</ion-select-option>
-                              </span>
-                            </ion-select>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_capacidadpersonas.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-input [placeholder]="datosbasicos.c_capacidadpersonas.placeholder" [(ngModel)]="model.c_capacidadpersonas" name="c_capacidadpersonas"></ion-input>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_capacidad.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-input [placeholder]="datosbasicos.c_capacidad.placeholder" [(ngModel)]="model.c_capacidad" name="c_capacidad"></ion-input>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_paradas.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-input [placeholder]="datosbasicos.c_paradas.placeholder" [(ngModel)]="model.c_paradas" name="c_paradas"></ion-input>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_fecha.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-datetime [(ngModel)]="model.c_fecha" name="c_fecha"></ion-datetime>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_fechamto.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-datetime [(ngModel)]="model.c_fechamto" name="c_fechamto"></ion-datetime>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_fechapuestaservicio.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-datetime [(ngModel)]="model.c_fechapuestaservicio" name="c_fechapuestaservicio"></ion-datetime>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_fechaultinspeccion.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-datetime [(ngModel)]="model.c_fechaultinspeccion" name="c_fechaultinspeccion"></ion-datetime>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_direccioncliente.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-input [placeholder]="datosbasicos.c_direccioncliente.placeholder" [(ngModel)]="model.c_direccioncliente" name="c_direccioncliente"></ion-input>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_codigo.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-input [disabled]="datosbasicos.c_codigo.enabled" [(ngModel)]="model.c_codigo" name="c_codigo">{{datosbasicos.c_codigo.value}}</ion-input>
-                            </ion-item>
-                            <ion-label>{{ datosbasicos.c_consecutivo.titulo }}</ion-label>
-                            <ion-item>
-                                <ion-input [disabled]="datosbasicos.c_consecutivo.enabled" [(ngModel)]="model.c_consecutivo" name="c_consecutivo"></ion-input>
-                            </ion-item>
-                            </span>
-                        </ion-list>
-                    </ion-card-content>
-                </ion-card>
+    <div class="header">
+        <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+                <ion-button [routerLink]="['/equipment-menu']">
+                    <ion-icon slot="icon-only" name="close"> </ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-buttons slot="secondary">
+                <ion-button *ngIf="listCheck" (click)="mostrarData()">
+                    <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title class="ion-title"></ion-title>
+        </ion-toolbar>
+    </div>
+    <div class="content-slides">
+        <ion-slides [options]="sliderConfig" style="border: 0px solid blue; ">
+            <ion-slide style="border: 0px solid;">
+                <div style="width: 100%;">
+                    <ion-card class="card" style="border: 0px solid yellow;">
+                        <ion-card-content>
+                            <ion-card-header>
+                                <ion-card-title style="color: white;">Datos Básicos</ion-card-title>
+                            </ion-card-header>
+                            <div class="div-card-content-init">
+                                <ion-list>
+                                    <span *ngIf="dataLoaded">
+                                        <ion-label>{{ datosbasicos.c_cliente.titulo }}</ion-label>
+                                        <ion-item>
+                                            <ion-input  [(ngModel)]="model.c_cliente" name ="c_cliente" [placeholder]="datosbasicos.c_cliente.placeholder" (ionChange)="validateModel()"></ion-input>
+                                        </ion-item>
+                                        <ion-label>{{ datosbasicos.c_equipo.titulo }}</ion-label>
+                                        <ion-item>
+                                            <ion-input [(ngModel)]="model.c_equipo" name ="c_equipo" [placeholder]="datosbasicos.c_equipo.placeholder" (ionChange)="validateModel()"></ion-input>
+                                        </ion-item>
+                                        <ion-label>{{ datosbasicos.c_empresa.titulo }}</ion-label>
+                                        <ion-item>
+                                            <ion-input [(ngModel)]="model.c_empresa" name ="c_empresa" [placeholder]="datosbasicos.c_empresa.placeholder" (ionChange)="validateModel()"></ion-input>
+                                        </ion-item>
+                                        <ion-label>{{ datosbasicos.c_tipoaccion.titulo }}</ion-label>
+                                        <ion-item>
+                                        <ion-select [placeholder]="datosbasicos.c_tipoaccion.placeholder"  [(ngModel)]="model.c_tipoaccion" name="c_tipoaccion" (ionChange)="validateModel()">
+                                            <span *ngFor="let option of datosbasicos.c_tipoaccion.options">
+                                            <ion-select-option  [value]="option">{{option}}</ion-select-option>
+                                        </span>
+                                    </ion-select>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_capacidadpersonas.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-input [placeholder]="datosbasicos.c_capacidadpersonas.placeholder" [(ngModel)]="model.c_capacidadpersonas" name="c_capacidadpersonas" (ionChange)="validateModel()"></ion-input>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_capacidad.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-input [placeholder]="datosbasicos.c_capacidad.placeholder" [(ngModel)]="model.c_capacidad" name="c_capacidad" (ionChange)="validateModel()"></ion-input>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_paradas.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-input [placeholder]="datosbasicos.c_paradas.placeholder" [(ngModel)]="model.c_paradas" name="c_paradas" (ionChange)="validateModel()"></ion-input>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_fecha.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-datetime [(ngModel)]="model.c_fecha" name="c_fecha" (ionChange)="validateModel()"></ion-datetime>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_fechamto.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-datetime [(ngModel)]="model.c_fechamto" name="c_fechamto" (ionChange)="validateModel()"></ion-datetime>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_fechapuestaservicio.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-datetime [(ngModel)]="model.c_fechapuestaservicio" name="c_fechapuestaservicio" (ionChange)="validateModel()"></ion-datetime>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_fechaultinspeccion.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-datetime [(ngModel)]="model.c_fechaultinspeccion" name="c_fechaultinspeccion" (ionChange)="validateModel()"></ion-datetime>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_direccioncliente.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-input [placeholder]="datosbasicos.c_direccioncliente.placeholder" [(ngModel)]="model.c_direccioncliente" name="c_direccioncliente" (ionChange)="validateModel()"></ion-input>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_codigo.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-input [disabled]="datosbasicos.c_codigo.enabled" [(ngModel)]="model.c_codigo" name="c_codigo" (ionChange)="validateModel()">{{datosbasicos.c_codigo.value}}</ion-input>
+                                    </ion-item>
+                                    <ion-label>{{ datosbasicos.c_consecutivo.titulo }}</ion-label>
+                                    <ion-item>
+                                        <ion-input [disabled]="datosbasicos.c_consecutivo.enabled" [(ngModel)]="model.c_consecutivo" name="c_consecutivo" (ionChange)="validateModel()"></ion-input>
+                                    </ion-item>
+                                    </span>
+                                </ion-list>
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
             </ion-slide>
-            <ion-slide style="border: 1px solid red; padding: 10%;">
-                <ion-grid>
-                    <ion-row *ngFor="let item of datospreliminar; let i=index">
-                        <div style="width: 100%;">
-                            <ion-card>
-                                <ion-card-title *ngIf="i===0">
-                                    Evaluación preliminar
-                                </ion-card-title>
-                                <ion-card-content>
+            <ion-slide *ngIf="dataComplete" style="border: 0px solid;">
+                <div style="width: 100%;">
+                    <ion-card class="card" style="border: 0px solid yellow;">
+                        <ion-card-content>
+                            <ion-card-header>
+                                <ion-card-title style="color: white;">Evaluacion preliminar</ion-card-title>
+                            </ion-card-header>
+                            <span *ngFor="let item of datospreliminar; let i=index">
+                                <div *ngIf="i === 0"  class="div-card-content-init">
                                     <ion-list>
                                         <ion-item>
                                             <p>{{item.text}}</p>
@@ -115,57 +119,97 @@
                                             <ion-textarea [(ngModel)]="model.datospreliminar[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
                                         </ion-item>
                                     </ion-list>
-                                </ion-card-content>
-
-                            </ion-card>
-                        </div>
-                    </ion-row>
-                </ion-grid>
+                                </div>
+                                <div *ngIf="i != 0" class="div-card-content">
+                                    <ion-list>
+                                        <ion-item>
+                                            <p>{{item.text}}</p>
+                                        </ion-item>
+                                        <ion-item style="border: 0px solid; width: 100%;">
+                                            <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model.datospreliminar[i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event)" requierd>
+                                                <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" name="prueba" value="{{calificacion.value}}" checked>
+                                                    <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
+                                                    <ion-icon name="{{calificacion.icon}}"></ion-icon>
+                                                </ion-segment-button>
+                                            </ion-segment>
+                                        </ion-item>
+                                        <ion-item>
+                                            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
+                                            <ion-textarea [(ngModel)]="model.datospreliminar[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
+                                        </ion-item>
+                                    </ion-list>
+                                </div>
+                            </span>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
             </ion-slide>
-            <ion-slide>
-                <ion-grid>
-                    <ion-row *ngFor="let item of elementosProteccion; let i=index">
-                        <div style="width: 100%;">
-                            <ion-card>
-                                <ion-card-title *ngIf="i===0">
-                                    EPP
-                                </ion-card-title>
-                                <ion-card-content>
+            <ion-slide *ngIf="dataComplete" style="border: 0px solid;">
+                <div style="width: 100%;">
+                    <ion-card class="card" style="border: 0px solid yellow;">
+                        <ion-card-content>
+                            <ion-card-header style="padding-top: 1.8em;">
+                                <ion-card-title style="color: white;">Elementos de protección personal</ion-card-title>
+                            </ion-card-header>
+                            <span *ngFor="let item of elementosProteccion; let i=index">
+                                <div *ngIf="i === 0"  class="div-card-content-init">
                                     <ion-list>
                                         <ion-item>
                                             <ion-label>{{item}}</ion-label>
                                         </ion-item>
                                         <span *ngFor=" let tipo of tipos">
-                                    <ion-label >{{tipo | uppercase}}</ion-label>
-                                    <ion-item style="border: 0px solid; width: 100%;">
-                                        <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model.elementosProteccion.datos_proteccion[tipo][i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event)" requierd>
-                                            <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" name="prueba" value="{{calificacion.value}}" checked>
-                                                <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
-                                                <ion-icon name="{{calificacion.icon}}"></ion-icon>
-                                            </ion-segment-button>
-                                        </ion-segment>
-                                    </ion-item>
-                                </span>
-                                        <ion-item>
-                                            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
-                                            <ion-textarea [(ngModel)]="model.elementosProteccion.datos_proteccion.inspector[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
-                                        </ion-item>
-                                    </ion-list>
-                                </ion-card-content>
-                            </ion-card>
-                        </div>
-                    </ion-row>
-                </ion-grid>
-            </ion-slide>
-            <ion-slide>
-                <ion-grid>
-                    <ion-row *ngFor="let item of elementos; let i=index">
-                        <div style="width: 100%;">
-                            <ion-card>
-                                <ion-card-title *ngIf="i===0">
-                                    Elementos del inspector
-                                </ion-card-title>
-                                <ion-card-content>
+                                            <ion-label >{{tipo | uppercase}}</ion-label>
+                                            <ion-item style="border: 0px solid; width: 100%;">
+                                                <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model.elementosProteccion.datos_proteccion[tipo][i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event)" requierd>
+                                                    <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" name="prueba" value="{{calificacion.value}}" checked>
+                                                        <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
+                                                        <ion-icon name="{{calificacion.icon}}"></ion-icon>
+                                                    </ion-segment-button>
+                                                </ion-segment>
+                                            </ion-item>
+                                        </span>
+                            <ion-item>
+                                <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
+                                <ion-textarea [(ngModel)]="model.elementosProteccion.datos_proteccion.inspector[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
+                            </ion-item>
+                            </ion-list>
+                </div>
+                <div *ngIf="i != 0" class="div-card-content">
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>{{item}}</ion-label>
+                        </ion-item>
+                        <span *ngFor=" let tipo of tipos">
+                                            <ion-label >{{tipo | uppercase}}</ion-label>
+                                            <ion-item style="border: 0px solid; width: 100%;">
+                                                <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model.elementosProteccion.datos_proteccion[tipo][i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event)" requierd>
+                                                    <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" name="prueba" value="{{calificacion.value}}" checked>
+                                                        <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
+                                                        <ion-icon name="{{calificacion.icon}}"></ion-icon>
+                                                    </ion-segment-button>
+                                                </ion-segment>
+                                            </ion-item>
+                                        </span>
+                        <ion-item>
+                            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
+                            <ion-textarea [(ngModel)]="model.elementosProteccion.datos_proteccion.inspector[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                </span>
+                </ion-card-content>
+                </ion-card>
+    </div>
+    </ion-slide>
+    <ion-slide *ngIf="dataComplete" style="border: 0px solid;">
+        <div style="width: 100%;">
+            <ion-card class="card" style="border: 0px solid yellow;">
+                <ion-card-content>
+                    <ion-card-header>
+                        <ion-card-title style="color: white;">Elementos del inspector</ion-card-title>
+                    </ion-card-header>
+                    <span *ngFor="let item of elementos; let i=index">
+                                <div *ngIf="i === 0" class="div-card-content-init">
                                     <ion-list>
                                         <ion-item>
                                             <ion-label>{{item}}</ion-label>
@@ -178,14 +222,28 @@
                                                 </ion-segment-button>
                                             </ion-segment>
                                         </ion-item>
-
                                     </ion-list>
-                                </ion-card-content>
-                            </ion-card>
-                        </div>
-                    </ion-row>
-                </ion-grid>
-            </ion-slide>
-        </ion-slides>
-    </form>
+                                </div>
+                                <div *ngIf="i != 0" class="div-card-content">
+                                    <ion-list>
+                                        <ion-item>
+                                            <ion-label>{{item}}</ion-label>
+                                        </ion-item>
+                                        <ion-item style="border: 0px solid; width: 100%;">
+                                            <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model.elementos[i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event)" requierd>
+                                                <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" name="prueba" value="{{calificacion.value}}" checked>
+                                                    <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
+                                                    <ion-icon name="{{calificacion.icon}}"></ion-icon>
+                                                </ion-segment-button>
+                                            </ion-segment>
+                                        </ion-item>
+                                    </ion-list>
+                                </div>
+                            </span>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </ion-slide>
+    </ion-slides>
+    </div>
 </ion-content>
