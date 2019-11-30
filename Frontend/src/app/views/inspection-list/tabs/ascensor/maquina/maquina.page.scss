@@ -1,0 +1,40 @@
+ion-content{
+  --ion-background-color: #e8f9f8;
+}
+
+ion-card{
+  --ion-background-color: white;
+}
+
+ion-card-content{
+  background-color: white;
+}
+
+ion-label {
+  font-weight: bold;
+}
+
+.note{
+  font-size: 90%;
+}
+
+.buttonCal{
+  width: 0%;
+  --border-color:#d7d8da;
+  --border-style: solid;
+  --border-width: 1px;
+  --border-radius:	5px;
+  --color-checked: white;
+}
+
+.calificacion0{
+  --background-checked: #339900;
+}
+
+.calificacion1{
+  --background-checked: #cc3300;
+}
+
+.calificacion2{
+  --background-checked: #ffcc00;
+}
