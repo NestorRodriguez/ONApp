@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
+import { IonContent } from '@ionic/angular';
 
 
 @Component({
@@ -13,12 +14,13 @@ import { NgForm } from '@angular/forms';
 })
 export class FosoPage implements OnInit {
 
-  // @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  // ViewChild permite el manejo del DOM de los componentes de ionic
+  @ViewChild(IonContent, {static: false}) content: IonContent;
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
   public storageToJson: any;
   public listaItems: any;
   public listaCalificacion: any;
-  public checkValue = 'dpobservaciones';
   public objectoObservacion: any;
   public listCheck: boolean;
   listaVerificacion: any;
@@ -37,8 +39,8 @@ export class FosoPage implements OnInit {
 
   list: any[] = [];
 
-  contador = 2;
-  valorActual = 2;
+  public contador = 2;
+  public valorActual = 2;
 
   constructor(private storage: Storage,
               public loadingController: LoadingController,
@@ -47,6 +49,20 @@ export class FosoPage implements OnInit {
   ngOnInit() {
     this.presentLoading();
     this.calificacion = 'calificacion';
+  }
+
+  // Funcion que se ejecuta cuando se abandona la vista
+  ionViewDidLeave() {
+    console.log('Me fui!');
+    this.content.scrollToTop(); // Volver al top del html
+    this.infiniteScroll.disabled = false;
+    this.list = [];
+    this.contador = 2;
+    this.valorActual = 2;
+    // // Se agregan dos elemntos iniciales al arreglo que permite pintar las cards
+    for (let index = 0; index < 2; index++) {
+      this.list.push(this.listaItems[index]);
+    }
   }
 
   async presentLoading() {
@@ -84,6 +100,8 @@ export class FosoPage implements OnInit {
       this.objectoObservacion = this.listaObjects.c_observaciones;
       await loading.dismiss();
       this.loaded = true;
+
+      console.log('ngOnInit!', this.listaItems);
     } catch (error) {
       console.log(error);
     }
@@ -104,6 +122,7 @@ export class FosoPage implements OnInit {
       this.listCheck = true;
       // console.log('MODEL', this.model);
     }
+    console.log('contador', contador);
   }
 
   public enviarData(form: NgForm) {
@@ -130,7 +149,6 @@ export class FosoPage implements OnInit {
   fillDataTest() {
     for (const item of this.model) {
       item.calificacion = Math.round(this.getRandomArbitrary(0, 2));
-
     }
   }
 
@@ -161,7 +179,7 @@ export class FosoPage implements OnInit {
       console.log('Nuevo List', this.list);
       console.log('contador: ', this.contador);
 
-    }, 1000);
+    }, 10);
   }
 
   addElement(idx: any) {

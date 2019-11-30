@@ -33,6 +33,7 @@ export class InicioPage implements OnInit {
   contador: number;
   keysNull: number;
   dataComplete: boolean;
+  dataComplete1 = true;
 
   // listaObjects: any;
 
