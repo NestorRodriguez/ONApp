@@ -5,6 +5,7 @@ import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
+import { SaveInspectionService } from 'src/app/services/save-inspection.service';
 
 
 @Component({
@@ -42,9 +43,12 @@ export class CabinaPage implements OnInit {
   public contador = 2;
   public valorActual = 2;
 
+  public SaveInspectionJson: any;
+
   constructor(private storage: Storage,
               public loadingController: LoadingController,
-              private camera: Camera) { }
+              private camera: Camera,
+              private saveInspectionService: SaveInspectionService) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -194,5 +198,10 @@ export class CabinaPage implements OnInit {
       }
     }
     this.valorActual = iterator;
+  }
+
+  viewModel() {
+    console.log('Model cabina: ', this.model);
+    this.saveInspectionService.createModel('cabina', this.model);
   }
 }

@@ -1,6 +1,17 @@
 export class SaveInspectionJson {
-    collection: any;
-    public createModel( inicio: any, object1?: any, object2?: any, object3?: any, object4?: any, ) {
-        
+    collection = {
+        lista_verificacion: {
+            cabina: [],
+            maquina: [],
+            pozo: [],
+            foso: []
+        }
+    };
+
+    public createModel(idxCategoria: string, objeto: any) {
+        for (const item of objeto){
+            this.collection.lista_verificacion[idxCategoria].push(item);
+        }
+        console.log(this.collection);
     }
 }

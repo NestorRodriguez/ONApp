@@ -6,8 +6,8 @@
             </ion-button>
         </ion-buttons>
         <ion-buttons slot="secondary">
-            <ion-button *ngIf="listCheck" [routerLink]="['/equipment-menu']">
-                <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
+            <ion-button *ngIf="listCheck" (click)="viewModel()">
+              <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title class="ion-title">Cabina</ion-title>

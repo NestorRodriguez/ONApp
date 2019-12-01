@@ -5,6 +5,8 @@ import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
+import { SaveInspectionJson } from '../../../../../models/SaveInspectionJson';
+import { SaveInspectionService } from 'src/app/services/save-inspection.service';
 
 
 @Component({
@@ -42,9 +44,12 @@ export class FosoPage implements OnInit {
   public contador = 2;
   public valorActual = 2;
 
+  public SaveInspectionJson: any;
+
   constructor(private storage: Storage,
               public loadingController: LoadingController,
-              private camera: Camera) { }
+              private camera: Camera,
+              private saveInspectionService: SaveInspectionService) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -194,5 +199,11 @@ export class FosoPage implements OnInit {
       }
     }
     this.valorActual = iterator;
+  }
+
+  viewModel() {
+    this.SaveInspectionJson = new SaveInspectionJson();
+    console.log('Model foso: ', this.model);
+    this.saveInspectionService.createModel('foso', this.model);
   }
 }
