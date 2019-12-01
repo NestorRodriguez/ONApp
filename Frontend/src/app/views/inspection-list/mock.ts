@@ -93,6 +93,9 @@ export const collectionMock = {
     lista_verificacion: [
         {
             titulo: 'Cabina',
+            path: 'cabina',
+            tab: 'Cabina',
+            icon: 'today',
             items: [{
                     id: 1,
                     item: 6.11,
@@ -308,6 +311,9 @@ export const collectionMock = {
         },
         {
             titulo: 'Cuarto de máquinas y poleas',
+            path: 'maquina',
+            tab: 'Máquina',
+            icon: 'construct',
             items: [{
                     id: 36,
                     item: 6.10,
@@ -597,6 +603,9 @@ export const collectionMock = {
         {
 
             titulo: 'Revisión de Pozo',
+            path: 'pozo',
+            tab: 'Pozo',
+            icon: 'beaker',
             items: [
                 {
                     id: 83,
@@ -987,6 +996,9 @@ export const collectionMock = {
 
         {
             titulo: 'Foso',
+            path: 'foso',
+            tab: 'Foso',
+            icon: 'logo-buffer',
             items: [
                 {
                     id: 148,

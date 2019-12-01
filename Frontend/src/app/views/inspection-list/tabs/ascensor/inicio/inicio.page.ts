@@ -33,6 +33,10 @@ export class InicioPage implements OnInit {
   contador: number;
   keysNull: number;
   dataComplete: boolean;
+  dataComplete1 = true;
+  list: any[] = [];
+  public contadorList = 2;
+  public valorActual = 2;
 
   // listaObjects: any;
 
@@ -67,7 +71,45 @@ export class InicioPage implements OnInit {
     // elementosInspector: [];
     };
     this.keysNull = 0;
+  }
 
+  loadData(event) {
+    console.log('Cargando siguientes...');
+
+    const cantData = this.elementos.length;
+
+    setTimeout(() => {
+
+      if (this.contadorList === cantData) {
+        console.log('Finalizo el infinite!');
+        event.target.complete();
+        event.target.disabled = true;
+        return;
+      }
+
+      // this.list.push(this.listaItems[this.contador]);
+      this.addElement(this.contadorList);
+      this.contadorList += 5;
+
+      event.target.complete();
+
+      console.log('Nuevo List', this.list);
+      console.log('contadorList: ', this.contadorList);
+
+    }, 1000);
+  }
+
+  addElement(idx: any) {
+    const iterator = this.valorActual + idx;
+    console.log('iterator: ', iterator);
+    for (let index = this.valorActual; index < iterator; index++) {
+      if (index < this.elementos.length) {
+        this.list.push(this.elementos[index]);
+      } else {
+        this.contadorList = this.elementos.length - 5;
+      }
+    }
+    this.valorActual = iterator;
   }
 
   async presentLoading() {
@@ -83,41 +125,41 @@ export class InicioPage implements OnInit {
 
     this.storageToJson = new StorageToJson(this.storage);
     try {
-    this.listaObjects = await this.storageToJson.getJsonStorageObjects('menuascensores');
-    this.datosbasicos = this.listaObjects.datos_basicos;
-    this.dataLoaded = true;
-    this.datospreliminar = this.listaObjects.datos_preliminar;
-    this.model.c_codigo = this.datosbasicos.c_codigo.value;
-    this.elementosProteccion = this.listaObjects.datos_proteccion.items;
-    this.elementos = this.listaObjects.elementos.items;
-    this.tipos = this.listaObjects.datos_proteccion.tipo;
-    this.objectoObservacion = this.listaObjects.c_observaciones;
-    for (const item of this.datospreliminar) {
-      this.model.datospreliminar.push({
-        calificacion: null,
-        observacion: null,
-      });
+      this.listaObjects = await this.storageToJson.getJsonStorageObjects('menuascensores');
+      this.datosbasicos = this.listaObjects.datos_basicos;
+      this.dataLoaded = true;
+      this.datospreliminar = this.listaObjects.datos_preliminar;
+      this.model.c_codigo = this.datosbasicos.c_codigo.value;
+      this.elementosProteccion = this.listaObjects.datos_proteccion.items;
+      this.elementos = this.listaObjects.elementos.items;
+      this.tipos = this.listaObjects.datos_proteccion.tipo;
+      this.objectoObservacion = this.listaObjects.c_observaciones;
+      for (const item of this.datospreliminar) {
+        this.model.datospreliminar.push({
+          calificacion: null,
+          observacion: null,
+        });
+      }
+      for ( const item of this.elementosProteccion) {
+        this.model.elementosProteccion.datos_proteccion.inspector.push({
+          calificacion: null,
+          observacion: null,
+        });
+        this.model.elementosProteccion.datos_proteccion.empresa.push({
+          calificacion: null,
+        });
+      }
+      for ( const item of this.elementos) {
+        this.model.elementos.push({
+          calificacion: null,
+        });
+      }
+      this.listaCalificacion = this.listaObjects.calificacion;
+    } catch (error) {
+      console.log(error);
     }
-    for( const item of this.elementosProteccion) {
-      this.model.elementosProteccion.datos_proteccion.inspector.push({
-        calificacion: null,
-        observacion: null,
-      });
-      this.model.elementosProteccion.datos_proteccion.empresa.push({
-        calificacion: null,
-      });
-    }
-    for( const item of this.elementos) {
-      this.model.elementos.push({
-        calificacion: null,
-      });
-    }
-    this.listaCalificacion = this.listaObjects.calificacion;
-  } catch (error) {
-    console.log(error);
-  }
     await loading.dismiss();
-}
+  }
 
   public segmentChanged(event: any) {
     console.log('Modelo', this.model);

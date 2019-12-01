@@ -10,14 +10,14 @@
         <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-title">Cabina</ion-title>
+    <ion-title class="ion-title">Pozo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form *ngIf="loaded" (ngSubmit)="enviarData(formulario)" #formulario="ngForm">   
     <!-- <ion-button type="submit"></ion-button> -->
-    <!-- <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button> -->
+    <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button>
     <ion-card *ngFor="let item of list; let i=index">
       <ion-card-content>
         <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
