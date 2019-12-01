@@ -189,13 +189,12 @@ validateClick(e: Event) {
       });
       await loading.present();
 
-      this.login(form).then( async () => {
+      await this.login(form);
 
-        await loading.dismiss();
+      await loading.dismiss();
 
-      });
+      };
 
     }
 
-  }
 
