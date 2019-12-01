@@ -47,6 +47,7 @@ export class InicioPage implements OnInit {
     c_empresa: null,
     c_tipoaccion: null,
     c_capacidad: null,
+    c_capacidadpersonas: null,
     c_paradas: null,
     c_fecha: null,
     c_fechamto: null,
@@ -141,7 +142,6 @@ export class InicioPage implements OnInit {
             contador++;
           }
         }
-    
     if ( contador === this.countLength()) {
           this.listCheck = true;
         }
@@ -177,4 +177,36 @@ export class InicioPage implements OnInit {
     }
   }
 
+  fillDataTest() {
+    
+      this.model.c_cliente = 'Edificio Av Chile';
+      this.model.c_equipo = 'Ascensor 16';
+      this.model.c_empresa = 'MTS';
+      this.model.c_tipoaccion = 'Hidráulico';
+      this.model.c_capacidad = '10';
+      this.model.c_capacidadpersonas = '1200';
+      this.model.c_paradas = '22';
+      this.model.c_fecha = '';
+      this.model.c_fechamto = '2019-12-01T09:23:21.037-05:00';
+      this.model.c_fechapuestaservicio = '2018-12-01T09:23:21.037-05:00';
+      this.model.c_fechaultinspeccion = '2018-08-01T09:23:21.037-05:00';
+      this.model.c_direccioncliente = 'Cra 7 # 71 - 21';
+      this.model.c_codigo = 'IN-R-08';
+      this.model.c_consecutivo = '1234';
+      for (const item of this.model.datospreliminar) {
+        item.calificacion = Math.round(this.getRandomArbitrary(0, 2));
+      }
+      for (const item of this.model.elementosProteccion.datos_proteccion.inspector) {
+        item.calificacion = Math.round(this.getRandomArbitrary(0, 2));
+      }
+      for (const item of this.model.elementosProteccion.datos_proteccion.empresa) {
+        item.calificacion = Math.round(this.getRandomArbitrary(0, 2));
+      }
+      for (const item of this.model.elementos) {
+        item.calificacion = Math.round(this.getRandomArbitrary(0, 2));
+      }
+}
+    getRandomArbitrary(min, max) {
+      return Math.random() * (max - min) + min;
+    }
 }
