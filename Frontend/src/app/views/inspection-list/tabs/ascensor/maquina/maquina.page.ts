@@ -117,7 +117,7 @@ export class MaquinaPage implements OnInit {
         contador++;
       }
     }
-    if (contador === 35) {
+    if (contador === this.listaItems.length) {
       console.log('Items completos!');
       this.listCheck = true;
       // console.log('MODEL', this.model);
@@ -132,6 +132,7 @@ export class MaquinaPage implements OnInit {
 
   async loadCamera(index: any) {
     // console.log('identificador: ', index);
+    const imageList = ['puerta_electrica.png', 'ascensor.gif', 'inspector.png'];
     const options = {
       quality: 25,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -140,8 +141,8 @@ export class MaquinaPage implements OnInit {
       correctOrientation: true,
       cameraDirection: this.camera.Direction.BACK,
     };
-    // this.model[index].fotografias.unshift('./../../../../../../assets/img/ascensor.gif');
-    this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
+    this.model[index].fotografias.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
+    // this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
     console.log('Fotos: ', this.model[index].fotografias);
   }
 

@@ -139,8 +139,9 @@
                                         </ion-item>
                                     </ion-list>
                                 </div>
-                            </span>
+                            </span>                            
                         </ion-card-content>
+                        
                     </ion-card>
                 </div>
             </ion-slide>
@@ -168,18 +169,18 @@
                                                 </ion-segment>
                                             </ion-item>
                                         </span>
-                            <ion-item>
-                                <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
-                                <ion-textarea [(ngModel)]="model.elementosProteccion.datos_proteccion.inspector[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
-                            </ion-item>
-                            </ion-list>
-                </div>
-                <div *ngIf="i != 0" class="div-card-content">
-                    <ion-list>
-                        <ion-item>
-                            <ion-label>{{item}}</ion-label>
-                        </ion-item>
-                        <span *ngFor=" let tipo of tipos">
+                                        <ion-item>
+                                            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
+                                            <ion-textarea [(ngModel)]="model.elementosProteccion.datos_proteccion.inspector[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
+                                        </ion-item>
+                                    </ion-list>
+                                </div>
+                                <div *ngIf="i != 0" class="div-card-content">
+                                    <ion-list>
+                                        <ion-item>
+                                            <ion-label>{{item}}</ion-label>
+                                        </ion-item>
+                                        <span *ngFor=" let tipo of tipos">
                                             <ion-label >{{tipo | uppercase}}</ion-label>
                                             <ion-item style="border: 0px solid; width: 100%;">
                                                 <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model.elementosProteccion.datos_proteccion[tipo][i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event)" requierd>
@@ -190,25 +191,30 @@
                                                 </ion-segment>
                                             </ion-item>
                                         </span>
-                        <ion-item>
-                            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
-                            <ion-textarea [(ngModel)]="model.elementosProteccion.datos_proteccion.inspector[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
-                        </ion-item>
-                    </ion-list>
+                                        <ion-item>
+                                            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
+                                            <ion-textarea [(ngModel)]="model.elementosProteccion.datos_proteccion.inspector[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
+                                        </ion-item>
+                                    </ion-list>
+                                </div>
+                            </span>
+                            <!-- <ion-infinite-scroll threshold="150px" (ionInfinite)="loadData($event)">
+                                <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando...">
+                                </ion-infinite-scroll-content>
+                            </ion-infinite-scroll> -->
+                        </ion-card-content>
+                    <!-- </ion-content> para que funque el infinite scroll cambiar por esto -->
+                    </ion-card>
                 </div>
-                </span>
-                </ion-card-content>
-                </ion-card>
-    </div>
-    </ion-slide>
-    <ion-slide *ngIf="dataComplete" style="border: 0px solid;">
-        <div style="width: 100%;">
-            <ion-card class="card" style="border: 0px solid yellow;">
-                <ion-card-content>
-                    <ion-card-header>
-                        <ion-card-title style="color: white;">Elementos del inspector</ion-card-title>
-                    </ion-card-header>
-                    <span *ngFor="let item of elementos; let i=index">
+            </ion-slide>
+            <ion-slide *ngIf="dataComplete" style="border: 0px solid;">
+                <div style="width: 100%;">
+                    <ion-card class="card" style="border: 0px solid yellow;">
+                        <ion-card-content>
+                            <ion-card-header>
+                                <ion-card-title style="color: white;">Elementos del inspector</ion-card-title>
+                            </ion-card-header>
+                            <span *ngFor="let item of elementos; let i=index">
                                 <div *ngIf="i === 0" class="div-card-content-init">
                                     <ion-list>
                                         <ion-item>
@@ -240,10 +246,10 @@
                                     </ion-list>
                                 </div>
                             </span>
-                </ion-card-content>
-            </ion-card>
-        </div>
-    </ion-slide>
-    </ion-slides>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+            </ion-slide>
+        </ion-slides>
     </div>
 </ion-content>
