@@ -193,7 +193,7 @@ validateClick(e: Event) {
 
       await loading.dismiss();
 
-      };
+      }
 
     }
 

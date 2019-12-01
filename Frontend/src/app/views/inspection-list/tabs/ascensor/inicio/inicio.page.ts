@@ -220,7 +220,7 @@ export class InicioPage implements OnInit {
   }
 
   fillDataTest() {
-    
+
       this.model.c_cliente = 'Edificio Av Chile';
       this.model.c_equipo = 'Ascensor 16';
       this.model.c_empresa = 'MTS';
@@ -247,6 +247,7 @@ export class InicioPage implements OnInit {
       for (const item of this.model.elementos) {
         item.calificacion = Math.round(this.getRandomArbitrary(0, 2));
       }
+      this.listCheck = true;
 }
     getRandomArbitrary(min, max) {
       return Math.random() * (max - min) + min;
