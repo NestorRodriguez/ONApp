@@ -17,8 +17,9 @@ export class SaveInspectionService {
   constructor() { }
 
   public createModel(idxCategoria: string, objeto: any) {
+    this.collection.lista_verificacion[idxCategoria] = [];
     for (const item of objeto){
-        this.collection.lista_verificacion[idxCategoria].push(item);
+      this.collection.lista_verificacion[idxCategoria].push(item);
     }
     console.log('Collection', this.collection);
   }
