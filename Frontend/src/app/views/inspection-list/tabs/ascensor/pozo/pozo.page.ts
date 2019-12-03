@@ -202,6 +202,10 @@ export class PozoPage implements OnInit {
 
   viewModel() {
     console.log('Model pozo: ', this.model);
-    this.saveInspectionService.createModel('pozo', this.model);
+    const save = this.saveInspectionService.createModel('pozo', this.model);
+    if (save) {
+      
+    }
+
   }
 }

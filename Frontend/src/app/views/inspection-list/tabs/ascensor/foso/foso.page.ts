@@ -204,6 +204,9 @@ export class FosoPage implements OnInit {
   viewModel() {
     this.SaveInspectionJson = new SaveInspectionJson();
     console.log('Model foso: ', this.model);
-    this.saveInspectionService.createModel('foso', this.model);
+    const save = this.saveInspectionService.createModel('foso', this.model);
+    if (save) {
+      
+    }
   }
 }

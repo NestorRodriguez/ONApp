@@ -202,6 +202,9 @@ export class MaquinaPage implements OnInit {
 
   viewModel() {
     console.log('Model maquina: ', this.model);
-    this.saveInspectionService.createModel('maquina', this.model);
+    const save = this.saveInspectionService.createModel('maquina', this.model);
+    if (save) {
+      
+    }
   }
 }
