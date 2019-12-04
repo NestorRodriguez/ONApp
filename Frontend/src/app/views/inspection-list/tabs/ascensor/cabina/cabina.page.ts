@@ -202,6 +202,9 @@ export class CabinaPage implements OnInit {
 
   viewModel() {
     console.log('Model cabina: ', this.model);
-    this.saveInspectionService.createModel('cabina', this.model);
+    const save = this.saveInspectionService.createModel('cabina', this.model);
+    if (save) {
+      
+    }
   }
 }

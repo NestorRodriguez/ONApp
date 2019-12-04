@@ -3,8 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
 import { IdatosBasicos } from '../../../../../models/Idatosbasicos.model';
-import { isNull } from 'util';
-import { empty } from 'rxjs';
+import { SaveInspectionService } from 'src/app/services/save-inspection.service';
 
 @Component({
   selector: 'app-inicio',
@@ -41,7 +40,8 @@ export class InicioPage implements OnInit {
   // listaObjects: any;
 
   constructor(private storage: Storage,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController,
+              public saveInspectionService: SaveInspectionService) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -198,8 +198,13 @@ export class InicioPage implements OnInit {
       return total;
   }
 
-    enviarData(form: any) {
-    console.log(form);
+  enviarData() {
+    console.log('Model cabina: ', this.model);
+    const save = this.saveInspectionService.createModel('datos_basicos', this.model);
+    console.log('SAVE', save);
+    if (save) {
+     
+    }
   }
     mostrarData() {
     console.log(this.model);
