@@ -42,8 +42,8 @@ export class ModalObsFinalPage implements OnInit {
       correctOrientation: true,
       cameraDirection: this.camera.Direction.BACK,
     };
-    this.model.fotosFinal.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
-    // this.model.fotosFinal.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
+    // this.model.fotosFinal.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
+    this.model.fotosFinal.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
     console.log('Fotos: ', this.model.fotosFinal);
   }
 
