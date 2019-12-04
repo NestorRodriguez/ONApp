@@ -43,8 +43,6 @@ export class FosoPage implements OnInit {
   public contador = 2;
   public valorActual = 2;
 
-  public SaveInspectionJson: any;
-
   constructor(private storage: Storage,
               public loadingController: LoadingController,
               private camera: Camera,
@@ -201,7 +199,6 @@ export class FosoPage implements OnInit {
   }
 
   viewModel() {
-    this.SaveInspectionJson = new SaveInspectionJson();
     console.log('Model foso: ', this.model);
     const save = this.saveInspectionService.createModel('foso', this.model);
     if (save) {

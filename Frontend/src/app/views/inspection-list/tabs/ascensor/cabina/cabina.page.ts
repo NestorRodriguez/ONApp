@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, IterableDiffers } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
-import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
+import { LoadingController, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
+import { ModalObsFinalPage } from '../../modal-obs-final/modal-obs-final.page';
 
 
 @Component({
@@ -48,11 +49,25 @@ export class CabinaPage implements OnInit {
   constructor(private storage: Storage,
               public loadingController: LoadingController,
               private camera: Camera,
-              private saveInspectionService: SaveInspectionService) { }
+              private saveInspectionService: SaveInspectionService,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.presentLoading();
     this.calificacion = 'calificacion';
+  }
+
+  async loadModalObs() {
+    const modal = await this.modalCtrl.create({
+      component: ModalObsFinalPage,
+      componentProps: {}
+    });
+    await modal.present();
+    const {data: { ubicacion }} = await modal.onDidDismiss();
+    console.log(ubicacion);
+    // this.model.ubicacion = ubicacion;
+    // this.model.lat = ubicacion.lat;
+    // this.model.lng = ubicacion.lng;
   }
 
   // Funcion que se ejecuta cuando se abandona la vista
@@ -204,7 +219,7 @@ export class CabinaPage implements OnInit {
     console.log('Model cabina: ', this.model);
     const save = this.saveInspectionService.createModel('cabina', this.model);
     if (save) {
-      
+
     }
   }
 }

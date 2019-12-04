@@ -15,7 +15,7 @@ export class ModalObsFinalPage implements OnInit {
 
   closeModal() {
     this.modalCtrl.dismiss({
-      // ubicacion: {lat: this.lat, lng: this.lng}
+      ubicacion: {lat: '0', lng: '1'}
     });
   }
 
