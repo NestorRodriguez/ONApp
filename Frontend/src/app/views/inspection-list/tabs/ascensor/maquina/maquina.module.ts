@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { MaquinaPage } from './maquina.page';
 import {Camera} from '@ionic-native/camera/ngx';
+import { ModalObsFinalPage } from '../../modal-obs-final/modal-obs-final.page';
+import { ModalObsFinalPageModule } from '../../modal-obs-final/modal-obs-final.module';
 
 const routes: Routes = [
   {
@@ -16,11 +18,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    ModalObsFinalPage,
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ModalObsFinalPageModule
   ],
   providers: [
     Camera,

@@ -48,6 +48,7 @@ export class SaveInspectionService {
     if ( Object.values(this.collection.datos_basicos) && this.contador === this.listaLongitud ) {
       this.dataCompleted = true;
     }
+    console.log('arrayInspecciones: ', this.collection);
     return this.dataCompleted;
   }
 

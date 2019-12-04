@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, IterableDiffers } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
-import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
+import { LoadingController, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
+import { ModalObsFinalPage } from '../../modal-obs-final/modal-obs-final.page';
 
 
 @Component({
@@ -43,10 +44,13 @@ export class FosoPage implements OnInit {
   public contador = 2;
   public valorActual = 2;
 
+  public SaveInspectionJson: any;
+
   constructor(private storage: Storage,
               public loadingController: LoadingController,
               private camera: Camera,
-              private saveInspectionService: SaveInspectionService) { }
+              private saveInspectionService: SaveInspectionService,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -143,8 +147,8 @@ export class FosoPage implements OnInit {
       correctOrientation: true,
       cameraDirection: this.camera.Direction.BACK,
     };
-    // this.model[index].fotografias.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
-    this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
+    this.model[index].fotografias.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
+    // this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
     console.log('Fotos: ', this.model[index].fotografias);
   }
 
@@ -198,11 +202,21 @@ export class FosoPage implements OnInit {
     this.valorActual = iterator;
   }
 
-  viewModel() {
+  async viewModel() {
     console.log('Model foso: ', this.model);
     const save = this.saveInspectionService.createModel('foso', this.model);
+    console.log('SAVE: ', save);
     if (save) {
-      
+      this.loadModalObs();
     }
+  }
+
+  async loadModalObs() {
+    const modal = await this.modalCtrl.create({
+      component: ModalObsFinalPage,
+      componentProps: {}
+    });
+    await modal.present();
+    await modal.onDidDismiss();
   }
 }
