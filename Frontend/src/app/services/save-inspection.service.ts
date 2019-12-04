@@ -24,7 +24,7 @@ export class SaveInspectionService {
 
   constructor( private storage: Storage ) { }
 
-  public createModel(idxCategoria: string, objeto: any): boolean {
+  public async createModel(idxCategoria: string, objeto: any): Promise<boolean> {
     this.contador = 0;
     Object.values(this.collection.lista_verificacion).forEach( value => {
        if (value.length > 0) {
@@ -37,7 +37,7 @@ export class SaveInspectionService {
       this.collection.datos_basicos = objeto;
     } else  if ( idxCategoria === 'data_final' ) {
       this.collection[idxCategoria] = objeto;
-      this.saveToStorage();
+      await this.saveToStorage();
    } else {
       this.collection.lista_verificacion[idxCategoria] = [];
       for (const item of objeto) {
