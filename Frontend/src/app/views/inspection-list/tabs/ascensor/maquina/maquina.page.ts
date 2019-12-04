@@ -204,7 +204,7 @@ export class MaquinaPage implements OnInit {
 
   async viewModel() {
     console.log('Model maquina: ', this.model);
-    const save = this.saveInspectionService.createModel('maquina', this.model);
+    const save = await this.saveInspectionService.createModel('maquina', this.model);
     console.log('SAVE: ', save);
     if (save) {
       this.loadModalObs();

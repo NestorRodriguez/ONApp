@@ -204,7 +204,7 @@ export class CabinaPage implements OnInit {
 
   async viewModel() {
     console.log('Model cabina: ', this.model);
-    const save = this.saveInspectionService.createModel('cabina', this.model);
+    const save = await this.saveInspectionService.createModel('cabina', this.model);
     console.log('SAVE: ', save);
     if (save) {
       this.loadModalObs();

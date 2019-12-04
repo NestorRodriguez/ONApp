@@ -26,11 +26,7 @@ export class SaveInspectionService {
 
   public async createModel(idxCategoria: string, objeto: any): Promise<boolean> {
     this.contador = 0;
-    Object.values(this.collection.lista_verificacion).forEach( value => {
-       if (value.length > 0) {
-          this.contador ++;
-       }
-    });
+    
     if (idxCategoria === 'datos_basicos') {
       this.collection[idxCategoria] = null;
       console.log('categoria recibida', objeto);
@@ -38,14 +34,19 @@ export class SaveInspectionService {
     } else  if ( idxCategoria === 'data_final' ) {
       this.collection[idxCategoria] = objeto;
       await this.saveToStorage();
-   } else {
+    } else {
       this.collection.lista_verificacion[idxCategoria] = [];
       for (const item of objeto) {
         this.collection.lista_verificacion[idxCategoria].push(item);
       }
     }
-
-    if ( Object.values(this.collection.datos_basicos) && this.contador === this.listaLongitud ) {
+    Object.values(this.collection.lista_verificacion).forEach( value => {
+      if (value.length > 0) {
+         this.contador ++;
+      }
+   });
+    console.log('contador', this.contador);
+    if ( Object.values(this.collection.datos_basicos).length > 0 && this.contador === this.listaLongitud ) {
       this.dataCompleted = true;
     }
     console.log('arrayInspecciones: ', this.collection);

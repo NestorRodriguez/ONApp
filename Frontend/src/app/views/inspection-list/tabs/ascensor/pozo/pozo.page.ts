@@ -204,7 +204,7 @@ export class PozoPage implements OnInit {
 
   async viewModel() {
     console.log('Model pozo: ', this.model);
-    const save = this.saveInspectionService.createModel('pozo', this.model);
+    const save = await this.saveInspectionService.createModel('pozo', this.model);
     console.log('SAVE: ', save);
     if (save) {
       this.loadModalObs();

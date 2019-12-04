@@ -200,9 +200,9 @@ export class InicioPage implements OnInit {
       return total;
   }
 
-  enviarData() {
+  async enviarData() {
     console.log('Model cabina: ', this.model);
-    const save = this.saveInspectionService.createModel('datos_basicos', this.model);
+    const save = await this.saveInspectionService.createModel('datos_basicos', this.model);
     console.log('SAVE', save);
     if (save) {
       this.loadModalObs();

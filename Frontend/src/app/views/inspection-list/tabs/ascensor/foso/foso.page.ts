@@ -204,7 +204,7 @@ export class FosoPage implements OnInit {
 
   async viewModel() {
     console.log('Model foso: ', this.model);
-    const save = this.saveInspectionService.createModel('foso', this.model);
+    const save = await this.saveInspectionService.createModel('foso', this.model);
     console.log('SAVE: ', save);
     if (save) {
       this.loadModalObs();
