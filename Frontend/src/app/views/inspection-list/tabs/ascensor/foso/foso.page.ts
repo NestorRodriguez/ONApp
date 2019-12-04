@@ -5,7 +5,6 @@ import { LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
-import { SaveInspectionJson } from '../../../../../models/SaveInspectionJson';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
 
 
