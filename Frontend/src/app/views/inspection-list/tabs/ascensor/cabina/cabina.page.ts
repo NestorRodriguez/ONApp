@@ -145,8 +145,8 @@ export class CabinaPage implements OnInit {
       correctOrientation: true,
       cameraDirection: this.camera.Direction.BACK,
     };
-    // this.model[index].fotografias.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
-    this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
+    this.model[index].fotografias.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
+    // this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
     console.log('Fotos: ', this.model[index].fotografias);
   }
 
