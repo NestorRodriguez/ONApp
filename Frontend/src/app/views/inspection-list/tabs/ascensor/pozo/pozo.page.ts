@@ -208,4 +208,12 @@ export class PozoPage implements OnInit {
     }
 
   }
+
+  dataFinish() {
+    const objeto = {
+      observaciones: 'pruebas',
+      fotos: ['asdf', 'qqwe'],
+    };
+    const finish = this.saveInspectionService.createModel('data_final', objeto);
+  }
 }

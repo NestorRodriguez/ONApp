@@ -1,84 +1,81 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-button [routerLink]="['/equipment-menu']">
-        <ion-icon slot="icon-only" name="close"> </ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="secondary">
-      <ion-button *ngIf="listCheck" (click)="viewModel()">
-        <ion-icon slot="icon-only" name="checkmark"> </ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="ion-title">Maquina</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/equipment-menu']">
+                <ion-icon slot="icon-only" name="close"> </ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="secondary">
+            <ion-button *ngIf="listCheck" (click)="viewModel()">
+                <ion-icon slot="icon-only" name="save"> </ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-title">Maquina</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form *ngIf="loaded" (ngSubmit)="enviarData(formulario)" #formulario="ngForm">   
-    <!-- <ion-button type="submit"></ion-button> -->
-    <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button>
-    <ion-card *ngFor="let item of list; let i=index">
-      <ion-card-content>
-        <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
-          <ion-item>
-            <ion-label>Número</ion-label>
-            <ion-note slot="end" color="primary" class="note">{{item.id}}</ion-note>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label>Item</ion-label>
-            <ion-note slot="end" color="primary" class="note">{{item.item}}</ion-note>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label>Calificación</ion-label>
-            <ion-note slot="end" color="primary" class="note">{{item.cal}}</ion-note>
-          </ion-item>
-          
-          <ion-item>
-            <p style="padding-top: 4%; padding-bottom: 4%; font-size: 100%; text-align: justify;">{{item.defecto}}</p>
-          </ion-item>
+    <form *ngIf="loaded" (ngSubmit)="enviarData(formulario)" #formulario="ngForm">
+        <!-- <ion-button type="submit"></ion-button> -->
+        <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button>
+        <ion-card *ngFor="let item of list; let i=index">
+            <ion-card-content>
+                <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
+                    <ion-item>
+                        <ion-label>Número</ion-label>
+                        <ion-note slot="end" color="primary" class="note">{{item.id}}</ion-note>
+                    </ion-item>
 
-          <ion-item style="border: 0px solid; width: 100%;">
-            <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model[i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event, i)" required>
-              <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" value="{{calificacion.value}}" checked>
-                <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
-                <ion-icon name="{{calificacion.icon}}"></ion-icon>
-              </ion-segment-button>
-            </ion-segment>
-          </ion-item>
+                    <ion-item>
+                        <ion-label>Item</ion-label>
+                        <ion-note slot="end" color="primary" class="note">{{item.item}}</ion-note>
+                    </ion-item>
 
-          <ion-item>      
-            <ion-label *ngIf="model[i].fotografias.length === 0" id="label+i">Registro Fotográfico</ion-label>
-            <ion-slides [options]="sliderConfig" style="padding-top: 4%; padding-bottom: 4%;">
-              <ion-slide *ngFor="let imagen of model[i].fotografias">
-                <img [src]="imagen"/>
-              </ion-slide>
-            </ion-slides>
-            <div style="border: 0px solid; height: 4em;">
-              <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding-right: 5%;">
-                <ion-fab-button style="width: 40px; height: 40px;" (click)="loadCamera(i)">
-                  <ion-icon name="camera"></ion-icon>
-                </ion-fab-button>
-              </ion-fab>
-            </div>
-          </ion-item>
+                    <ion-item>
+                        <ion-label>Calificación</ion-label>
+                        <ion-note slot="end" color="primary" class="note">{{item.cal}}</ion-note>
+                    </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
-            <ion-textarea [(ngModel)]="model[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
-          </ion-item>
-        </ion-list>        
-      </ion-card-content>
-    </ion-card>
-  </form>
+                    <ion-item>
+                        <p style="padding-top: 4%; padding-bottom: 4%; font-size: 100%; text-align: justify;">{{item.defecto}}</p>
+                    </ion-item>
 
-  <ion-infinite-scroll threshold="150px" 
-                       (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="crescent"
-      loadingText="Cargando...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+                    <ion-item style="border: 0px solid; width: 100%;">
+                        <ion-segment style="padding-top: 4%; padding-bottom: 4%;" [(ngModel)]="model[i].calificacion" name="check{{+i}}" (ionChange)="segmentChanged($event, i)" required>
+                            <ion-segment-button class="buttonCal calificacion{{calificacion.value}}" *ngFor="let calificacion of listaCalificacion" value="{{calificacion.value}}" checked>
+                                <ion-label style="font-size: 70%;">{{calificacion.text}}</ion-label>
+                                <ion-icon name="{{calificacion.icon}}"></ion-icon>
+                            </ion-segment-button>
+                        </ion-segment>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label *ngIf="model[i].fotografias.length === 0" id="label+i">Registro Fotográfico</ion-label>
+                        <ion-slides [options]="sliderConfig" style="padding-top: 4%; padding-bottom: 4%;">
+                            <ion-slide *ngFor="let imagen of model[i].fotografias">
+                                <img [src]="imagen" />
+                            </ion-slide>
+                        </ion-slides>
+                        <div style="border: 0px solid; height: 4em;">
+                            <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding-right: 5%;">
+                                <ion-fab-button style="width: 40px; height: 40px;" (click)="loadCamera(i)">
+                                    <ion-icon name="camera"></ion-icon>
+                                </ion-fab-button>
+                            </ion-fab>
+                        </div>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="stacked">{{objectoObservacion.titulo}}</ion-label>
+                        <ion-textarea [(ngModel)]="model[i].observacion" name="observacion{{+i}}" placeholder="{{objectoObservacion.placeholder}}"></ion-textarea>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </form>
+
+    <ion-infinite-scroll threshold="150px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
