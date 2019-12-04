@@ -61,7 +61,7 @@ export class ModalObsFinalPage implements OnInit {
     const result = this.returnHome();
     const save = this.saveInspectionService.createModel('data_final', this.model);
     if (save) {
-      this.modalCtrl.dismiss();
+      this.modalCtrl.dismiss(result);
     }
   }
 

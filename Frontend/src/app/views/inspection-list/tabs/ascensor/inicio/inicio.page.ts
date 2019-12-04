@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
 import { IdatosBasicos } from '../../../../../models/Idatosbasicos.model';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
+import { ModalObsFinalPage } from '../../modal-obs-final/modal-obs-final.page';
 
 @Component({
   selector: 'app-inicio',
@@ -41,7 +42,8 @@ export class InicioPage implements OnInit {
 
   constructor(private storage: Storage,
               public loadingController: LoadingController,
-              public saveInspectionService: SaveInspectionService) { }
+              public saveInspectionService: SaveInspectionService,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -203,11 +205,20 @@ export class InicioPage implements OnInit {
     const save = this.saveInspectionService.createModel('datos_basicos', this.model);
     console.log('SAVE', save);
     if (save) {
-     
+      this.loadModalObs();
     }
   }
     mostrarData() {
     console.log(this.model);
+  }
+
+  async loadModalObs() {
+    const modal = await this.modalCtrl.create({
+      component: ModalObsFinalPage,
+      componentProps: {}
+    });
+    await modal.present();
+    await modal.onDidDismiss();
   }
 
   validateModel() {
