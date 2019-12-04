@@ -57,19 +57,6 @@ export class CabinaPage implements OnInit {
     this.calificacion = 'calificacion';
   }
 
-  async loadModalObs() {
-    const modal = await this.modalCtrl.create({
-      component: ModalObsFinalPage,
-      componentProps: {}
-    });
-    await modal.present();
-    const {data: { ubicacion }} = await modal.onDidDismiss();
-    console.log(ubicacion);
-    // this.model.ubicacion = ubicacion;
-    // this.model.lat = ubicacion.lat;
-    // this.model.lng = ubicacion.lng;
-  }
-
   // Funcion que se ejecuta cuando se abandona la vista
   ionViewDidLeave() {
     console.log('Me fui!');
@@ -215,11 +202,21 @@ export class CabinaPage implements OnInit {
     this.valorActual = iterator;
   }
 
-  viewModel() {
+  async viewModel() {
     console.log('Model cabina: ', this.model);
     const save = this.saveInspectionService.createModel('cabina', this.model);
+    console.log('SAVE: ', save);
     if (save) {
-
+      this.loadModalObs();
     }
+  }
+
+  async loadModalObs() {
+    const modal = await this.modalCtrl.create({
+      component: ModalObsFinalPage,
+      componentProps: {}
+    });
+    await modal.present();
+    await modal.onDidDismiss();
   }
 }
