@@ -13,4 +13,11 @@ export class QueriesService {
      const result =  this.database.collection(collection, data => data.where(query.campo, query.condicion, query.valor)).valueChanges();
      return result;
     }
+
+    createInspection(data: any) {
+      data = JSON.stringify(data);
+      data = JSON.parse(data);
+      console.log('Voy a enviar esta coleccion', data);
+      return this.database.collection('inspecciones_ascensores').add(data);
+    }
 }

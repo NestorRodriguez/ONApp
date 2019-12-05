@@ -12,8 +12,7 @@ export class AuthService {
   private apiKey = 'AIzaSyC88QqO3nhYFlpiAphFzNmPCZWFwKLHH2Q';
 
   constructor( private authenticate: AngularFireAuth,
-               private database: AngularFirestore
-    ) { }
+               private database: AngularFirestore) { }
 
   logout() {
 
@@ -52,6 +51,7 @@ export class AuthService {
     return updateUser;
 
   }
+  
 
 
 }

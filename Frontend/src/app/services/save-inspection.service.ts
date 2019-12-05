@@ -21,6 +21,16 @@ export class SaveInspectionService {
     },
     data_final: null
   };
+  collectionEmpty = {
+    datos_basicos: {},
+    lista_verificacion: {
+      cabina: [],
+      maquina: [],
+      pozo: [],
+      foso: []
+    },
+    data_final: null
+  };
 
   constructor( private storage: Storage ) { }
 
@@ -63,5 +73,7 @@ export class SaveInspectionService {
     this.arrayInspecciones.unshift(this.collection);
     this.storage.set('inspecciones_ascensores', this.arrayInspecciones);
     }
+    this.collection = this.collectionEmpty;
+    this.dataCompleted = false;
   }
 }

@@ -6,7 +6,7 @@
             </ion-button>
         </ion-buttons>
         <ion-buttons slot="secondary">
-            <ion-button>
+            <ion-button (click)="uploadAllData()">
                 <ion-icon name="cloud-upload"></ion-icon>
             </ion-button>
         </ion-buttons>
@@ -23,7 +23,7 @@
         </ion-card-header>
         <ion-card-content>
             <ion-list>
-                <ion-item-sliding *ngFor="let inspeccion of inspecciones">
+                <ion-item-sliding *ngFor="let inspeccion of inspecciones; let i = index">
                     <ion-item>
                         <ion-label>
                             <h2>{{ inspeccion.datos_basicos.c_consecutivo }}</h2>
@@ -40,7 +40,7 @@
                 </ion-item-option> -->
                     </ion-item-options>
                     <ion-item-options side="end">
-                        <ion-item-option class="cloud">
+                        <ion-item-option (click)="uploadByItem(i)" class="cloud">
                             <ion-icon name="cloud-upload"></ion-icon>
                         </ion-item-option>
                     </ion-item-options>
