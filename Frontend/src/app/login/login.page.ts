@@ -108,11 +108,11 @@ export class LoginPage implements OnInit {
 
     async authenticateOnline() {
 
-      this.auth.login(this.usuario).then( async success => {
+      await this.auth.login(this.usuario).then( async success => {
         console.log('autenticando en linea');
         this.usuario.token = success.user.refreshToken;
         this.query.valor = this.usuario.email;
-        this.searchInDb();
+        await this.searchInDb();
         await this.loadInitData();
       })
       .catch( async (error) => {
