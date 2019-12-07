@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, Platform } from '@ionic/angular';
+import { ModalController, Platform, ToastController } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
@@ -22,7 +22,8 @@ export class ModalObsFinalPage implements OnInit {
   constructor(private modalCtrl: ModalController,
               private camera: Camera,
               private saveInspectionService: SaveInspectionService,
-              private router: Router) { }
+              private router: Router,
+              public toastController: ToastController) { }
 
   ngOnInit() {
     this.model = {
@@ -61,6 +62,8 @@ export class ModalObsFinalPage implements OnInit {
     const result = this.returnHome();
     const save = this.saveInspectionService.createModel('data_final', this.model);
     if (save) {
+      const mensaje = 'Inspección guardada con éxito!';
+      this.presentToast(mensaje);
       this.modalCtrl.dismiss(result);
     }
   }
@@ -71,6 +74,14 @@ export class ModalObsFinalPage implements OnInit {
 
   returnHome() {
     this.router.navigateByUrl('/main-menu');
+  }
+
+  async presentToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
