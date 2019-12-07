@@ -58,10 +58,6 @@ export class LoginPage implements OnInit {
               private network: Network,
               private networkService: NetworkService ) { }
 
-  ngOnDestroy(): void {
-    console.log('ngOnDestroy');
-  }
-
   ngOnInit() {
 
   }

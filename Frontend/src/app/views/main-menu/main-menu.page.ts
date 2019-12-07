@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { isNull } from 'util';
 import { MenuController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-menu',
@@ -23,7 +25,9 @@ export class MainMenuPage implements OnInit {
   countInspecciones = 0;
 
   constructor( private localstorage: Storage,
-               private menu: MenuController) { }
+               private menu: MenuController,
+               private authenticate: AngularFireAuth,
+               private router: Router) { }
 
   async ngOnInit() {
     const user = await this.loadData();
@@ -51,8 +55,12 @@ export class MainMenuPage implements OnInit {
     return user;
   }
 
-  closeMenu() {
-    this.menu.close();
+  async logOut() {
+    await this.authenticate.auth.signOut().then( () => {
+      this.localstorage.remove('userlogged');
+      this.menu.close();
+      this.router.navigateByUrl('/');
+    });
   }
 
 }

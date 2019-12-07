@@ -13,6 +13,7 @@ export class StorageInspectionsPage implements OnInit {
   dataLoaded: boolean;
   inspecciones: any[] = [];
   success: boolean;
+  isData: boolean;
   constructor( private storage: Storage,
                private serviceFirebase: QueriesService,
                public loadingController: LoadingController,
@@ -26,6 +27,9 @@ export class StorageInspectionsPage implements OnInit {
     this.storage.get('inspecciones_ascensores').then( data => {
       this.dataLoaded = true;
       this.inspecciones = data;
+      if (this.inspecciones.length > 0) {
+        this.isData = true;
+      }
     });
   }
 
@@ -95,8 +99,6 @@ export class StorageInspectionsPage implements OnInit {
 
     }
 
-
-
     async presentToast(mensaje: string) {
       const toast = await this.toastController.create({
         message: mensaje,
@@ -105,6 +107,5 @@ export class StorageInspectionsPage implements OnInit {
       toast.present();
     }
 
-    // console.log('Loading dismissed!');
   }
 

@@ -6,7 +6,7 @@
             </ion-button>
         </ion-buttons>
         <ion-buttons slot="secondary">
-            <ion-button (click)="uploadAllData()">
+            <ion-button *ngIf="isData" (click)="uploadAllData()">
                 <ion-icon name="cloud-upload"></ion-icon>
             </ion-button>
         </ion-buttons>
