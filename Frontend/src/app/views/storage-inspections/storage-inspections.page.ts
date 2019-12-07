@@ -14,6 +14,8 @@ export class StorageInspectionsPage implements OnInit {
   inspecciones: any[] = [];
   success: boolean;
   isData: boolean;
+  mensajeError: string;
+  mensajeSuccess: string;
   constructor( private storage: Storage,
                private serviceFirebase: QueriesService,
                public loadingController: LoadingController,
@@ -78,23 +80,22 @@ export class StorageInspectionsPage implements OnInit {
     await this.serviceFirebase.createInspection(this.inspecciones[id]).then( () => {
       this.inspecciones.splice(id, 1);
       this.storage.set('inspecciones_ascensores', this.inspecciones);
-      const mensajeSuccess = 'Guardado con éxito';
-      this.presentToast(mensajeSuccess);
+      this.mensajeSuccess = 'Guardado con éxito';
+      this.presentToast(this.mensajeSuccess);
       this.success = true;
     }, (error) => {
       this.success = false;
       console.log('Ocurrió un error al guardar la inspección', error);
-      const mensajeError = 'Ocurrió un error, inténtalo más tarde';
-      this.presentToast(mensajeError);
+      this.mensajeError = 'Ocurrió un error, inténtalo más tarde ' + error;
+      this.presentToast(this.mensajeError);
     });
       // console.log(this.jsonInspection);
     await loading.dismiss();
     if (this.success) {
-      const mensajeSuccess = 'Inspeccion guardada con éxito';
-      this.presentToast(mensajeSuccess);
+      this.presentToast(this.mensajeSuccess);
     } else {
-      const mensajeError = 'Ocurrió un error, inténtalo más tarde';
-      this.presentToast(mensajeError);
+      
+      this.presentToast(this.mensajeError);
     }
 
     }
