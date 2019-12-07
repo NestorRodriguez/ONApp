@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, IterableDiffers } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
-import { LoadingController, IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { LoadingController, IonInfiniteScroll, ModalController, ToastController } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
@@ -36,6 +36,7 @@ export class MaquinaPage implements OnInit {
     centeredSlides: true,
     slidesPerView: 1.6
   };
+  itemsCheck = 0;
 
   data: any[] = Array(20);
 
@@ -50,7 +51,8 @@ export class MaquinaPage implements OnInit {
               public loadingController: LoadingController,
               private camera: Camera,
               private saveInspectionService: SaveInspectionService,
-              private modalCtrl: ModalController) { }
+              private modalCtrl: ModalController,
+              public toastController: ToastController) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -65,7 +67,7 @@ export class MaquinaPage implements OnInit {
     this.list = [];
     this.contador = 2;
     this.valorActual = 2;
-    // // Se agregan dos elemntos iniciales al arreglo que permite pintar las cards
+    // // Se agregan dos elementos iniciales al arreglo que permite pintar las cards
     for (let index = 0; index < 2; index++) {
       this.list.push(this.listaItems[index]);
     }
@@ -117,18 +119,18 @@ export class MaquinaPage implements OnInit {
   }
 
   public segmentChanged(event: any, index: any) {
-    let contador = 0;
+    this.itemsCheck = 0;
     for (const item of this.model) {
       if (item.calificacion != null) {
-        contador++;
+        this.itemsCheck++;
       }
     }
-    if (contador === this.listaItems.length) {
+    if (this.itemsCheck === this.listaItems.length) {
       console.log('Items completos!');
       this.listCheck = true;
       // console.log('MODEL', this.model);
     }
-    console.log('contador', contador);
+    console.log('contador', this.itemsCheck);
   }
 
   public enviarData(form: NgForm) {
@@ -139,16 +141,20 @@ export class MaquinaPage implements OnInit {
   async loadCamera(index: any) {
     // console.log('identificador: ', index);
     const imageList = ['puerta_electrica.png', 'ascensor.gif', 'inspector.png'];
-    const options = {
-      quality: 25,
+    const options: CameraOptions = {
+      quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true,
-      cameraDirection: this.camera.Direction.BACK,
+      correctOrientation: true
     };
-    this.model[index].fotografias.unshift('./../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))]);
-    // this.model[index].fotografias.unshift('data:image/jpeg;base64,' + await this.camera.getPicture(options));
+    this.camera.getPicture(options).then((imageData) => {
+      this.model[index].fotografias.unshift('data:image/jpeg;base64,' + imageData);
+      this.SaveModel('Foto');
+     }, (err) => {
+      // Handle error
+      console.log('Error: ', err);
+     });
     console.log('Fotos: ', this.model[index].fotografias);
   }
 
@@ -176,8 +182,6 @@ export class MaquinaPage implements OnInit {
         event.target.disabled = true;
         return;
       }
-
-      // this.list.push(this.listaItems[this.contador]);
       this.addElement(this.contador);
       this.contador += 5;
 
@@ -202,10 +206,18 @@ export class MaquinaPage implements OnInit {
     this.valorActual = iterator;
   }
 
-  async viewModel() {
+  async SaveModel(ruta: string) {
     console.log('Model maquina: ', this.model);
     const save = await this.saveInspectionService.createModel('maquina', this.model);
     console.log('SAVE: ', save);
+    if (ruta === 'icon') {
+      const mensaje = 'Lista de verificación máquina guardada con éxito!';
+      this.presentToast(mensaje);
+      this.listCheck = false; // Desaparece el icono
+    } else {
+      const mensaje = 'Fotografía guardada con éxito!';
+      this.presentToast(mensaje);
+    }
     if (save) {
       this.loadModalObs();
     }
@@ -218,5 +230,13 @@ export class MaquinaPage implements OnInit {
     });
     await modal.present();
     await modal.onDidDismiss();
+  }
+
+  async presentToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000
+    });
+    toast.present();
   }
 }

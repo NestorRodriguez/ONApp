@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserModel } from '../models/user.model';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
@@ -44,6 +44,10 @@ export class LoginPage implements OnInit {
   conectado: any;
   desconectado: any;
   internet: boolean;
+  public load: any;
+  public db: any;
+
+
   constructor(private auth: AuthService,
               private router: Router,
               private loadingController: LoadingController,
@@ -53,8 +57,29 @@ export class LoginPage implements OnInit {
               private loadData: LoadinitdataService,
               private network: Network,
               private networkService: NetworkService ) { }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy');
+  }
+
   ngOnInit() {
 
+  }
+
+  ionViewDidLeave() {
+    if (this.load !== undefined) {
+      this.load.unsubscribe();
+    }
+    if (this.db !== undefined) {
+      this.db.unsubscribe();
+    }
+    console.log('Me fui!');
+  }
+
+  pruebas() {
+    // this.load.unsubscribe();
+    this.db.unsubscribe();
+    console.log('Me fui!');
   }
 
   // ionViewDidEnter() {
@@ -78,7 +103,7 @@ export class LoginPage implements OnInit {
   async loadInitData() {
     const getData = await  this.localStorage.get('menuascensores');
     if ( isNull(getData) ) {
-      this.loadData.downloadData().subscribe( data => {
+      this.load = this.loadData.downloadData().subscribe( data => {
         this.localStorage.set('menuascensores', data);
       }, ( (error) => {
         console.log('error descargando la colección de ascensores');
@@ -147,7 +172,7 @@ export class LoginPage implements OnInit {
 
   async searchInDb() {
       let userData: any;
-      this.database.queryCollection('users', this.query).subscribe( async (data) => {
+      this.db = this.database.queryCollection('users', this.query).subscribe( async (data) => {
         userData = data[0];
         this.usuario.nombre = userData.nombre;
         this.usuario.apellidos = userData.apellidos;
@@ -176,25 +201,23 @@ export class LoginPage implements OnInit {
     }
 
 validateClick(e: Event) {
-      this.userInvalid = false;
-    }
+  this.userInvalid = false;
+}
 
-    async presentLoading(form: NgForm) {
-      const loading = await this.loadingController.create({
-        spinner: 'crescent',
-        // duration: 3000,
-        message: 'Iniciando sesión...',
-        translucent: true,
-        // cssClass: 'custom-class custom-loading'
-      });
-      await loading.present();
+async presentLoading(form: NgForm) {
+  const loading = await this.loadingController.create({
+    spinner: 'crescent',
+    // duration: 3000,
+    message: 'Iniciando sesión...',
+    translucent: true,
+    // cssClass: 'custom-class custom-loading'
+  });
+  await loading.present();
 
-      await this.login(form);
+  await this.login(form);
 
-      await loading.dismiss();
+  await loading.dismiss();
 
-      }
+  }
 
-    }
-
-
+}

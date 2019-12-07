@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
 import { IdatosBasicos } from '../../../../../models/Idatosbasicos.model';
@@ -43,7 +43,8 @@ export class InicioPage implements OnInit {
   constructor(private storage: Storage,
               public loadingController: LoadingController,
               public saveInspectionService: SaveInspectionService,
-              private modalCtrl: ModalController) { }
+              private modalCtrl: ModalController,
+              public toastController: ToastController) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -204,6 +205,8 @@ export class InicioPage implements OnInit {
     console.log('Model cabina: ', this.model);
     const save = await this.saveInspectionService.createModel('datos_basicos', this.model);
     console.log('SAVE', save);
+    const mensaje = 'Datos iniciales guardados con éxito!';
+    this.presentToast(mensaje);
     if (save) {
       this.loadModalObs();
     }
@@ -233,6 +236,14 @@ export class InicioPage implements OnInit {
     } else {
       this.dataComplete = false;
     }
+  }
+
+  async presentToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000
+    });
+    toast.present();
   }
 
   fillDataTest() {

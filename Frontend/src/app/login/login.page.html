@@ -3,7 +3,6 @@
         <img src="../../assets/img/logo_OnApp.png" alt="Nature" class="responsive" width="500" height="300">
     </ion-title>
     <form (ngSubmit)="presentLoading(formulario)" #formulario="ngForm">
-
         <ion-list color="white">
             <ion-item background="white">
                 <ion-input class="loginInput" [(ngModel)]="usuario.email" minlength="6" required placeholder="Usuario" email name="email" autofocus (click)="validateClick($event)">

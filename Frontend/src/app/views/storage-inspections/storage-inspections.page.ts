@@ -20,8 +20,6 @@ export class StorageInspectionsPage implements OnInit {
 
   ngOnInit() {
     console.log('entre a la vista');
-   
-
   }
 
   ionViewDidEnter() {

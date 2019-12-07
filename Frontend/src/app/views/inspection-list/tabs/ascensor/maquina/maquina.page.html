@@ -6,18 +6,25 @@
             </ion-button>
         </ion-buttons>
         <ion-buttons slot="secondary">
-            <ion-button *ngIf="listCheck" (click)="viewModel()">
+            <ion-button *ngIf="listCheck" (click)="SaveModel('icon')">
                 <ion-icon slot="icon-only" name="save"> </ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title class="ion-title">Maquina</ion-title>
+        <ion-row>
+            <ion-col size="6">
+                <ion-title (click)="fillDataTest()" class="ion-title">Máquina</ion-title>
+            </ion-col>
+            <ion-col size="6">
+                <ion-title *ngIf="loaded" class="ion-title">{{ itemsCheck }} / {{ listaItems.length }}</ion-title>
+            </ion-col>
+        </ion-row>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <form *ngIf="loaded" (ngSubmit)="enviarData(formulario)" #formulario="ngForm">
         <!-- <ion-button type="submit"></ion-button> -->
-        <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button>
+        <!-- <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button> -->
         <ion-card *ngFor="let item of list; let i=index">
             <ion-card-content>
                 <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">

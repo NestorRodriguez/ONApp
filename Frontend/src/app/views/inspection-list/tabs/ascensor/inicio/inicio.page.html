@@ -21,10 +21,10 @@
                     <ion-card class="card" style="border: 0px solid yellow;">
                         <ion-card-content>
                             <ion-card-header>
-                                <ion-card-title style="color: white;">Datos Básicos</ion-card-title>
+                                <ion-card-title (click)="fillDataTest()" style="color: white;">Datos Básicos</ion-card-title>
                             </ion-card-header>
                             <div class="div-card-content-init">
-                                <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button>
+                                <!-- <ion-button *ngIf="!listCheck" (click)="fillDataTest()">Prueba</ion-button> -->
                                 <ion-list>
                                     <span *ngIf="dataLoaded">
                                         <ion-label>{{ datosbasicos.c_cliente.titulo }}</ion-label>

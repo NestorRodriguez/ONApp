@@ -9,12 +9,11 @@
         </ion-toolbar>
     </ion-header>
     <ion-content>
-        <ion-list>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
-            <ion-item>Menu Item</ion-item>
+        <ion-list style="padding: 0%;">
+            <ion-item (click)="closeMenu()" [routerLink]="['/']" class="ion-activatable" style="margin-left: -5%;">
+                <div style="padding-left: 3%;"><span>Cerrar Sesión</span></div>
+                <ion-ripple-effect></ion-ripple-effect>
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-menu>
