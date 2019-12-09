@@ -142,7 +142,7 @@ export class CabinaPage implements OnInit {
     // console.log('identificador: ', index);
     const imageList = ['puerta_electrica.png', 'ascensor.gif', 'inspector.png'];
     const options: CameraOptions = {
-      quality: 100,
+      quality: 25,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
