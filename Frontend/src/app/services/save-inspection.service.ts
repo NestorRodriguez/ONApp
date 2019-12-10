@@ -21,22 +21,10 @@ export class SaveInspectionService {
     },
     data_final: null
   };
-  collectionEmpty = {
-    datos_basicos: {},
-    lista_verificacion: {
-      cabina: [],
-      maquina: [],
-      pozo: [],
-      foso: []
-    },
-    data_final: null
-  };
-
   constructor( private storage: Storage ) { }
 
   public async createModel(idxCategoria: string, objeto: any): Promise<boolean> {
     this.contador = 0;
-    
     if (idxCategoria === 'datos_basicos') {
       this.collection[idxCategoria] = null;
       console.log('categoria recibida', objeto);
@@ -66,14 +54,25 @@ export class SaveInspectionService {
   async saveToStorage() {
     this.arrayInspecciones = await this.storage.get('inspecciones_ascensores');
     if (isNull(this.arrayInspecciones)) {
+      console.log('entre al nulo');
       this.arrayInspecciones = [];
       this.arrayInspecciones.push(this.collection);
       this.storage.set('inspecciones_ascensores', this.arrayInspecciones);
     } else {
-    this.arrayInspecciones.unshift(this.collection);
-    this.storage.set('inspecciones_ascensores', this.arrayInspecciones);
+      console.log('enter aqui');
+      this.arrayInspecciones.unshift(this.collection);
+      this.storage.set('inspecciones_ascensores', this.arrayInspecciones);
     }
-    this.collection = this.collectionEmpty;
+    this.collection = {
+      datos_basicos: {},
+      lista_verificacion: {
+        cabina: [],
+        maquina: [],
+        pozo: [],
+        foso: []
+      },
+      data_final: null
+    };
     this.dataCompleted = false;
   }
 }
