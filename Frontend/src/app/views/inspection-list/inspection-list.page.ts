@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inspection-list',
@@ -12,9 +13,30 @@ export class InspectionListPage implements OnInit {
   public jsonInspection: any;
   public equipo: any;
   public listasVerificacion: any[] = [];
+  alert: any;
+  public suscribir: any;
+  public alertShow: boolean;
 
   constructor(private localstorage: Storage,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController,
+              private router: Router,
+              public alertController: AlertController,
+              private platform: Platform) {
+    this.suscribir = this.platform.backButton.subscribeWithPriority(666666, () => {
+      if (this.router.url === '/inspection-list/tab/ascensor/inicio' ||
+          this.router.url === '/inspection-list/tab/ascensor/cabina' ||
+          this.router.url === '/inspection-list/tab/ascensor/maquina' ||
+          this.router.url === '/inspection-list/tab/ascensor/pozo' ||
+          this.router.url === '/inspection-list/tab/ascensor/foso') {
+        if (!this.alertShow) {
+          this.presentAlert();
+        } else {
+          this.alert.dismiss();
+          this.presentAlert();
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     this.equipmentLoading();
@@ -72,6 +94,32 @@ export class InspectionListPage implements OnInit {
     });
 
     // console.log('Loading dismissed!');
+  }
+
+  async presentAlert() {
+    this.alertShow = true;
+    this.alert = await this.alertController.create({
+      header: '',
+      message: '¿Realmente desea salir?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.alertShow = false;
+            this.router.navigateByUrl('/equipment-menu');
+          }
+        }
+      ]
+    });
+
+    await this.alert.present();
   }
 
 }

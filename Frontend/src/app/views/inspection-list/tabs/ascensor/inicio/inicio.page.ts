@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { LoadingController, ModalController, ToastController, AlertController, Platform } from '@ionic/angular';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
 import { IdatosBasicos } from '../../../../../models/Idatosbasicos.model';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
 import { ModalObsFinalPage } from '../../modal-obs-final/modal-obs-final.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit {
+export class InicioPage implements OnInit, OnDestroy {
   public storageToJson: any;
   datosbasicos: IdatosBasicos;
   listaObjects: any;
@@ -33,18 +34,21 @@ export class InicioPage implements OnInit {
   contador: number;
   keysNull: number;
   dataComplete: boolean;
-  dataComplete1 = true;
+  dataComplete1: boolean;
   list: any[] = [];
   public contadorList = 2;
   public valorActual = 2;
-
-  // listaObjects: any;
 
   constructor(private storage: Storage,
               public loadingController: LoadingController,
               public saveInspectionService: SaveInspectionService,
               private modalCtrl: ModalController,
-              public toastController: ToastController) { }
+              public toastController: ToastController,
+              private router: Router,
+              public alertController: AlertController,
+              private platform: Platform,
+              private ngZone: NgZone) {
+  }
 
   ngOnInit() {
     this.presentLoading();
@@ -74,6 +78,13 @@ export class InicioPage implements OnInit {
     // elementosInspector: [];
     };
     this.keysNull = 0;
+  }
+
+  ionViewDidLeave() {
+    // this.suscribir = '';
+  }
+  // Funcion que se ejecuta cuando se abandona la vista
+  ngOnDestroy() {
   }
 
   loadData(event) {
@@ -189,6 +200,7 @@ export class InicioPage implements OnInit {
         }
     if ( contador === this.countLength()) {
           this.listCheck = true;
+          this.dataComplete1 = true;
         }
     // console.log('cantidad de keys ', Object.keys(this.model).length);
     console.log('Evento capturado: ', contador);
@@ -207,6 +219,7 @@ export class InicioPage implements OnInit {
     console.log('SAVE', save);
     const mensaje = 'Datos iniciales guardados con éxito!';
     this.presentToast(mensaje);
+    this.listCheck = false; // Desaparece el icono
     if (save) {
       this.loadModalObs();
     }
@@ -228,11 +241,14 @@ export class InicioPage implements OnInit {
     this.keysNull = 0;
     Object.values(this.model).forEach(element => {
       if ( element === null || element === '' ) {
-         this.keysNull++;
+        this.keysNull++;
       }
-  });
+    });
     if (this.keysNull === 0) {
       this.dataComplete = true;
+      if (this.dataComplete1 === true) { // Se ejecuta solo Si estan llenos los check
+        this.listCheck = true; // Si se modifica el valor se muestra el icono de guardar
+      }
     } else {
       this.dataComplete = false;
     }
@@ -241,7 +257,10 @@ export class InicioPage implements OnInit {
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
-      duration: 2000
+      cssClass: 'toast-container',
+      duration: 2000,
+      position: 'middle',
+      animated: true
     });
     toast.present();
   }
@@ -279,4 +298,28 @@ export class InicioPage implements OnInit {
     getRandomArbitrary(min, max) {
       return Math.random() * (max - min) + min;
     }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: '',
+      message: '¿Realmente desea salir?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.router.navigateByUrl('/equipment-menu');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

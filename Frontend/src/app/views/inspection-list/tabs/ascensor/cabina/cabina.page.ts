@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, IterableDiffers } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
-import { LoadingController, IonInfiniteScroll, ModalController, ToastController } from '@ionic/angular';
+import { LoadingController, IonInfiniteScroll, ModalController, ToastController, AlertController } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
 import { ModalObsFinalPage } from '../../modal-obs-final/modal-obs-final.page';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -52,7 +53,9 @@ export class CabinaPage implements OnInit {
               private camera: Camera,
               private saveInspectionService: SaveInspectionService,
               private modalCtrl: ModalController,
-              public toastController: ToastController) { }
+              public toastController: ToastController,
+              private router: Router,
+              public alertController: AlertController) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -235,8 +238,35 @@ export class CabinaPage implements OnInit {
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
-      duration: 2000
+      cssClass: 'toast-container',
+      duration: 2000,
+      position: 'middle',
+      animated: true
     });
     toast.present();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: '',
+      message: '¿Realmente desea salir?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.router.navigateByUrl('/equipment-menu');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

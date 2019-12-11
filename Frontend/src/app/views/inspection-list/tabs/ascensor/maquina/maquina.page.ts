@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, IterableDiffers } from '@angular/core';
 import { StorageToJson } from '../../../../../models/StorageToJson';
 import { Storage } from '@ionic/storage';
-import { LoadingController, IonInfiniteScroll, ModalController, ToastController } from '@ionic/angular';
+import { LoadingController, IonInfiniteScroll, ModalController, ToastController, AlertController } from '@ionic/angular';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { NgForm } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { SaveInspectionService } from 'src/app/services/save-inspection.service';
 import { ModalObsFinalPage } from '../../modal-obs-final/modal-obs-final.page';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -52,7 +53,9 @@ export class MaquinaPage implements OnInit {
               private camera: Camera,
               private saveInspectionService: SaveInspectionService,
               private modalCtrl: ModalController,
-              public toastController: ToastController) { }
+              public toastController: ToastController,
+              private router: Router,
+              public alertController: AlertController) { }
 
   ngOnInit() {
     this.presentLoading();
@@ -142,7 +145,7 @@ export class MaquinaPage implements OnInit {
     // console.log('identificador: ', index);
     const imageList = ['puerta_electrica.png', 'ascensor.gif', 'inspector.png'];
     const options: CameraOptions = {
-      quality: 100,
+      quality: 25,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -211,7 +214,7 @@ export class MaquinaPage implements OnInit {
     const save = await this.saveInspectionService.createModel('maquina', this.model);
     console.log('SAVE: ', save);
     if (ruta === 'icon') {
-      const mensaje = 'Lista de verificación máquina guardada con éxito!';
+      const mensaje = 'Lista de verificación maquina guardada con éxito!';
       this.presentToast(mensaje);
       this.listCheck = false; // Desaparece el icono
     } else {
@@ -235,8 +238,35 @@ export class MaquinaPage implements OnInit {
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
-      duration: 2000
+      cssClass: 'toast-container',
+      duration: 2000,
+      position: 'middle',
+      animated: true
     });
     toast.present();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: '',
+      message: '¿Realmente desea salir?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            this.router.navigateByUrl('/equipment-menu');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

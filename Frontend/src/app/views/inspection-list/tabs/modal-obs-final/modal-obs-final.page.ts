@@ -79,7 +79,9 @@ export class ModalObsFinalPage implements OnInit {
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
-      duration: 2000
+      duration: 2000,
+      position: 'bottom',
+      animated: true
     });
     toast.present();
   }

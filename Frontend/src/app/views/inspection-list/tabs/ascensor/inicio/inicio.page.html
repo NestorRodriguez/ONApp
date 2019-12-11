@@ -2,7 +2,7 @@
     <div class="header">
         <ion-toolbar color="primary">
             <ion-buttons slot="start">
-                <ion-button [routerLink]="['/equipment-menu']">
+                <ion-button (click)="presentAlert()">
                     <ion-icon slot="icon-only" name="close"> </ion-icon>
                 </ion-button>
             </ion-buttons>
@@ -49,15 +49,15 @@
                                     </ion-item>
                                     <ion-label>{{ datosbasicos.c_capacidadpersonas.titulo }}</ion-label>
                                     <ion-item>
-                                        <ion-input [placeholder]="datosbasicos.c_capacidadpersonas.placeholder" [(ngModel)]="model.c_capacidadpersonas" name="c_capacidadpersonas" (ionChange)="validateModel()"></ion-input>
+                                        <ion-input type="number" [placeholder]="datosbasicos.c_capacidadpersonas.placeholder" [(ngModel)]="model.c_capacidadpersonas" name="c_capacidadpersonas" (ionChange)="validateModel()"></ion-input>
                                     </ion-item>
                                     <ion-label>{{ datosbasicos.c_capacidad.titulo }}</ion-label>
                                     <ion-item>
-                                        <ion-input [placeholder]="datosbasicos.c_capacidad.placeholder" [(ngModel)]="model.c_capacidad" name="c_capacidad" (ionChange)="validateModel()"></ion-input>
+                                        <ion-input type="number" [placeholder]="datosbasicos.c_capacidad.placeholder" [(ngModel)]="model.c_capacidad" name="c_capacidad" (ionChange)="validateModel()"></ion-input>
                                     </ion-item>
                                     <ion-label>{{ datosbasicos.c_paradas.titulo }}</ion-label>
                                     <ion-item>
-                                        <ion-input [placeholder]="datosbasicos.c_paradas.placeholder" [(ngModel)]="model.c_paradas" name="c_paradas" (ionChange)="validateModel()"></ion-input>
+                                        <ion-input type="number" [placeholder]="datosbasicos.c_paradas.placeholder" [(ngModel)]="model.c_paradas" name="c_paradas" (ionChange)="validateModel()"></ion-input>
                                     </ion-item>
                                     <ion-label>{{ datosbasicos.c_fecha.titulo }}</ion-label>
                                     <ion-item>
@@ -65,7 +65,7 @@
                                     </ion-item>
                                     <ion-label>{{ datosbasicos.c_fechamto.titulo }}</ion-label>
                                     <ion-item>
-                                        <ion-datetime [(ngModel)]="model.c_fechamto" name="c_fechamto" (ionChange)="validateModel()"></ion-datetime>
+                                        <ion-datetime [(ngModel)]="model.c_fechamto" name="c_fechamto" [placeholder]="datosbasicos.c_paradas.placeholder" (ionChange)="validateModel()"></ion-datetime>
                                     </ion-item>
                                     <ion-label>{{ datosbasicos.c_fechapuestaservicio.titulo }}</ion-label>
                                     <ion-item>
