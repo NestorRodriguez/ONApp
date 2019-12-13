@@ -106,7 +106,7 @@ export class MaquinaPage implements OnInit {
       }
 
       this.listaObjects = await this.storageToJson.getJsonStorageObjects('menuascensores');
-      // console.log(this.listaObjects);
+      // // console.log(this.listaObjects);
       this.listaCalificacion = this.listaObjects.calificacion;
       this.objectoObservacion = this.listaObjects.c_observaciones;
       await loading.dismiss();
@@ -117,8 +117,8 @@ export class MaquinaPage implements OnInit {
       // console.log(error);
     }
 
-    // console.log(this.listaItems);
-    // console.log('list: ', this.list);
+    // // console.log(this.listaItems);
+    // // console.log('list: ', this.list);
   }
 
   public segmentChanged(event: any, index: any) {
@@ -138,7 +138,7 @@ export class MaquinaPage implements OnInit {
 
   public enviarData(form: NgForm) {
     // console.log('formulario: ', form);
-    // console.log('MODEL', this.model);
+    // // console.log('MODEL', this.model);
   }
 
   async loadCamera(index: any) {
@@ -153,10 +153,19 @@ export class MaquinaPage implements OnInit {
     };
     this.camera.getPicture(options).then((imageData) => {
       this.model[index].fotografias.unshift('data:image/jpeg;base64,' + imageData);
-      this.SaveModel('Foto');
+      if (this.itemsCheck === this.listaItems.length) {
+        this.listCheck = true;
+        this.SaveModel('Foto');
+      }
      }, (err) => {
       // Handle error
       // console.log('Error: ', err);
+      const foto = './../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))];
+      this.model[index].fotografias.unshift(foto);
+      if (this.itemsCheck === this.listaItems.length) {
+        this.listCheck = true;
+        this.SaveModel('Foto');
+      }
      });
     // console.log('Fotos: ', this.model[index].fotografias);
   }
@@ -190,7 +199,7 @@ export class MaquinaPage implements OnInit {
 
       event.target.complete();
 
-      // console.log('Nuevo List', this.list);
+      // // console.log('Nuevo List', this.list);
       // console.log('contador: ', this.contador);
 
     }, 10);
@@ -210,19 +219,20 @@ export class MaquinaPage implements OnInit {
   }
 
   async SaveModel(ruta: string) {
-    // console.log('Model maquina: ', this.model);
+    // // console.log('Model maquina: ', this.model);
     const save = await this.saveInspectionService.createModel('maquina', this.model);
     // console.log('SAVE: ', save);
     if (ruta === 'icon') {
       const mensaje = 'Lista de verificación maquina guardada con éxito!';
       this.presentToast(mensaje);
       this.listCheck = false; // Desaparece el icono
+      if (save) {
+        console.log('Entro al save!');
+        this.loadModalObs();
+      }
     } else {
       const mensaje = 'Fotografía guardada con éxito!';
       this.presentToast(mensaje);
-    }
-    if (save) {
-      this.loadModalObs();
     }
   }
 

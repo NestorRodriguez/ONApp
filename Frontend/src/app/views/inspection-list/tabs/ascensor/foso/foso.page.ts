@@ -153,19 +153,21 @@ export class FosoPage implements OnInit {
     };
     this.camera.getPicture(options).then((imageData) => {
       this.model[index].fotografias.unshift('data:image/jpeg;base64,' + imageData);
-      // this.SaveModel('Foto');
+      if (this.itemsCheck === this.listaItems.length) {
+        this.listCheck = true;
+        this.SaveModel('Foto');
+      }
      }, (err) => {
       // Handle error
-      console.log('Error: ', err);
+      // console.log('Error: ', err);
       const foto = './../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))];
       this.model[index].fotografias.unshift(foto);
       if (this.itemsCheck === this.listaItems.length) {
         this.listCheck = true;
         this.SaveModel('Foto');
       }
-      // console.log('Error: ', err);
      });
-    // // console.log('Fotos: ', this.model[index].fotografias);
+    // console.log('Fotos: ', this.model[index].fotografias);
   }
 
   // funcion para dejar valores de check por defecto

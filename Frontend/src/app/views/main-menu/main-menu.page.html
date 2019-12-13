@@ -76,15 +76,16 @@
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>
-                            <ion-grid style="border: 0px solid; color: #ffcc00; margin-top: 50%;" *ngIf="inspeccionesToLoad">
+                            <ion-grid style="border: 0px solid; color: #0678b4; margin-top: 50%;" *ngIf="inspeccionesToLoad">
                                 <ion-row>
                                     <ion-col style="text-align: left;" size="12">
-                                        <ion-icon name="alert"></ion-icon><span style="margin-bottom: 100%; margin-left: 3%;">¡Ojo!</span>
+                                        <ion-icon name="alert"></ion-icon><span style="margin-bottom: 100%; margin-left: 3%;">¡Recuerda!</span>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row>
                                     <ion-col style="text-align: left; font-size: 80%;" size="12">
-                                        <span style="width: 100%;" *ngIf="inspeccionesToLoad">Tienes {{ countInspecciones }} inspecciones por cargar</span>
+                                        <span *ngIf="inspeccionesToLoad && countInspecciones == 1" style="width: 100%;">Tienes {{ countInspecciones }} inspección pendiente por cargar</span>
+                                        <span *ngIf="inspeccionesToLoad && countInspecciones > 1" style="width: 100%;">Tienes {{ countInspecciones }} inspecciones pendientes por cargar</span>
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>

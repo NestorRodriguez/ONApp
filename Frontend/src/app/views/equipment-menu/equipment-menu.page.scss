@@ -1,4 +1,61 @@
-.container{
-  margin: 10px;
-  // border: 1px solid red;
+.header{
+  z-index: 0;
+  height: 13em;
+  position: relative;
+  border: 0px solid;
+  background-color: #1dc4c1;
+}
+
+.menu-toolbar {
+  padding-top: 4%;
+  padding-bottom: 4%;
+  --ion-background-color: #1dc4c1;
+}
+
+.menu-avatar{
+  margin-top: 1%;
+  -webkit-box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);
+}
+
+.menu-title{
+  margin-top: 5%;
+  font-size: 90%;
+  color: white;
+}
+
+.menu-email{
+  margin-top: 5%;
+  margin-left: 7%;
+  font-size: 80%;
+  color: white;
+}
+
+.content-slides{
+  border: 0px solid red;
+  position: absolute;
+  width: 100%;
+  // margin-top: -20%;
+  margin-top: -4em;
+}
+
+ion-card-header{
+  padding-bottom: 0%;
+}
+
+.card {
+  z-index: 10;
+  width: 20em;
+  // height: 33em;
+  margin-left: -4em;
+}
+
+.text_opc{
+  font-size: 80%;
+}
+
+.float_button{
+  margin-top: 25%;
+  margin-right: 9%;
 }

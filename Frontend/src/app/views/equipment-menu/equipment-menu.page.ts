@@ -12,6 +12,11 @@ import { Platform } from '@ionic/angular';
 export class EquipmentMenuPage implements OnInit {
 
   public suscribir: any;
+  sliderConfig = {
+    spaceBetween: 115,
+    centeredSlides: true,
+    slidesPerView: 1.6
+  };
 
   constructor(private localstorage: Storage,
               private router: Router,
