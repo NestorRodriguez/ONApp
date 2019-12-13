@@ -27,7 +27,7 @@ export class SaveInspectionService {
     this.contador = 0;
     if (idxCategoria === 'datos_basicos') {
       this.collection[idxCategoria] = null;
-      console.log('categoria recibida', objeto);
+      // console.log('categoria recibida', objeto);
       this.collection.datos_basicos = objeto;
     } else  if ( idxCategoria === 'data_final' ) {
       this.collection[idxCategoria] = objeto;
@@ -43,23 +43,21 @@ export class SaveInspectionService {
          this.contador ++;
       }
    });
-    console.log('contador', this.contador);
+    // console.log('contador', this.contador);
     if ( Object.values(this.collection.datos_basicos).length > 0 && this.contador === this.listaLongitud ) {
       this.dataCompleted = true;
     }
-    console.log('arrayInspecciones: ', this.collection);
+    // console.log('arrayInspecciones: ', this.collection);
     return this.dataCompleted;
   }
 
   async saveToStorage() {
     this.arrayInspecciones = await this.storage.get('inspecciones_ascensores');
     if (isNull(this.arrayInspecciones)) {
-      console.log('entre al nulo');
       this.arrayInspecciones = [];
       this.arrayInspecciones.push(this.collection);
       this.storage.set('inspecciones_ascensores', this.arrayInspecciones);
     } else {
-      console.log('enter aqui');
       this.arrayInspecciones.unshift(this.collection);
       this.storage.set('inspecciones_ascensores', this.arrayInspecciones);
     }

@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { QueriesService } from 'src/app/services/queries.service';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { AngularFireStorageModule, AngularFireStorage } from '@angular/fire/storage';
+import { PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-storage-inspections',
@@ -10,7 +11,7 @@ import { AngularFireStorageModule, AngularFireStorage } from '@angular/fire/stor
   styleUrls: ['./storage-inspections.page.scss'],
 })
 export class StorageInspectionsPage implements OnInit {
-
+  urlRecibida: string;
   dataLoaded: boolean;
   inspecciones: any[] = [];
   success: boolean;
@@ -96,25 +97,34 @@ export class StorageInspectionsPage implements OnInit {
     async uploadPictures() {
       for ( const inspeccion of this.inspecciones) {
         const inspeccionId = inspeccion.datos_basicos.c_consecutivo;
-        console.log(inspeccion);
+        console.log('Id de inspeccion', inspeccionId);
         const listas = inspeccion.lista_verificacion;
         const keys = Object.keys(listas);
         const categorias: any[] = Object.values(listas);
-        for( const categoria of categorias ) {
+        for ( const categoria of categorias ) {
           const ruta = keys[categorias.indexOf(categoria)];
           for ( const item of categoria) {
             const index = (categoria.indexOf(item) + 1);
-            if ( item.fotografias.length > 0 ) {
+            console.log('numero de fotos de la categoria', item.fotografias.length);
+            if ( item.fotografias.length > 0) {
               for ( const foto of item.fotografias) {
               const indexFoto = (item.fotografias.indexOf(foto) + 1);
               const indexUrl = item.fotografias.indexOf(foto);
-              const guardarImagenes = this.firebaseStorage.ref(`pictures/inspeccion#${inspeccionId}/${ruta}/item${index}-${indexFoto}`);
-              const url = await guardarImagenes.putString(foto, 'data_url').then( async () => {
-                const link = guardarImagenes.getDownloadURL().subscribe( async (urlfoto) => {
-                  item.fotografias[indexUrl] = urlfoto;
-                  this.urls.push(urlfoto);
+              const guardarImagenes = await
+              this.firebaseStorage.ref(`pictures/inspeccion#${inspeccionId}/${ruta}/item${index}-${indexFoto}`)
+              .putString(foto, 'data_url').then( async (snapshot) => {
+                await snapshot.ref.getDownloadURL().then( url => {
+                  this.urlRecibida = url;
                 });
               });
+              item.fotografias[indexUrl] = this.urlRecibida;
+              // const url = await guardarImagenes.putString;
+              // console.log('carga de foto', url);
+              // console.log('indice de la foto', indexUrl);
+              // guardarImagenes.getDownloadURL().subscribe( async (urlfoto) => {
+              // }, error => {
+              //   console.log('error en url ', error);
+              // });
           }
         } else {
           console.log('No hay fotografías para cargar');
