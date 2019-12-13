@@ -157,6 +157,12 @@ export class FosoPage implements OnInit {
      }, (err) => {
       // Handle error
       console.log('Error: ', err);
+      const foto = './../../../../../../assets/img/' + imageList[Math.round(this.getRandomArbitrary(0, 2))];
+      this.model[index].fotografias.unshift(foto);
+      if (this.itemsCheck === this.listaItems.length) {
+        this.listCheck = true;
+        this.SaveModel('Foto');
+      }
      });
     console.log('Fotos: ', this.model[index].fotografias);
   }
@@ -217,12 +223,13 @@ export class FosoPage implements OnInit {
       const mensaje = 'Lista de verificación foso guardada con éxito!';
       this.presentToast(mensaje);
       this.listCheck = false; // Desaparece el icono
+      if (save) {
+        console.log('Entro al save!');
+        this.loadModalObs();
+      }
     } else {
       const mensaje = 'Fotografía guardada con éxito!';
       this.presentToast(mensaje);
-    }
-    if (save) {
-      this.loadModalObs();
     }
   }
 
