@@ -64,7 +64,7 @@ export class FosoPage implements OnInit {
 
   // Funcion que se ejecuta cuando se abandona la vista
   ionViewDidLeave() {
-    console.log('Me fui!');
+    // console.log('Me fui!');
     this.content.scrollToTop(); // Volver al top del html
     this.infiniteScroll.disabled = false;
     this.list = [];
@@ -106,19 +106,19 @@ export class FosoPage implements OnInit {
       }
 
       this.listaObjects = await this.storageToJson.getJsonStorageObjects('menuascensores');
-      console.log(this.listaObjects);
+      // // console.log(this.listaObjects);
       this.listaCalificacion = this.listaObjects.calificacion;
       this.objectoObservacion = this.listaObjects.c_observaciones;
       await loading.dismiss();
       this.loaded = true;
 
-      console.log('ngOnInit!', this.listaItems);
+      // console.log('ngOnInit!', this.listaItems);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
 
-    console.log(this.listaItems);
-    console.log('list: ', this.list);
+    // // console.log(this.listaItems);
+    // // console.log('list: ', this.list);
   }
 
   public segmentChanged(event: any, index: any) {
@@ -129,20 +129,20 @@ export class FosoPage implements OnInit {
       }
     }
     if (this.itemsCheck === this.listaItems.length) {
-      console.log('Items completos!');
+      // console.log('Items completos!');
       this.listCheck = true;
-      // console.log('MODEL', this.model);
+      // // console.log('MODEL', this.model);
     }
-    console.log('contador', this.itemsCheck);
+    // console.log('contador', this.itemsCheck);
   }
 
   public enviarData(form: NgForm) {
-    console.log('formulario: ', form);
-    console.log('MODEL', this.model);
+    // console.log('formulario: ', form);
+    // // console.log('MODEL', this.model);
   }
 
   async loadCamera(index: any) {
-    // console.log('identificador: ', index);
+    // // console.log('identificador: ', index);
     const imageList = ['puerta_electrica.png', 'ascensor.gif', 'inspector.png'];
     const options: CameraOptions = {
       quality: 25,
@@ -153,7 +153,7 @@ export class FosoPage implements OnInit {
     };
     this.camera.getPicture(options).then((imageData) => {
       this.model[index].fotografias.unshift('data:image/jpeg;base64,' + imageData);
-      this.SaveModel('Foto');
+      // this.SaveModel('Foto');
      }, (err) => {
       // Handle error
       console.log('Error: ', err);
@@ -163,8 +163,9 @@ export class FosoPage implements OnInit {
         this.listCheck = true;
         this.SaveModel('Foto');
       }
+      // console.log('Error: ', err);
      });
-    console.log('Fotos: ', this.model[index].fotografias);
+    // // console.log('Fotos: ', this.model[index].fotografias);
   }
 
   // funcion para dejar valores de check por defecto
@@ -179,14 +180,14 @@ export class FosoPage implements OnInit {
   }
 
   loadData(event) {
-    console.log('Cargando siguientes...');
+    // console.log('Cargando siguientes...');
 
     const cantData = this.listaItems.length;
 
     setTimeout(() => {
 
       if (this.contador === cantData) {
-        console.log('Finalizo el infinite!');
+        // console.log('Finalizo el infinite!');
         event.target.complete();
         event.target.disabled = true;
         return;
@@ -196,15 +197,15 @@ export class FosoPage implements OnInit {
 
       event.target.complete();
 
-      console.log('Nuevo List', this.list);
-      console.log('contador: ', this.contador);
+      // // console.log('Nuevo List', this.list);
+      // console.log('contador: ', this.contador);
 
     }, 10);
   }
 
   addElement(idx: any) {
     const iterator = this.valorActual + idx;
-    console.log('iterator: ', iterator);
+    // console.log('iterator: ', iterator);
     for (let index = this.valorActual; index < iterator; index++) {
       if (index < this.listaItems.length) {
         this.list.push(this.listaItems[index]);
@@ -216,9 +217,9 @@ export class FosoPage implements OnInit {
   }
 
   async SaveModel(ruta: string) {
-    console.log('Model foso: ', this.model);
+    // // console.log('Model foso: ', this.model);
     const save = await this.saveInspectionService.createModel('foso', this.model);
-    console.log('SAVE: ', save);
+    // console.log('SAVE: ', save);
     if (ruta === 'icon') {
       const mensaje = 'Lista de verificación foso guardada con éxito!';
       this.presentToast(mensaje);
@@ -263,7 +264,7 @@ export class FosoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            // console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Si',

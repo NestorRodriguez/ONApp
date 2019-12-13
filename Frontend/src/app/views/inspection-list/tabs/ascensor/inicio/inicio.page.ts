@@ -88,14 +88,14 @@ export class InicioPage implements OnInit, OnDestroy {
   }
 
   loadData(event) {
-    console.log('Cargando siguientes...');
+    // console.log('Cargando siguientes...');
 
     const cantData = this.elementos.length;
 
     setTimeout(() => {
 
       if (this.contadorList === cantData) {
-        console.log('Finalizo el infinite!');
+        // console.log('Finalizo el infinite!');
         event.target.complete();
         event.target.disabled = true;
         return;
@@ -107,15 +107,15 @@ export class InicioPage implements OnInit, OnDestroy {
 
       event.target.complete();
 
-      console.log('Nuevo List', this.list);
-      console.log('contadorList: ', this.contadorList);
+      // console.log('Nuevo List', this.list);
+      // console.log('contadorList: ', this.contadorList);
 
     }, 1000);
   }
 
   addElement(idx: any) {
     const iterator = this.valorActual + idx;
-    console.log('iterator: ', iterator);
+    // console.log('iterator: ', iterator);
     for (let index = this.valorActual; index < iterator; index++) {
       if (index < this.elementos.length) {
         this.list.push(this.elementos[index]);
@@ -170,13 +170,13 @@ export class InicioPage implements OnInit, OnDestroy {
       }
       this.listaCalificacion = this.listaObjects.calificacion;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     await loading.dismiss();
   }
 
   public segmentChanged(event: any) {
-    console.log('Modelo', this.model);
+    // console.log('Modelo', this.model);
     let contador = 0;
     for (const item of this.model.datospreliminar) {
       if (item.calificacion != null) {
@@ -202,21 +202,21 @@ export class InicioPage implements OnInit, OnDestroy {
           this.listCheck = true;
           this.dataComplete1 = true;
         }
-    // console.log('cantidad de keys ', Object.keys(this.model).length);
-    console.log('Evento capturado: ', contador);
-      // console.log('MODEL', this.model);
+    // // console.log('cantidad de keys ', Object.keys(this.model).length);
+    // console.log('Evento capturado: ', contador);
+      // // console.log('MODEL', this.model);
     }
 
     countLength() {
       const total = this.datospreliminar.length + ( this.elementosProteccion.length * 2 ) + this.elementos.length;
-      console.log('TOTAL', total);
+      // console.log('TOTAL', total);
       return total;
   }
 
   async enviarData() {
-    console.log('Model cabina: ', this.model);
+    // console.log('Model cabina: ', this.model);
     const save = await this.saveInspectionService.createModel('datos_basicos', this.model);
-    console.log('SAVE', save);
+    // console.log('SAVE', save);
     const mensaje = 'Datos iniciales guardados con éxito!';
     this.presentToast(mensaje);
     this.listCheck = false; // Desaparece el icono
@@ -225,7 +225,7 @@ export class InicioPage implements OnInit, OnDestroy {
     }
   }
     mostrarData() {
-    console.log(this.model);
+    // console.log(this.model);
   }
 
   async loadModalObs() {
@@ -309,7 +309,7 @@ export class InicioPage implements OnInit, OnDestroy {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            // console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Si',
