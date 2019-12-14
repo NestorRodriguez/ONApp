@@ -1,27 +1,27 @@
 <ion-content>
-  <div class="header">
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-            <ion-button [routerLink]="['/main-menu']">
-                <ion-icon slot="icon-only" name="arrow-round-back"> </ion-icon>
-            </ion-button> 
-      </ion-buttons>
-    </ion-toolbar>
-    <div style="color: white;">
-      <ion-grid>
-            <ion-row>
-                <ion-col size="12" style="text-align: center; padding-top: 0.7em;">
-                    <ion-label style="font-size: 130%;"><b>Selecciona un equipo</b></ion-label>
-                </ion-col>
-            </ion-row>
-      </ion-grid>
+    <div class="header">
+        <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+                <ion-button [routerLink]="['/main-menu']">
+                    <ion-icon slot="icon-only" name="arrow-round-back"> </ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+        <div style="color: white;">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="12" style="text-align: center; padding-top: 0.7em;">
+                        <ion-label style="font-size: 130%;"><b>Selecciona un equipo</b></ion-label>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
     </div>
-  </div>
-  <div class="content-slides">
+    <div class="content-slides">
         <ion-slides [options]="sliderConfig" style="border: 0px solid blue; ">
             <ion-slide style="border: 0px solid;">
                 <div style="width: 100%;">
-                    <ion-card class="card" style="border: 0px solid yellow;" routerLink="/inspection-list/tabs/equipo/ascensor">
+                    <ion-card class="card" style="border: 0px solid yellow;" (click)="setParam('ascensor')">
                         <img src="../../../assets/img/asc1.jpg" style="border: 0px solid red;" />
                         <ion-card-header>
                             <ion-grid>
