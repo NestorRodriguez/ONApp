@@ -13,6 +13,10 @@ export class QueriesService {
      const result =  this.database.collection(collection, data => data.where(query.campo, query.condicion, query.valor)).valueChanges();
      return result;
     }
+   queryAllCollection(collection: string) {
+     const result =  this.database.collection(collection).valueChanges();
+     return result;
+    }
 
     createInspection(data: any) {
       data = JSON.stringify(data);

@@ -1,47 +1,49 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-button (click)="dismissModal()">
-          <ion-icon slot="icon-only" name="close"> </ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="ion-title">Observación final<nav></nav></ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="dismissModal()">
+                <ion-icon slot="icon-only" name="close"> </ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-title">Observación final
+            <nav></nav>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="enviarData(formulario)" #formulario="ngForm">
-    <!-- <ion-button type="submit"></ion-button> -->
-    <ion-card>
-      <ion-card-content>
-        <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">            
-          <ion-item>
-            <ion-label *ngIf="model.fotosFinal.length === 0" id="label">Registro Fotográfico</ion-label>
-            <ion-slides [options]="sliderConfig" style="padding-top: 4%; padding-bottom: 4%;">
-              <ion-slide *ngFor="let imagen of model.fotosFinal">
-                <img [src]="imagen" />
-              </ion-slide>
-            </ion-slides>
-            <div style="border: 0px solid; height: 4em;">
+    <form (ngSubmit)="enviarData(formulario)" #formulario="ngForm">
+        <!-- <ion-button type="submit"></ion-button> -->
+        <ion-card>
+            <ion-card-content>
+                <ion-list style="border: 1px solid #f5f6f9; border-radius: 5px;">
+                    <ion-item>
+                        <ion-label *ngIf="model.fotosFinal.length === 0" id="label">Registro Fotográfico</ion-label>
+                        <ion-slides [options]="sliderConfig" style="padding-top: 4%; padding-bottom: 4%;">
+                            <ion-slide *ngFor="let imagen of model.fotosFinal">
+                                <img [src]="imagen" />
+                            </ion-slide>
+                        </ion-slides>
+                        <!-- <div style="border: 0px solid; height: 4em;">
               <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding-right: 5%;">
                 <ion-fab-button style="width: 40px; height: 40px;" (click)="loadCamera()">
                   <ion-icon name="camera"></ion-icon>
                 </ion-fab-button>
               </ion-fab>
-            </div>
-          </ion-item>
+            </div> -->
+                    </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Observación final</ion-label>
-            <ion-textarea [(ngModel)]="model.observacionFinal" name="observacion" placeholder="Ingrese aquí la observación final"></ion-textarea>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </form>
-  <div class="footer">
-    <section>        
-      <ion-button (click)="closeModal()" color="white" size="medium" style="background-color: white; color: #1dc4c1; border-radius: 5px 5px 5px 5px;"><b>Continuar</b></ion-button>
-    </section>
-  </div>
+                    <ion-item>
+                        <ion-label position="stacked">Observación final</ion-label>
+                        <ion-textarea [(ngModel)]="model.observacionFinal" name="observacion" placeholder="Ingrese aquí la observación final"></ion-textarea>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+    </form>
+    <div class="footer">
+        <section>
+            <ion-button (click)="closeModal()" color="white" size="medium" style="background-color: white; color: #1dc4c1; border-radius: 5px 5px 5px 5px;"><b>Continuar</b></ion-button>
+        </section>
+    </div>
 </ion-content>

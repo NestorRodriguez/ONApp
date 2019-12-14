@@ -64,26 +64,55 @@ export class StorageInspectionsPage implements OnInit {
     });
 
     await loading.present();
-    await this.serviceFirebase.createInspection(this.inspecciones[id]).then( () => {
+    const inspeccion = this.inspecciones[id];
+    const inspeccionId = inspeccion.datos_basicos.c_consecutivo;
+    console.log('Id de inspeccion', inspeccionId);
+    const listas = inspeccion.lista_verificacion;
+    const keys = Object.keys(listas);
+    const categorias: any[] = Object.values(listas);
+    for ( const categoria of categorias ) {
+          const ruta = keys[categorias.indexOf(categoria)];
+          for ( const item of categoria) {
+            const index = (categoria.indexOf(item) + 1);
+            console.log('numero de fotos de la categoria', item.fotografias.length);
+            if ( item.fotografias.length > 0) {
+              for ( const foto of item.fotografias) {
+              const indexFoto = (item.fotografias.indexOf(foto) + 1);
+              const indexUrl = item.fotografias.indexOf(foto);
+              const guardarImagenes = await
+              this.firebaseStorage.ref(`pictures/inspeccion#${inspeccionId}/${ruta}/item${index}-${indexFoto}`)
+              .putString(foto, 'data_url').then( async (snapshot) => {
+                await snapshot.ref.getDownloadURL().then( url => {
+                  this.urlRecibida = url;
+                });
+              });
+              item.fotografias[indexUrl] = this.urlRecibida;
+              // const url = await guardarImagenes.putString;
+              // console.log('carga de foto', url);
+              // console.log('indice de la foto', indexUrl);
+              // guardarImagenes.getDownloadURL().subscribe( async (urlfoto) => {
+              // }, error => {
+              //   console.log('error en url ', error);
+              // });
+          }
+        } else {
+          console.log('No hay fotografías para cargar');
+        }
+      }
+        }
+    await this.serviceFirebase.createInspection(inspeccion).then( () => {
       this.inspecciones.splice(id, 1);
       this.storage.set('inspecciones_ascensores', this.inspecciones);
-      this.mensajeSuccess = 'Guardado con éxito';
+      this.mensajeSuccess = `Inspeccion ${inspeccionId} guardada con éxito`;
       this.presentToast(this.mensajeSuccess);
       this.success = true;
     }, (error) => {
       this.success = false;
-      console.log('Ocurrió un error al guardar la inspección', error);
       this.mensajeError = 'Ocurrió un error, inténtalo más tarde ' + error;
       this.presentToast(this.mensajeError);
     });
       // console.log(this.jsonInspection);
     await loading.dismiss();
-    if (this.success) {
-      this.presentToast(this.mensajeSuccess);
-    } else {
-      this.presentToast(this.mensajeError);
-    }
-
     }
 
     async presentToast(mensaje: string) {
